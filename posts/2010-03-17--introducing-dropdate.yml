@@ -1,0 +1,18 @@
+---
+author: Stephen Lewis <stephen@experiencehq.net>
+date: 2010-03-17
+title: Introducing DropDate: Better date selection in ExpressionEngine
+tags:
+- ExpressionEngine
+- Announcements
+---
+# Introducing DropDate: Better date selection in ExpressionEngine #
+A few weeks ago, I quietly added a couple of new ExpressionEngine add-ons to [the Experience GitHub account](http://github.com/experience/ "Goodies!"). Both add-ons were fully functioning, but lacked any meaningful documentation, hence their rather silent release.
+
+A couple of hours on the train yesterday afforded me the opportunity to fill this instructional void, and the first of the undercover add-ons -- [DropDate](/resources/details/dropdate "Easy date selection in ExpressionEngine") -- now has a proper home on the Experience website.
+
+And what is DropDate, exactly? Allow me to quote myself:
+
+> DropDate is a custom fieldtype, enabling easy selection of dates in the Control Panel or Stand-Alone Entry Forms using day, month, and year drop-downs.
+
+A full description, ZIP file, and of course documentation, can be found on [the DropDate page](/resources/details/dropdate "Find out everything there is to know about DropDate").

@@ -1,0 +1,54 @@
+---
+author: Stephen Lewis <stephen@experiencehq.net>
+date: 2012-02-15
+title: The Missing ExpressionEngine Multi-Language Lingua Franca
+tags:
+- ExpressionEngine
+- Opinion
+---
+# The Missing ExpressionEngine Multi-Language Lingua Franca #
+Multi-language support in ExpressionEngine has a long and inglorious history.
+
+For as long as I've been involved with the community (a good 5 or 6 years), there have been endless forum threads discussing the painful minutiae of implementing a multi-lingual site in ExpressionEngine, and questioning why life has to be this hard.
+
+Being a creative bunch, the ExpressionEngine community has developed a [range][solution_a] [of][solution_b] [solutions][solution_c] to this problem, typically using some combination of: global variables; PHP; custom add-ons; cunning.
+
+[solution_a]:http://expressionengine.com/wiki/Multi_language_site "The one true way"
+[solution_b]:http://expressionengine.com/wiki/Multi_language_site_alternative "The other one true way"
+[solution_c]:http://eeinsider.com/articles/multi-language-solutions-for-expressionengine/ "Christofer Sandin's exhaustive EE Insider article on building a multi-language ExpressionEngine site"
+
+All of which is a fine testament to the inventiveness of our community, but far from ideal.
+
+In truth, I'm a poor guide to the fetid backwaters of building a multi-language site with ExpressionEngine. The few such sites I've built are very basic, and have thus avoided many of the more painful experiences documented in the forums.
+
+That said, I do have a vested interest in the problem.
+
+## To me, people
+Every time I build an add-on which could be used on a multi-language site, the lack of a standardised solution causes problems.
+
+Just as the person building the site has the chore of picking through the available solutions, weighing up their numerous pros and cons, I have to decide which of the manifold alternatives my add-on should support.
+
+## An impossible choice
+For publicly-released add-ons, this is close to impossible.
+
+* The site could identify the current language using: domains; sub-domains; sub-folders; language segments in the URL.
+* The per-language content could be organised using: separate Channels; the same Channel, with Channel Fields prefixed by the language code (`en-title`, `es-title`, `de-title`); a third-party solution such as [Transcribe][transcribe].
+* The site could rely on any number of [third-party "language" add-ons][devotee_language].
+
+[devotee_language]:http://devot-ee.com/search/results/search&keywords=multi%20language&channel=addons&addon_version_support=ee2 "Like The Bachelor but with EE add-ons. Cut me some slack here, I'm trying to make this post accessible to @mrw"
+[transcribe]:http://eeharbor.com/transcribe "One of many fingers in the dam"
+
+[Crumbly][crumbly_home] is an excellent example of this quandary.
+
+[crumbly_home]:/software/crumbly "ExpressionEngine breadcrumbs made easy (unless you're building a multi-language site)"
+
+Multi-language support was originally near the top of Crumbly's to-do list. After many frustrating hours of research I decided the best solution was to release version 1, talk to Crumbly's users about how they would like multi-language support to work, and take it from there.
+
+_Every single_ Crumbly user I've spoken to over the past 8 months has a different solution to the multi-language problem. As a result, Crumbly still doesn't support multi-language sites.
+
+## What needs to happen
+Multi-language sites are complicated; the sheer number of add-ons, hacks, and workarounds are testament to that fact. As such, I fully understand that there may be no such thing as a universal solution.
+
+Nevertheless, some consensus regarding the _preferred_ approach would be nice. An "official" EllisLab-endorsed approach would be better.
+
+Such a standardised solution would make life much easier for all the poor souls tasked with building a multi-language site, particularly for the first time. Far more importantly, it would also make my life considerably easier.

@@ -1,0 +1,49 @@
+---
+author: Stephen Lewis <stephen@experiencehq.net>
+date: 2015-08-04
+title: Start with the API: A Better Approach to Developing Craft Plugins
+tags:
+- Craft
+---
+# Start with the API: A Better Approach to Developing Craft Plugins #
+One approach I find useful when developing Craft plugins is to think of the plugin as a client of [its own API][servicesAreApi].
+
+[servicesAreApi]: https://experiencehq.net/blog/the-hidden-perils-of-craft-plugin-service-classes "A plugin's services define its API"
+
+Not only does this force me to concentrate on the core functionality of the plugin right from the get-go, it also changes my perspective on what a plugin actually is.
+
+## The traditional view ##
+A traditional approach to plugin or add-on development is to think of the add-on in terms of the user-facing outcome: "I'm building a field type which lets the user enter an address, and then displays it on a Google Map", for example.
+
+This user-centric description makes sense in terms of describing your add-on to a non-technical user, but it's not necessarily a good mental model to use during planning and development.
+
+Let's take a look at a recent real-world example, which demonstrates some of the advantages of thinking about a plugin in terms of its API, rather than the user-facing end-product.
+
+## Rethinking SmartDown ##
+The original version of [SmartDown][githubSmartDown] was a simple port of the venerable ExpressionEngine add-on of the same name. At the time, I thought about SmartDown purely in terms of the outcome: "I'm building a Twig extension to parse Markdown".
+
+[githubSmartDown]: https://github.com/experience/smartdown.craft-plugin "Bringing the unbridled joy of Markdown and Smartypants to your Craft websites since 2013"
+
+This worked just fine. SmartDown has been happily powering 90% of the words on this site for a couple of years now, with no problems whatsoever. But it was also very limited. You either used SmartDown for precisely the purpose I originally envisaged, or you didn't use it at all.
+
+Last week I finally got around to adding a couple of minor enhancements to SmartDown. Perhaps not surprisingly, I wasn't overly enamoured with the two year-old code of my first Craft plugin, and decided it was time to tidy things up a bit.
+
+The first step in that process was thinking about SmartDown in terms of _which_ services it provides, not _how_ it provides them.
+
+## SmartDown as a service ##
+The new version of SmartDown is an API for parsing Markdown-formatted text, and applying typographical flourishes using SmartyPants. The Twig extension is simply a client of that API, which happens the come bundled with the plugin.
+
+The primary advantage of this change in perspective is that it transforms SmartDown from a single-purpose plugin into a handy utility which can be used by _anyone_, in exactly the same way as SmartDown's own Twig extension uses it.
+
+For example, I frequently find myself displaying user feedback messages in my plugins. You know the sort of thing: "You've successfully completed your task...".
+
+Being a typography pedant, the prospect of using straight quotes, or--heaven forbid--three periods instead of an ellipsis, fills me with irrational disdain. With SmartDown installed, I no longer have to worry about such things:
+
+```php
+$message = Craft::t("You've successfully completed your task...");
+$message = craft()->smartDown->parseTypography($message);
+```
+
+
+## Conclusion ##
+Think of your plugin as the first client of your API. By focusing on the API rather than the user-facing outcome, you can transform your plugin from a single-purpose product into a handy general-purpose tool.

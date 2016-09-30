@@ -1,0 +1,41 @@
+---
+author: Stephen Lewis <stephen@experiencehq.net>
+date: 2008-09-16
+title: The Client Guide to Web Standards
+---
+# The Client Guide to Web Standards #
+The term "Web Standards" covers several related guidelines and technologies, which together define the best way to build a web site.
+
+Web Standards separate a web site into three elements:
+
+1. Structure and content.
+2. Appearance.
+3. Enhancements (for example, automatic form validation).
+
+This separation is sometimes referred to as the "Three Legged Stool", and has many advantages. Here are just a few:
+
+- _Easy maintenance_. Changing the colour of the links or headings on your site requires a single update to the appearance "leg".
+- _A wider audience_. Devices that don't understand the appearance and enhancements "legs" (such as most mobile phones) can still display the content "leg".
+- _An accessible web site_. The separation of content from appearance and enhancements is a great first step to making a web site accessible to people with disabilities. As well as being a legal requirement, an accessible web site means more potential customers for your business.
+- _Search engine friendly_. Search engines such as Google are only interested in the content of your site. Web Standards remove the distractions of appearance and enhancements, which can improve your search engine rankings.
+
+## Common terms
+Chances are you'll hear the following terms mentioned a lot when discussing Web Standards:
+
+HTML
+: HTML (HyperText Markup Language) is used for the "structure" leg.
+
+XHTML
+: XHTML (eXtensible HyperText Markup Language) is an alternative to HTML.
+
+CSS
+: CSS (Cascading Style Sheets) is used for the "appearance" leg. HTML and CSS can be mixed in the same document, but this is to be avoided wherever possible.
+
+JavaScript
+: Finally, something that isn't an acronym. JavaScript is used for the enhancements leg. Important functionality, such as site navigation, should not be reliant upon JavaScript.
+
+## Further reading
+
+- The [Business case for web standards WIKI](http://icant.co.uk/webstandardsforbusiness/pmwiki.php "Visit the business case for web standards WIKI").
+- The [Web Standards Trifle](http://www.stuffandnonsense.co.uk/archives/web_standards_trifle.html "Discover Andy Clarkes web standards trifle") is a tongue-in-cheek alternative to the "Three-Legged Stool".
+- The [W3C Guide to Buying Standards Compliant Web Sites](http://www.w3.org/QA/2002/07/WebAgency-Requirements "Read the W3C guide to buying standards compliant web sites") is a useful place to start if you'e shopping for a new site.

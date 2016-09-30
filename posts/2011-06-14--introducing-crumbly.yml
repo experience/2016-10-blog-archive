@@ -1,0 +1,79 @@
+---
+author: Stephen Lewis <stephen@experiencehq.net>
+date: 2011-06-14
+title: Introducing Crumbly: Custom ExpressionEngine Breadcrumbs Made Easy
+tags:
+- Announcements
+- ExpressionEngine
+---
+# Introducing Crumbly: Custom ExpressionEngine Breadcrumbs Made Easy #
+I've always found breadcrumb navigation in ExpressionEngine cumbersome.
+
+There are some reasonable solutions if you're happy to manually create your site structure using add-ons such as [Structure][structure] or [Taxonomy][taxonomy], but for those of us who prefer to stick with the standard ExpressionEngine way of doing things, the options have been rather limited.
+
+[taxonomy]: http://iain.co.nz/software/docs/taxonomy "Taxonomy, baiting and switching like BK."
+[structure]: http://buildwithstructure.com/ "Structure, baffling Boyink since 2008"
+
+## The problem ##
+Until now, if you wanted to implement breadcrumb navigation for a "standard" ExpressionEngine site you had two choices:
+
+1. [Roll-your-own][roll_your_own], using "segment sniffing", embedded templates, and  EE conditionals. Repeat for each section with a slightly different URL structure.
+2. Use a plugin that reads the URL and "humanises" it, by converting dashes to spaces, and capitalising words.
+
+The former is ugly, high-maintenance, and fiddly to implement. The latter is over-simplistic, and falls apart the moment your client says he'd like the `about` section breadcrumb to read "About Us".
+
+[roll_your_own]: http://www.fatfreeinteractive.com/blog/post-title/create-breadcrumb-navigation-in-expression-engine "The hand-made option. Repeat as necessary for each section of your site."
+
+## Fixing the problem ##
+Whilst working on a client site a few months ago, I once again found myself struggling to implement highly customised breadcrumbs in a clean and simple manner.
+
+This time, I decided to do something about it.
+
+The first thing I did was write a brief "requirements" statement, clearly stating what any breadcrumbs add-on worth its salt should do. Being the positive sort, I wrote it in the present tense:
+
+> Crumbly is an ExpressionEngine 2 add-on, which automatically generates page breadcrumbs based on the current URL.
+
+Crumbly recognises any standard EE URL structure, and automatically translates it into human-readable breadcrumbs. It's smart enough to cope with `index.php` being renamed, or entirely removed from the URL.
+
+Crumbly can also be easily configured to handle pages that use a "non-standard" URL structure.
+
+Finally, Crumbly allows the user to specify custom labels for template groups and templates, as well as a "glossary" of terms for use with custom URL segments.
+
+The goal was simple. Create a breadcrumbs add-on that handles standard ExpressionEngine URLs straight out the box, but is flexible enough to accommodate any URL structure, and any client-requested quirks of nomenclature.
+
+"Simple". Yeah, right.
+
+## Introducing Crumbly ##
+[Crumbly][crumbly_intro] achieves everything in that original requirements statement.
+
+[crumbly_intro]: /software/crumbly "Say hello to Crumbly, EE's most powerful, most flexible breadcrumbs manager"
+
+If your site uses standard ExpressionEngine URLs--including categories, and even Pages URLs--you can be up and running in minutes. It's this easy:
+
+```html
+{exp:crumbly:breadcrumbs}
+    <a href="{breadcrumb_url}">{breadcrumb_title}</a>
+{/exp:crumbly:breadcrumbs}
+```
+
+
+If your site uses non-standard URLs, it's only marginally more complex. Just [tell Crumbly][crumbly_tags] what your URL looks like, and you're done:
+
+[crumbly_tags]: /software/crumbly/docs/crumbly-template-tags "Crumbly is exhaustingly documented. Yes, I meant to say that"
+
+```html
+{exp:crumbly:breadcrumbs custom_url:pattern='template_group/entry'}
+    <a href="{breadcrumb_url}">{breadcrumb_title}</a>
+{/exp:crumbly:breadcrumbs}
+```
+
+
+Last but not least, you have [complete control][crumbly_config] over the labelling of your breadcrumbs.
+
+[crumbly_config]: /software/crumbly/docs/crumbly-configuration "Tell it how it is. Easily customise your Crumbly breadcrumb labels"
+
+So the next time your client decides that the `services` template group should really be entitled "Our Professional Synergy Offerings", you can nod politely and make it so.
+
+[Try it out][cta], I think you'll like it.
+
+[cta]: /software/crumbly "Crumbly, EE's most powerful, most flexible breadcrumbs manager"

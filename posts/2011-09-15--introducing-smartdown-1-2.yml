@@ -1,0 +1,52 @@
+---
+author: Stephen Lewis <stephen@experiencehq.net>
+date: 2011-09-15
+title: Introducing SmartDown 1.2
+tags:
+- ExpressionEngine
+- Announcements
+---
+# Introducing SmartDown 1.2 #
+It's not often that I decide an add-on [point release][point_release] warrants a blog post, but the latest version of [SmartDown][smartdown_home] is a bit more than your typical array of minor bug fixes.
+
+[point_release]:http://en.wikipedia.org/wiki/Point_release "Proof positive that my version numbering system is nonsense"
+[smartdown_home]:/software/smartdown "Smarter Markdown for ExpressionEngine"
+
+## Easier EE code samples
+A boatload of behind-the-scenes changes has resulted in much more reliable (and predictable) Markdown rendering, particularly when dealing with ExpressionEngine code examples within your content.
+
+In the past something like could be a complete pain, with double-encoded curly-braces, and all manner of similar headaches:
+
+```html
+{exp:channel:entries channel='mrw'}
+    {if '{lunch}' == 'pizza'}
+        <blockquote>Jews like pizza</blockquote>
+    {/if}
+{/exp:channel:entries}
+```
+
+
+Not any more. SmartDown automatically fixes your code samples, without any additional faffing about.
+
+## More flexible configuration
+Previous versions of SmartDown required you to specify your preferred formatting options in every `{exp:smartdown}` template tag.
+
+Worse than that, if you used SmartDown as the field formatting option for your custom field (the easiest way of using SmartDown), you couldn't specify any formatting options _at all_.
+
+SmartDown 1.2 fixes both of these shortcomings, by allowing you to specify default settings in your `config.php` file. Want to disable SmartyPants across the board? Easy:
+
+```php
+$config['smartdown'] = array(
+    'disable:smartypants' => 'yes'
+);
+```
+
+
+## Custom extension hooks
+Finally, SmartDown 1.2 introduces [two extension hooks][smartdown_hooks], which can be used to manipulate content before and after SmartDown processing. Perfect if you need to do some custom pre-processing, or tidy up content after the fact.
+
+As ever, [the SmartDown documentation][smartdown_docs] has complete configuration and usage information. If you have any questions or suggestions, please [let me know][smartdown_support].
+
+[smartdown_docs]:/software/smartdown/docs "Read the SmartDown documentation"
+[smartdown_hooks]:/software/smartdown/docs/smartdown-extension-hooks "Shiny new SmartDown extension hooks"
+[smartdown_support]:http://support.experienceinternet.co.uk/discussions/smartdown "Visit the SmartDown support site"

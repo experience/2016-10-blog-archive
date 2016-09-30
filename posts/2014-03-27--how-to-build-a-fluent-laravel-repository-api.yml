@@ -1,0 +1,185 @@
+---
+author: Stephen Lewis <stephen@experiencehq.net>
+date: 2014-03-27
+title: How to Build a Fluent Laravel Repository API
+tags:
+- Laravel
+---
+# How to Build a Fluent Laravel Repository API #
+Eloquent, the Laravel ORM, provides a simple API for building moderately complex database queries. If you're working on a small project, and you don't mind using Eloquent directly in your controllers, this can be a real time-saver.
+
+For larger projects, though, you'll want to decouple the controller from your data storage layer, for easier testing and increased flexibility. This means defining an Interface for your repository, and [injecting][ioc] that into your Controller's constructor.
+
+[ioc]: http://laravel.com/docs/ioc "INJECT ALL THE THINGS! Don't do drugs, kids"
+
+The price you pay for such decoupling is that you can no longer use the nice, fluent Eloquent API in your controller.
+
+## A real-world problem: filtering by multiple criteria
+We ran into this problem quite recently. [The project in question][brandstencil] features a number of Resources, each of which belongs to an Organisation, has a Format and a Type, and may also be assigned to zero or more Categories. The end-user must be able to filter the Resources by zero or more of these attributes.
+
+[brandstencil]: http://brandstencil.com "Quickly produce ready-to-print, branded literature for your charity"
+
+## The naïve solution
+The naïve way to approach this problem would be to add a bunch of parameters to your Interface methods. For example:
+
+```php
+$repo->all($orgId, $formatId, null, $categoryId);
+```
+
+
+This solution has a number of significant downsides:
+
+1. It's ugly.
+2. It's obtuse; there's no way of knowing the argument order without checking the method signature.
+3. It doesn't scale.
+4. Every filter needs to be specified for every method call.
+
+## The "setters" solution
+Your next thought may be to separate the process of setting the filters from the act of running the query. Something like this:
+
+```php
+$repo->setOrganization($orgId);
+$repo->setFormat($formatId);
+$repo->setCategory($categoryId);
+$repo->all();
+```
+
+
+Better, but not great. This solution solves the mystery meat problem, the method signature problem, and the scaling problem, but it still isn't going to win any beauty contests.
+
+It also introduces another problem: how do we know which filters are set for subsequent queries?
+
+```php
+$repo->setOrganization($orgId);
+$repo->all();    // Retrieves every resource from the given org.
+$repo->count();  // Counts every resource? Or just those in the org?
+```
+
+
+You could decide to clear all of the filters after every query "endpoint" (such as `all` or `count`), and document that like a good developer should, but it's still non-obvious behaviour which requires the end-user to browse the source code, or read your documentation.
+
+We can do better.
+
+## The fluent solution
+What we want is to separate the process of setting the filters from the act of running the query, whilst still retaining a clear link between the two.
+
+In other words, we want the ability to link zero or more filters, and a query, into a single chain of commands:
+
+```php
+$repo
+    ->whereOrganization($orgId)
+    ->whereFormat($formatId)
+    ->whereType($typeId)
+    ->whereHasCategory($categoryId)
+    ->all();
+
+$repo->whereOrganization($orgId)->all();
+$repo->count();
+```
+
+
+Simple, clean, readable, and scaleable. There's no doubt as to which filters we're setting, or for how long they will persist.
+
+Here's the code to implement this API, in its entirety (with just a single filter, for the sake of brevity). Take a quick look, and then we'll break it down.
+
+```php
+<?php
+namespace \DummyProject\Repositories\Database;
+
+use \DummyProject\Repositories\Interfaces\ResourceInterface;
+
+class Resource implements ResourceInterface
+{
+    // Filters truncated for brevity...
+    protected $whereFormatId;
+    
+    /**
+     * Constructor.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->whereFormatId = null;
+    }
+	
+	
+    /**
+     * Returns all of the Resources.
+     *  
+     * @return ResourceModel[]
+     */
+    public function all()
+    {
+        return $this->getQueryBuilder()->get();
+    }
+    
+    
+    /**
+     * Restricts the next query to the specified Format.
+     *
+     * @param int $formatId The Format ID.
+     *
+     * @return self
+     */
+    public function whereFormat($formatId)
+    {
+        $this->whereFormatId = $formatId;
+        return self;
+    }
+    
+    
+    /**
+     * Returns a Builder instance for use in constructing a query, honouring the 
+     * current filters. Resets the filters, ready for the next query.
+     *
+     * Example usage:
+     * $result = $this->getQueryBuilder()->find($id);
+     *
+     * @return \Illuminate\Database\Query\Builder
+     */
+    protected function getQueryBuilder()
+    {
+        $modelClass = $this->getModelClass();
+        $builder = with(new $modelClass)->newQuery();
+    
+        if ($this->whereFormatId) {
+            $builder->where('format_id', $this->whereFormatId);
+        }
+    
+        $this->whereFormatId = null;
+        return $builder;
+    }
+    
+
+    /**
+     * Returns the name of the Eloquent model class associated with this 
+     * repository.
+     *
+     * @return string
+     */
+    protected function getModelClass()
+    {
+        return '\DummyProject\Models\Resource';
+    }
+}
+```
+
+
+The solution comprises of two main elements: setting the filters, and building the query.
+
+### Setting the filters
+The `whereFormat` method sets a protected property, and returns a reference to the instance (which allows us to chain it with other filter and query methods).
+
+### Building the query
+The real work happens when the user calls a "query" method (such as `all`).
+
+The query method calls the protected `getQueryBuilder` method, which constructs an [Illuminate Query Builder][querybuilder] instance. We use the Query Builder instance to construct our query[^1] one piece at a time, according to the specified filters.
+
+[querybuilder]: http://laravel.com/api/4.0/Illuminate/Database/Query/Builder.html "Riveting"
+
+Once we've set the appropriate `where` clauses on the Builder instance, we return it the query function (in this case `all`), so that it can execute the query.
+
+Job done.
+
+[^1]: As does Eloquent.

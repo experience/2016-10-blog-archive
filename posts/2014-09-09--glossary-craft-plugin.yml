@@ -1,0 +1,205 @@
+---
+author: Stephen Lewis <stephen@experiencehq.net>
+date: 2014-09-09
+title: Introducing Glossary for Craft
+tags:
+- Craft
+- Announcements
+---
+# Introducing Glossary for Craft #
+Today, we're proud to release [Glossary][glossary-github], a new Craft plugin.
+
+[glossary-github]: https://github.com/experience/glossary.craft "Download Glossary from GitHub"
+
+Glossary makes it easy to implement a list of entries, grouped by _X_ and ordered by _Y_. For example:
+
+- A list of staff members, grouped by the first letter of their surname, and ordered by forename;
+- A list of countries, grouped by continent, and ordered by population;
+- A list of recipes, grouped by cooking method, and ordered by cooking time.
+
+It's possible to achieve all of the above using Twig, but the result is messy and difficult to test.
+
+Glossary keeps your templates neat, and has a suite of unit tests to ensure everything runs smoothly.[^unit-tests]
+
+[^unit-tests]: Unit testing of Craft plugins is still in its infancy, but that's a whole other series of blog posts.
+
+## How to build an "A-Z" glossary
+The `craft.glossary.buildAZ` method is used to build an A-Z glossary.
+
+Let's say we have the following data, stored in a `staff` section.
+
+| Forename | Surname |  
+|  ------	| ------	|  
+| John | Doe |  
+| Robert | Bringhurst |  
+| Jane | Doe |  
+| Alan | Alda |  
+| Brian | Blessed |  
+
+We want our "staff" template to:
+
+1. **Group** the employees by the first letter of their surname;
+2. **Order** the employees by forename within each group.
+
+Here's how we do that using Glossary:
+
+```twig
+{% set entries = craft.entries.section('staff').sort('forename asc') %}
+{% set glossary = craft.glossary.buildAZ(entries, 'surname') %}
+
+{% for letter in glossary %}
+    {% if letter.hasItems() %}
+        <h2 id="glossary-{{ letter }}">{{ letter }}</h2>
+        <ol>
+            {% for person in letter.items %}
+                <li>{{ person.forename }} {{ person.surname }}</li>
+            {% endfor %}
+        </ol>
+    {% endif %}
+{% endfor %}
+```
+
+
+The above snippet outputs the following HTML:
+
+```markup
+<h2 id="glossary-A">A</h2>
+<ol>
+    <li>Alan Alda</li>
+</ol>
+
+<h2 id="glossary-B">B</h2>
+<ol>
+    <li>Brian Blessed</li>
+    <li>Robert Bringhurst</li>
+</ol>
+
+<h2 id="glossary-D">D</h2>
+<ol>
+    <li>Jane Doe</li>
+    <li>John Doe</li>
+</ol>
+```
+
+
+## How to build a "custom" glossary
+The `craft.glossary.buildCustom` method is used to build a "custom" glossary. In other words, anything that isn't an "A-Z" glossary.
+
+Let's say we have the following data, stored in a `staff` section.
+
+| Forename | Surname |  
+|  ------	| ------	|  
+| Hirshel | Weisz |
+| Daniel | Weinberg |  
+| Mordechai | Weinstein |  
+| Walter | Weintraub |  
+| Matthew | Weinberg |  
+| Wanda | Weintraub |  
+| Devorah | Weisz |  
+
+This time want our "staff" template to:
+
+1. **Group** the employees by their full surname (not just the initial letter);
+2. **Order** the employees by forename within each group.
+
+Here's how we do that using Glossary:
+
+```twig
+{% set entries = craft.entries.section('staff').sort('forename asc') %}
+{% set families = ['Weisz', 'Weintraub', 'Weinstein', 'Weinberg'] %}
+{% set glossary = craft.glossary.buildCustom(entries, 'surname', families) %}
+
+{% for family in glossary %}
+    {% if family.hasItems() %}
+        <h2 id="glossary-{{ family }}">{{ family }}</h2>
+        <ol>
+            {% for person in family.items %}
+                <li>{{ person.forename }}</li>
+            {% endfor %}
+        </ol>
+    {% endif %}
+{% endfor %}
+```
+
+
+The above snippet would output the following HTML:
+
+```markup
+<h2 id="glossary-Weisz">Weisz</h2>
+<ol>
+    <li>Devorah</li>
+    <li>Hirshel</li>
+</ol>
+
+<h2 id="glossary-Weintraub">Weintraub</h2>
+<ol>
+    <li>Walter</li>
+    <li>Wanda</li>
+</ol>
+
+<h2 id="glossary-Weinstein">Weinstein</h2>
+<ol>
+    <li>Mordechai</li>
+</ol>
+
+<h2 id="glossary-Weinberg">Weinberg</h2>
+<ol>
+    <li>Daniel</li>
+    <li>Matthew</li>
+</ol>
+```
+
+
+## How to build your glossary navigation
+You can also use the standard `buildAZ` and `buildCustom` methods to create your glossary navigation.
+
+Here's how to build the navigation for the staff members in the "A-Z" example:
+
+```twig
+{% set entries = craft.entries.section('staff').sort('forename asc') %}
+{% set glossary = craft.glossary.buildAZ(entries, 'surname') %}
+
+<nav>
+    <ul>
+    {% for letter in glossary %}
+        <li>
+            {% if letter.hasItems() %}
+                <a href="#glossary-{{ letter }}">{{ letter }}</a>
+            {% else %}
+                <span>{{ letter }}</span>
+            {% endif %}
+        </li>
+    {% endfor %}
+    </ul>
+</nav>
+```
+
+
+The above snippet outputs the following HTML:
+
+```markup
+<nav>
+    <ul>
+        <li><a href="#glossary-A">A</a></li>
+        <li><a href="#glossary-B">B</a></li>
+        <li><span>C</span></li>
+        <li><a href="#glossary-D">D</a></li>
+        <li><span>E</span></li>
+        <li><span>F</span></li>
+        <li><span>G</span></li>
+
+        {# Truncated for brevity... #}
+        
+        <li><span>Z</span></li>
+    </ul>
+</nav>
+```
+
+
+## Further information
+If you encounter a bug, or want to suggest a new feature, [create an issue][github-issue] on the GitHub project. For more general support, [hit us up on Twitter][twitter] in the first instance, and we'll take it from there.
+
+[github-issue]: https://github.com/experience/glossary.craft/issues/new "Create a GitHub issue"
+[twitter]: https://twitter.com/exphq/ "The appropriate channel for product support and mad props"
+
+Finally, if you use Glossary on a project, please let us know; it's always interesting to see one of our plugins in the wild.

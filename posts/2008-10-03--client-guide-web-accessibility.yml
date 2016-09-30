@@ -1,0 +1,30 @@
+---
+author: Stephen Lewis <stephen@experiencehq.net>
+date: 2008-10-03
+title: The Client Guide to Web Accessibility
+---
+# The Client Guide to Web Accessibility #
+Web accessibility is the practise of making websites that can be used by everybody, regardless of ability or disability.
+
+## Who is web accessibility for?
+This short answer is "everybody". This isn't as trite as it sounds:
+
+- Clear, succinct prose is good for everybody, not just those with a cognitive disability.
+- Clean, uncluttered navigation is good for everybody, not just those with a motor disability.
+- Descriptive link text (i.e. not just "click here") is good for everybody, not just those reliant upon a screen reader.
+
+The last benefit raises another important point: search engines are blind. What's good for accessibility is typically good for search engine optimisation, descriptive link text being a good example.
+
+## Web accessibility and the law
+Many countries have laws covering access to websites, much as they do for access to physical business premises. In many cases these laws are based--at least in part--on the Web Content Accessibility Guidelines (<abbr title="Web Content Accessibility Guidelines">WCAG</abbr>), a set of recommendations first published as part of the [Web Accessibility Initiative](http://www.w3.org/WAI/ "Visit the Web Accessibility Initiative web site") back in 1999.
+
+In United States law web accessibility is covered by [Section 508](http://www.section508.gov/ "Visit the Section 508 web site") of the Rehabilitation Act. In the UK, it falls under the Disability Discrimination Act.
+
+## How much does web accessibility cost?
+If considered from the outset of a project, web accessibility does not carry a big price tag. Retro-fitting accessibility to an existing web site, particularly one that hasn't been built with [web standards](/blog/archive/client-guide-web-standards "Read our Client Guide to Web Standards") can be another matter entirely, as [the Sydney Olympics Committee found out](http://contenu.nu/socog.html "Read a summary of the Sydney Olympics accessibility complaint") to their cost in 2000.
+
+## Further reading
+
+- Webcredible has a more in-depth article covering [the basics of web accessibility](http://www.webcredible.co.uk/user-friendly-resources/web-accessibility/basics.shtml "Read Webcredible's introduction to web accessibility").
+- The [Wikipedia web accessibility page](http://en.wikipedia.org/wiki/Web_accessibility "Visit the Wikipedia web accessibility page") contains a good overview of web accessibility, along with a wealth of links to further resources.
+- The Equality and Human Rights Commission has made a number of technical and non-technical [website accessibility guidance reports](http://bit.ly/174pb9 "Visit the Equality and Human Rights Commission website") available for download.

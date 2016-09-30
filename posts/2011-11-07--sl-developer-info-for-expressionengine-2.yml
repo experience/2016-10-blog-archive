@@ -1,0 +1,22 @@
+---
+author: Stephen Lewis <stephen@experiencehq.net>
+date: 2011-11-07
+title: SL Developer Info for ExpressionEngine 2
+tags:
+- ExpressionEngine
+- Announcements
+---
+# SL Developer Info for ExpressionEngine 2 #
+Many years ago, I scratched my own ExpressionEngine itch by building [SL Developer Info][sl_developer_info]. SL Developer Info collects all the information you typically need when developing an ExpressionEngine site, and displays it in one convenient location.
+
+Almost immediately, Brandon Kelly became rich beyond my wildest dreams.
+
+Recently, I have heard reports that some of you are moving to a new-fangled content management system entitled "ExpressionEngine 2." I have also received requests for an updated version of SL Developer Info that plays nicely with this young pretender. My irrational fear of change clearly precluded such an undertaking, and I resolutely ignored the peanut gallery's pleas.
+
+Thankfully for all concerned, [Marc Miller][marc_miller] stepped into the breach, creating [Developer Info for ExpressionEngine 2][developer_info].
+
+Almost immediately, Brandon Kelly became rich beyond my wildest dreams.
+
+[sl_developer_info]:/software/sl-developer-info "The original and best, if you don't consider regular updates a necessity. TextMate users welcome."
+[marc_miller]:http://bigoceanstudios.com/ "Visit Marc at home"
+[developer_info]:http://devot-ee.com/add-ons/developer-info "I'm getting a cut of this thing, right?"

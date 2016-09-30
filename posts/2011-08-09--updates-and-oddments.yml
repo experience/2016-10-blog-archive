@@ -1,0 +1,66 @@
+---
+author: Stephen Lewis <stephen@experiencehq.net>
+date: 2011-08-09
+title: Updates and Oddments
+tags:
+- ExpressionEngine
+---
+# Updates and Oddments #
+Regular readers of this site may be shocked to learn that I don't consider everything I do worthy of a blog post.
+
+Updates to existing add-ons rarely warrant more than a quick Tweet, and many code oddments don't even make it that far, languishing unloved and unnoticed on [my GitHub account][github].
+
+This post summarises these recent side-shows, for those few misguided individuals not [following me][twitter_monooso] (or [Experience][twitter_experience]) on Twitter, or monitoring my every commit on [GitHub][github]. If this inaugural effort is met with approval, I'll publish a round-up post every few weeks or months, as appropriate.
+
+## Add-on updates
+* [Crumbly 1.0.1][crumbly_changelog] was released, fixing a Pages-related bug.
+* [MailChimp Subscribe 2.0.4][mailchimp_changelog] was released, fixing an ExpressionEngine 1 bug affecting lists with no "merge variables".
+* [OmniLog 1.1.0][omnilog_changelog] was released, fixing a couple of minor UI bugs, and implementing the ability to specify custom notification email addresses for each log entry, as required. Very handy.
+* [OmniLog 1.1.1][omnilog_changelog] was released, fixing a bug introduced in OmniLog 1.1.0. Sorry about that.
+
+## Off-site oddments
+### SmartDown
+SmartDown has been quietly [receiving some love on GitHub][github_smartdown]. Check out [the `jsm` branch][github_jsm] for a few useful enhancements prompted by [this support request][jsm_support] from purveyor of web design awesomeness [Jason Santa Maria][jsm]. I'm such a fame whore.
+
+### GitGo
+[The GitGo bash script][github_gitgo] makes initialising a new Git project an absolute breeze. It even includes support for [Git Flow][git_flow], should that be how you roll (you should).
+
+Originally authored by my good self, GitGo was subsequently improved beyond recognition by my better self, [Erik Reagan][erik_reagan].
+
+### Roland
+You know that nifty "add row" and "delete row" functionality you get in add-ons such as Matrix? [Roland is a jQuery script][github_roland] that lets you implement such wonders in seconds. Check out [Usher][usher] or [Crumbly][crumbly] to see it in action.
+
+### Admin Scripts
+Despite my best efforts, I still find myself drawn into the occasional ExpressionEngine 1 project. [Admin Scripts][github_admin_scripts] is the result of this unfortunate situation.
+
+[Admin Scripts][github_admin_scripts] is a module which acts as a wrapper for small admin scripts that don't warrant a full-blown add-on. It was designed with two use-cases in mind:
+
+* General-purpose utility scripts.
+* Utility scripts related to (and bundled with) a specific add-on. For example, an add-on may wish to provide an admin script that populates the database with dummy content for demonstration purposes, and another script to "reset" the add-on, by emptying its database tables.
+
+Admin Scripts is pretty rough-and-ready, but I've found it very handy in the aforementioned situations.
+
+### Tracks
+[Tracks][github_tracks] is another unwanted ExpressionEngine 1 bastard add-on that has weaseled its way into my life and onto my GitHub. It provides easy access to an ExpressionEngine user's session history, and has proven itself mighty handy for "back" links and the like.
+
+## Caveat emptor
+Finally, it's worth stating that most of the aforementioned oddments will never ascend the dizzying heights of the software section on this site, and should be considered unsupported. Proceed accordingly.
+
+[crumbly]: /software/crumbly "ExpressionEngine breadcrumbs done right"
+[crumbly_changelog]: /software/crumbly/changelog "Full details of the Crumbly updates"
+[erik_reagan]: http://focuslabllc.com/erik-reagan "Epic ninja fail"
+[jsm]: http://jasonsantamaria.com/ "Behold"
+[jsm_support]: http://support.experienceinternet.co.uk/discussions/smartdown/13-smartypants-and-formatting-of-none "Evidence of my two-tier internet-famous SLA"
+[git_flow]: https://github.com/nvie/gitflow "A better way of working with Git"
+[github]: https://github.com/experience "Paddle up my GitHub backwater. Ladies"
+[github_admin_scripts]: https://github.com/experience/admin_scripts.ee_addon "Definitely rough, possibly ready"
+[github_jsm]: https://github.com/experience/smartdown.ee_addon/tree/feature%2Fjsm "The result of my shameless pandering to the rich and famous"
+[github_gitgo]: https://github.com/experience/gitgo "Streamline your nerditude"
+[github_roland]: https://github.com/experience/jquery.roland.js "The secret to Brandon Kelly's success"
+[github_smartdown]: https://github.com/experience/smartdown.ee_addon "The latest happenings in SmartDown"
+[github_tracks]: https://github.com/experience/tracks.ee_addon "Every time I think I'm out, they pull me back in"
+[mailchimp_changelog]: /software/mailchimp-subscribe/changelog "Full details of the MailChimp Subscribe updates"
+[omnilog_changelog]: /software/omnilog/changelog "Full details of the OmniLog updates"
+[twitter_monooso]: http://twitter.com/monooso "Pithy wisdom draped in the heavy robes of idiocy"
+[twitter_experience]: http://twitter.com/expin "Occasional Tweets for people with better things to do with their time"
+[usher]: /software/usher "Traffic control for your EE admins"

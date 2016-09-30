@@ -1,0 +1,89 @@
+---
+author: Stephen Lewis <stephen@experiencehq.net>
+date: 2010-05-03
+title: ExpressionEngine 2 Add-on Plans
+tags:
+- ExpressionEngine
+---
+# ExpressionEngine 2 Add-on Plans #
+Over the past few weeks we've received a number of emails asking if and when our [ExpressionEngine add-ons](/software "View all of our ExpressionEngine add-ons") will be ported to [EE 2](http://expressionengine.com/public_beta/ "Find out more about ExpressionEngine 2").
+
+The following table lists our current plans for each add-on, along with some explanatory notes, where necessary. Add-ons are listed in order of priority.
+
+You'll notice that there are no projected release dates for any of the add-ons.
+
+Our experiences to date suggest that development will take much longer than we either hope or anticipate. There's little point in throwing out arbitrary deadlines, and shuffling our feet awkwardly when they fly by; each add-on will be released when it's done to a standard with which we're happy.
+
+<table summary="ExpressionEngine 2 add-on conversion plans.">
+<thead>
+	<tr>
+		<th style="width : 30%;">Add-on</th>
+		<th>Converting?</th>
+		<th style="width : 50%;">Notes</th>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+		<td><a href="/software/smartdown" title="SmartDown ExpressionEngine add-on">SmartDown</a></td>
+		<td>Done</td>
+		<td>&nbsp;</td>
+	</tr>
+	<tr>
+		<td><a href="/software/mailchimp-subscribe" title="MailChimp Subscribe ExpressionEngine add-on">MailChimp Subscribe</a></td>
+		<td><del>Yes</del> <ins>Done</ins></td>
+		<td>&nbsp;</td>
+	</tr>
+	<tr>
+		<td><a href="/software/campaigner" title="Campaigner ExpressionEngine add-on">Campaigner</a></td>
+		<td><del>Yes</del> <ins>Done</ins></td>
+		<td>Free upgrade for existing Campaigner customers.</td>
+	</tr>
+	<tr>
+		<td><a href="/bucketlist" title="BucketList ExpressionEngine add-on">BucketList</a></td>
+		<td><del>Yes</del> <ins>Unlikely</ins></td>
+		<td>Despite several public calls for an EE 2 version of BucketList, the EE 1 version has never been a big seller. It's therefore very difficult to justify the development time required for an EE 2 version.</td>
+	</tr>
+	<tr>
+		<td><a href="/software/sl-combinator" title="SL Combinator ExpressionEngine add-on">SL Combinator</a></td>
+		<td><del>Yes</del> <ins>Very unlikely</ins></td>
+		<td>An EE 2 version exists, but is very unlikely to see the light of day. <a href="http://devot-ee.com/add-ons/minimee/" title="Minimee on Devot:ee. AIEEEE!">Minimee</a> does something very similar, and has a much cooler name, dammit.</td>
+	</tr>
+	<tr>
+		<td><a href="/software/sl-developer-info" title="SL Developer Info ExpressionEngine add-on">SL Developer Info</a></td>
+		<td><del>Yes</del> <ins>Maybe</ins></td>
+		<td>&nbsp;</td>
+	</tr>
+	<tr>
+		<td><a href="/software/sl-field-formatting" title="SL Field Formatting ExpressionEngine add-on">SL Field Formatting</a></td>
+		<td>Not possible</td>
+		<td>A quick scout through the EE 2 codebase suggests that the extension hooks required to implement SL Field Formatting have not (yet) been implemented.</td>
+	</tr>
+	<tr>
+		<td><a href="/software/dropdate" title="DropDate ExpressionEngine add-on">DropDate</a></td>
+		<td><del>Undecided</del> <ins>Done</ins></td>
+		<td>With thanks to <a href="http://twitter.com/low/" title="Swan dogger">Low Dogg</a>.</td>
+	</tr>
+	<tr>
+		<td><a href="/software/sl-comment-redirect" title="SL Comment Redirect ExpressionEngine add-on">SL Comment Redirect</a></td>
+		<td>Undecided</td>
+		<td>&nbsp;</td>
+	</tr>
+	<tr>
+		<td><a href="/software/sl-google-map" title="SL Google Map ExpressionEngine add-on">SL Google Map</a></td>
+		<td>Undecided</td>
+		<td>We've made no secret of the fact that the next version of SL Google Map is likely to be a commercial release. Implementing multiple locations per map, aggregate maps, directions, and many of the other frequently-requested features is a lot of work, and we would need to cover at least some of our costs. The release of MX Google Map makes this a far less viable proposition.</td>
+	</tr>
+        <tr>
+		<td><a href="/software/speakeasy" title="Speakeasy ExpressionEngine add-on">Speakeasy</a></td>
+		<td>Undecided</td>
+		<td>&nbsp;</td>
+	</tr>
+	<tr>
+		<td>Deniro</td>
+		<td><del>Unlikely</del> <ins>No</ins></td>
+		<td>The third-party service upon which Deniro relies has completely changed its API, forcing us to retire the EE 1 version. We have no plans to write an EE2 version.</td>
+	</tr>
+</tbody>
+</table>
+
+If we haven't yet committed to converting an add-on upon which you rely, please [let us know](/contact "Drop me a line"). Your heartfelt plea may not change our minds, but at the very least it will give us an overwhelming sense of power.

@@ -1,0 +1,173 @@
+---
+author: Stephen Lewis <stephen@experiencehq.net>
+date: 2014-08-26
+title: The Definitive Guide to Validation in Craft, Part 5: Custom Validators
+tags:
+- Craft
+---
+# The Definitive Guide to Validation in Craft, Part 5: Custom Validators #
+## Introduction
+This is the fifth and final instalment of our series on validation in Craft. If you haven't read parts one to four, [you have][partOne] [some][partTwo] [catching up][partThree] [to do][partFour].
+
+[partOne]: /blog/the-definitive-guide-to-validation-in-craft-part-1-foundations "Part One: Foundations"
+[partTwo]: /blog/the-definitive-guide-to-validation-in-craft-part-2-attributetypes "Part Two: AttributeTypes"
+[partThree]: /blog/the-definitive-guide-to-validation-in-craft-part-3-attribute-rules "Part Three: Attribute Rules"
+[partFour]: /blog/the-definitive-guide-to-validation-in-craft-part-4-hidden-validator-settings "Part Four: Hidden Validator Settings"
+
+This instalment is all about implementing your own custom validators.
+
+## What is a custom validator?
+A custom validator is a function or class which carries out validation on an attribute value. There are two reasons why you might choose to write your own custom validator:
+
+1. Your validation requirements are not covered by the available Craft and Yii validators;
+2. You wish to clearly encapsulate a set of complex validation rules or business logic.
+
+## How do I tell Craft to use a custom validator?
+You must declare any attribute rules which use a custom validator after the `ModelHelper::getRules` method has finished working its magic. As you will recall from [the "hidden settings" instalment][hiddenSettingsInstalment], this means extending the model's `rules` method.
+
+[hiddenSettingsInstalment]: /blog/the-definitive-guide-to-validation-in-craft-part-4-hidden-validator-settings "The low-down on Craft's hidden validator settings, including why they're not really hidden"
+
+```php
+public function rules()
+{
+    $rules = parent::rules();
+
+    // Custom validator rule declarations.
+
+    return $rules;
+}
+```
+
+
+The exact syntax of the custom validator rule declaration depends on how you choose to implement your custom validator. The following sections provide examples for both of the available options.
+
+## How do I implement a custom validator?
+You can choose to implement your custom validator as either:
+
+1. A validation "callback" function[^technicallyMethod] in your model, or;
+2. A separate validator class.
+
+[^technicallyMethod]: [Technically][functionMethodExplanation] it's a function, not a method. However, within the context of this article, the word "method" could be read as "one of the available techniques for solving the problem at hand". As such, we prefer the incorrect but unambiguous alternative.
+
+[functionMethodExplanation]: http://stackoverflow.com/questions/155609/what-is-the-difference-between-a-method-and-a-function/155655#155655 "SO knows"
+
+## Option 1: the validation callback function
+A validation callback function is simply a public method on your model, which accepts a single argument specifying the name of the attribute under validation.
+
+If the attribute fails validation, you should call the `addError` model method, to tell Craft about the validation error. The `CModel::addError` method expects two attributes:
+
+1. A string containing the name of the attribute which failed validation;
+2. A string containing the error message.
+
+A validation callback function is slightly simpler to implement than a separate validator class, but not by much. It also has two significant downsides:
+
+1. You can't easily mock the validator when testing your models;
+2. It violates the [single responsibility principle][srp].
+
+[srp]: http://blog.8thlight.com/uncle-bob/2014/05/08/SingleReponsibilityPrinciple.html "Uncle Bob explains the Single Responsibility Principle"
+
+For these reasons, you should prefer separate validator classes to callback functions.
+
+Here is a complete example model which uses a custom validator function to check for duplicate Spartacuses[^pointlessExample]:
+
+[^pointlessExample]: Every tutorial series needs at least one example that is both contrived and pointless.
+
+```php
+<?php namespace Craft;
+
+class MyPlugin_ExampleModel extends BaseModel
+{
+    protected function defineAttributes()
+    {
+        return [
+            'username' => [
+                'type'     => AttributeType::String,
+                'required' => true,
+            ],
+        ];
+    }
+
+    public function rules()
+    {
+        $rules = parent::rules();
+
+        $rules[] = ['username', 'validateUsername'];
+
+        return $rules;
+    }
+
+    public function validateUsername($attribute)
+    {
+        $value = $this->$attribute;
+
+        if ($value && strtolower($value) == 'spartacus') {
+            $message = Craft::t("No, I'm Spartcus!");
+            $this->addError($attribute, $message);
+        }
+    }
+}
+```
+
+
+## Option 2: the separate validator class
+A validator class is any class which:
+
+1. Extends the `CValidator` class;
+2. Implements a protected `validateAttribute` method.
+
+The `validateAttribute` method must accept two arguments, `$object` and `$attribute`:
+
+- `$object` is the model being validated;
+- `$attribute` is the name of the attribute being validated.
+
+If the attribute fails validation, you should call the `addError` validator method, to tell Craft about the validation error. The `CValidator::addError` method expects three attributes:
+
+1. A reference to the model being validated;
+2. A string containing the name of the attribute which failed validation;
+2. A string containing the error message.
+
+Here is our validation callback function, reimplemented as a separate validator class.
+
+```php
+<?php namespace Craft;
+
+use CValidator;
+
+class MyPlugin_UsernameValidator extends CValidator
+{
+    protected function validateAttribute($object, $attribute)
+    {
+        $value = $object->$attribute;
+
+        if ($value && strtolower($value) == 'spartacus') {
+            $message = Craft::t("No, I'm Spartcus!");
+            $this->addError($object, $attribute, $message);
+        }
+
+    }
+}
+```
+
+
+And here is how we tell Craft to use our custom validator class.
+
+```php
+public function rules()
+{
+    $rules = parent::rules();
+
+    $rules[] = ['username', 'Craft\MyPlugin_UsernameValidator'];
+
+    return $rules;
+}
+```
+
+
+## Conclusion
+And that's everything there is to know about custom validators in Craft, and indeed about Craft validation in general.
+
+As befits a series entitled "The Definitive Guide", we've covered a lot over the past few weeks, from [basic foundations][partOne], right through to [hidden tips and tricks][partFour].
+
+This isn't the end of our Craft tutorials though; we've already got some articles up for the coming weeks, so be sure to check back every Tuesday, or [subscribe to our newsletter][newsletter] so you don't miss out.
+
+[newsletter]: #newsletter "All the Craft news that fits, we print"

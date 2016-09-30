@@ -1,0 +1,231 @@
+---
+author: Stephen Lewis <stephen@experiencehq.net>
+date: 2014-07-29
+title: The Definitive Guide to Validation in Craft, Part 1: Foundations
+tags:
+- Craft
+---
+# The Definitive Guide to Validation in Craft, Part 1: Foundations #
+If you're working on a Craft plugin that accepts user input, chances are you'll want to validate that data.
+
+Thanks to its Yii underpinnings, Craft includes lots of powerful validation features as standard. Unfortunately, [the Craft documentation][craftValidationDocs] is, at time of writing, somewhat lacking in this area, and the Yii documentation isn't directly applicable.
+
+[craftValidationDocs]: http://buildwithcraft.com/docs/plugins/models#validation "Trim"
+
+This series of articles aims to address this problem, by providing a complete guide to validation in Craft, all the way from the high-level concepts, right down to the nuts and bolts of implementation.
+
+Part 1 provides an overview of how validation works in Craft. Subsequent parts dig deeper into the available validation options, and provide instructions for how to create your own custom validation rules.
+
+## The 20,000 ft. view
+In Craft, all of your data, and all of the validation rules associated with your data, is stored in model attributes. You define your model attributes in the `defineAttributes` method.
+
+Here's a simple model, which defines two attributes: `fullName`, and `age`.
+
+```php
+<?php namespace Craft;
+
+class MyPlugin_ExampleModel extends BaseModel
+{
+    protected function defineAttributes()
+    {
+        return [
+            'fullName' => [
+                'type'      => AttributeType::String,
+                'required'  => true,
+                'maxLength' => 50,
+            ],
+            'age' => [
+                'type'     => AttributeType::Number,
+                'required' => true,
+                'max'      => 50,
+            ],
+        ];
+    }
+}
+```
+
+
+You can think of a model's attributes as its publicly-accessible properties. Continuing with the example above, we can access the `fullName` and `age` attributes as follows:
+
+```php
+$model = new MyPlugin_ExampleModel;
+$model->fullName = 'Bob';
+$model->age = 20;
+
+echo($model->fullName);    // Bob
+echo($model->age);         // 20
+```
+
+
+## How to validate a model
+To validate a model, call its `validate` method without any arguments. You can also validate specific attribute(s) by passing the method an array of attribute names. Full details of the arguments accepted by the `validate` method are provided in the "Useful validation methods" section, below.
+
+Behind the scenes, Craft translates your attribute definitions into Yii-compatible validation rules[^getRulesMagic], and then passes the actual validation off to Yii.
+
+We'll delve into the details of how this works in a later article, but for now all you need to know is that the `validate` method returns a boolean value, indicating whether the model (or specified attributes) passed validation.
+
+```php
+if ($model->validate()) {
+    echo('Passed validation');
+} else {
+    echo('Epic fail');
+}
+```
+
+
+## Useful validation methods
+Every Craft model has methods which let you check for validation errors, retrieve the errors for a specific attribute, and so forth. Unless otherwise indicated, it only makes sense to call these methods after you have called the `validate` method.
+
+Here's a list of the most useful validation-related model methods, along with an explanation of each.[^obscureValidationMethods]
+
+### getAllErrors
+The `getAllErrors` method is implemented by the Craft `BaseModel` class. It returns all of the model errors in a flat, non-associative array.
+
+```php
+$model->getAllErrors();
+
+// Example output:
+[
+    [0] => 'Full name cannot be blank.',
+    [1] => 'Age cannot be blank.',
+]
+```
+
+
+### getError
+The `getError` method is implemented by the Yii `CModel` class. It requires a single argument, specifying an attribute name.
+
+If the given attribute exists, the `getError` method returns the _first_ error associated with the attribute. If the given attribute does not exist, the method returns `null`.
+
+```php
+$model->getError('age');     // Message string
+$model->getError('gender');  // null
+```
+
+
+### getErrors
+The `getErrors` method is implemented by the Yii `CModel` class. When called without arguments, it returns an array of all the model errors, indexed by attribute name.
+
+If you pass an attribute name to the `getErrors` method, and the given attribute exists, the method returns an array of errors associated with the specified attribute. If the given attribute does not exist, the method returns an empty array.
+
+```php
+$model->getErrors();          // All errors
+$model->getErrors('age');     // Only 'age' errors
+$model->getErrors('gender');  // Empty array
+
+// Example output:
+[
+    'fullName' => [
+        [0] => 'Full name cannot be blank.',
+    ],
+    'age' => [
+        [0] => 'Age cannot be blank.',
+    ]
+]
+```
+
+
+### hasErrors
+The `hasErrors` method is implemented by the Yii `CModel` class. When called without arguments, it returns a boolean value indicating whether any attribute on the model has associated errors (i.e. the model failed validation).
+
+If you pass an attribute name to the `hasErrors` method, and the given attribute exists, the method returns a boolean value indicating whether the specified attribute has associated errors. If the given attribute does not exist, the method returns `false`.
+
+```php
+$model->hasErrors();          // True if model failed validation
+$model->hasErrors('age');     // True if 'age' failed validation
+$model->hasErrors('gender');  // Always false
+```
+
+
+### validate
+The `validate` method is implemented by the Craft `BaseModel` class, as a thin wrapper around the Yii `CModel::validate` method. The Craft `BaseModel` implementation simply logs any validation errors (with a log level of "warning"), before returning the result of the validation.
+
+When called without any arguments, the `validate` method returns a boolean indicating whether every model attribute passed validation.
+
+If you pass an array of attribute(s) as the first argument to the `validate` method, it will restrict validation to the specified attributes.
+
+The `validate` method also accepts a second optional argument, specifying whether the model should clear any previous errors, prior to performing validation. The default value is `true`.
+
+```php
+$model->validate();                     // Validate all attributes
+$model->validate(['age']);              // Validate 'age'
+$model->validate(['fullName'], false);  // Validate 'fullName'. Do not clear existing errors
+```
+
+
+##  How to define a model attribute
+We now know how to validate a model in Craft. We also know that when we call the `validate` method, Craft takes our attribute definitions, and transforms them into Yii-compatible validation rules.
+
+What we haven't yet discussed is how to define a model attribute. Let's fix that. As a reminder, here's the `defineAttributes` method from our example model.
+
+```php
+protected function defineAttributes()
+{
+    return [
+        'fullName' => [
+            'type'      => AttributeType::String,
+            'required'  => true,
+            'maxLength' => 50,
+        ],
+        'age' => [
+            'type'     => AttributeType::Number,
+            'required' => true,
+            'max'      => 50,
+        ],
+    ];
+}
+```
+
+
+Every model attribute definition is comprised of two basic parts:
+
+1. The attribute type;
+2. Zero or more additional validation rules.
+
+For example, the `age` model attribute has a type of `AttributeType::Number`, and two validation rules: the attribute value is required; the attribute value must not exceed 50.
+
+Simple enough. However, Craft complicates this slightly by allowing you to specify your model attributes in 3 different ways.
+
+### Option 1: When all you need is type
+If you just need to specify the type of your attribute, and nothing more, you can choose option 1.
+
+```php
+'age' => AttributeType::Number
+```
+
+
+### Option 2: When you're too lazy to type
+If you need to specify validation rules, but the prospect of explicitly specifying the  `type` key is anathema to you, option 2 is the way to go.
+
+```php
+'age' => [
+    AttributeType::Number,
+    'required' => true,
+    'max'      => 50
+]
+```
+
+
+### Option 3: When you'd just like a bit of consistency in your life
+If you want one style to rule them all, choose option 3. This is the style that Craft normalises on internally, and as such is my preferred option.
+
+```php
+'age' => [
+    'type'     => AttributeType::Number,
+    'required' => true,
+    'max'      => 50,
+]
+```
+
+
+## Conclusion
+We've covered a lot of ground in this introduction. You should now understand what happens behind the scenes when Craft validates your model, which model validation methods are available (and what each one does), and how to define your model attributes.
+
+This is a great start, but you may still be wondering what exactly _is_ an "attribute type", and how does it affect validation?
+
+Not to worry, that will be the subject of our next thrilling instalment, so be sure to check back at the same time next week.
+
+
+[^getRulesMagic]: The mammoth 250-line `getRules` method in the `craft/app/helpers/ModelHelper` class is responsible for this particular piece of wizardry.
+
+[^obscureValidationMethods]: There are several other validation-related methods available on the `CModel` class, but you'll never encounter them in normal day-to-day usage.

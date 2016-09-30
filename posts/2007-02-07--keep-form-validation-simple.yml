@@ -1,0 +1,39 @@
+---
+author: Stephen Lewis <stephen@experiencehq.net>
+date: 2007-02-07
+title: Keep JavaScript Form Validation Simple
+---
+# Keep JavaScript Form Validation Simple #
+After the horrors of <abbr title="Dynamic HyperText Markup Language">DHTML</abbr>, JavaScript is very much back in vogue, thanks largely to the wonders of <abbr title="Asynchronous Javascript And XML">AJAX</abbr> and the Web 2.0 crowd.
+
+There has been much justified hand-wringing regarding the usability and accessibility challenges posed by <abbr title="Asynchronous Javascript And XML">AJAX</abbr> and obtrusive JavaScript, but I have my own personal bug-bear that's been around much longer than these trendy young acronyms with their tag-clouds and surface reflections.
+
+My gripe is the preponderance of unnecessary client-side form validation on simple, run-of-the-mill contact forms, information-request forms, and the like. In other words, what 90% of forms are all about--the rather important matter of allowing your customers to contact you.
+
+## What is the point of client-side form validation?
+A lot of people seem to have lost sight of the original thinking behind JavaScript (client-side) form validation. Here's a simple reminder:
+
+1. It provides visitors with a more seamless user experience.
+2. It reduces server load.
+
+The latter is, in my personal experience, a moot point these days, unless a site has an exceptional amount of traffic. Which leaves us with the first point: providing visitors with a more seamless user experience.
+
+And this is where the problems start, because too much (i.e. too restrictive) JavaScript form validation actually *impairs* the user experience.
+
+## Your visitors are infinitely smarter than your code
+Form validation is very closely linked with the topic of "required" form information, and they both boil down to the same thing: you can't *force* people to give you (genuine) information that they don't want to give you.
+
+Being a pedantic little git about the format of a 'phone number isn't going to convince those users not wishing to give you their number that maybe they should after all. It's just going to annoy those people who genuinely *do* want to give you their contact details.
+
+And who's to say your vistor's way of writing a telephone number is "wrong", and yours is "right" anyway (anyone mentioning [E.164](http://en.wikipedia.org/wiki/E.164 "How many of your customers will have read this?") at this point is missing the point)? Do you really want to lose a customer simply because he puts brackets around his dialing code?
+
+## Just keep it simple
+The best approach is to just keep things simple.
+
+JavaScript form validation is there to provide your visitors with *a helping hand*, nothing more. It's role should not be that of some fascistic dictator, screaming at people who put the space in the wrong place in their postcode.
+
+Rather, it should *gently* remind your visitor when he has forgotten to enter his name. And if it was a deliberate omission, well, then you get another [M. Mouse](http://en.wikipedia.org/wiki/Mickey_Mouse "Everyone's best customer") to add to your database.
+
+JavaScript can't stop people feeding you bogus information, if that's what they really want to do. It can't stop spam, and it can't keep your contact database clean as a whistle.
+
+However, it *can* annoy genuine customers, and make your company look like a collection of inconsiderate pedants. Use it, but use it wisely.

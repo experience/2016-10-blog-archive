@@ -1,0 +1,58 @@
+---
+author: Stephen Lewis <stephen@experiencehq.net>
+date: 2011-06-27
+title: Integrating ExpressionEngine With Third-Party APIs (Part 2 of 4)
+tags:
+- ExpressionEngine
+---
+# Integrating ExpressionEngine With Third-Party APIs (Part 2 of 4) #
+In order to create a robust, reliable add-on that interfaces with a third-party API, you must uncover any inconsistencies in the API's interface, or errors in the documentation, as early as possible. By doing so, you ensure that you don't waste time coding for a situation that doesn't really exist.
+
+The next post in this series will detail strategies for accomplishing this goal. First though, it's worth covering a few general dos and don'ts.
+
+## Understand your responsibilities ##
+Your responsibilities when dealing with any third-party API are very simple. You must:
+
+1. Supply the API with the information it requires, in the correct format.
+2. Process the information returned from the API.
+3. Have a consistent strategy in place for dealing with any errors that may occur.
+
+That's it. The mysterious inner workings of a third-party service are none of your concern, and should not occupy your time.
+
+## Use a library ##
+Robust, well-tested PHP code libraries already exist for most popular APIs. Unless you have a very good reason not to, you should use such a library.
+
+If an "official" library exists, choose this over any third-party efforts. It is likely to be better maintained, better documented, and may even be authored by the API developers.
+
+## Plan for the future ##
+There are a number of steps you can take to make future maintenance of your add-on as easy as possible. How far down this road you wish to travel will depend on the likely requirement for ongoing updates, and the size of your target audience.
+
+A publicly-released add-on that integrates with a rapidly evolving third-party service will benefit greatly from a bit of up-front planning. An add-on targeting a mature API for a private client, less so.
+
+### Route API calls through a single method ###
+Every API call should be routed through a single method. This allows you to perform standard "pre-call" activities, such as authentication or data-cleansing, in a single location.
+
+### Handle API responses in a single method ###
+Every API response should be handled by the same method, at least initially. The method should perform standard error checking and validation, before calling additional action-specific methods with the cleansed response data.
+
+### Wrap your connector ###
+Even if you're using a third-party library to connect to the API, you may still wish to "wrap" it in your own connector class. This saves a lot of headaches if you switch to using an alternative library in the future, but in practise is rarely worth the effort.
+
+## Log everything ##
+Implement a simple, consistent strategy for handling API errors. Fine-grained categorisation of errors is rarely worth the effort, and you should instead distinguish between issues based on their effect on the task in hand. For example: "fatal", or "non-fatal".
+
+How you choose to categorise errors, and the actions you take in response to those errors, are matters of personal preference. However, there is one thing you should most definitely do: log every error, regardless of significance.
+
+Create a "log" database table for your add-on, and write any errors to it. Then, create a simple interface for viewing the log, accessible from within your add-on.
+
+This may seem like a lot of unnecessary work, but trust me, when you deploy your add-on to the live server and it mysteriously stops working, you'll want to send me your first born as thanks. Please don't, I loathe children.
+
+### Notify the relevant authorities ###
+As useful as error logs are, they suffer from one significant drawback: unless explicitly instructed to do so, nobody looks at them.
+
+A "checkout" add-on that is failing to process purchases due to an API error clearly requires urgent attention. In situations such as this, you should automatically notify the site administrator of the problem, providing as much information as possible.
+
+You may also wish to notify the site administrator of ongoing "warnings", whose cumulative effect is potentially serious. For example, if an attempt to retrieve a user's timeline from the Twitter API fails, you can probably make do with cached data for a short period of time. However, the longer this problem persists, the more serious it becomes.
+
+## Next time ##
+The next post in this series will cover strategies for getting up and running with your chosen API as quickly as possible, and detail the process of uncovering inconsistencies and errors, before they become an issue.

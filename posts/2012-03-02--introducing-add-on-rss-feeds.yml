@@ -1,0 +1,23 @@
+---
+author: Stephen Lewis <stephen@experiencehq.net>
+date: 2012-03-02
+title: Introducing Add-on RSS Feeds
+tags:
+- ExpressionEngine
+- Announcements
+---
+# Introducing Add-on RSS Feeds #
+A little treat for all you add-on addicts out there: each of my add-ons now has its own changelog RSS feed.
+
+Just point your preferred RSS reader to `/software/feeds/{addon_name}/`, and you're done.
+
+For example, [the RSS changelog feed for Campaigner][campaigner_feed] is at `/software/feeds/campaigner`.
+
+## Group hug
+This is moderately handy in its own right, but was primarily motivated by my decision to add [NSM Addon Updater][nsm_addon_updater] support to all of my add-ons.
+
+[OmniLog 1.5.0][omnilog_150] was first to benefit from my new-found desire to play nicely with others. My other add-ons will follow suit as and when I release a new version.
+
+[campaigner_feed]:/software/feeds/campaigner "Join my loop"
+[nsm_addon_updater]:http://ee-garage.com/nsm-addon-updater "All your Kylies are belong to us"
+[omnilog_150]:/software/omnilog/changelog#v1.5.0 "The guinea pig"

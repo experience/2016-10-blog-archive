@@ -1,0 +1,16 @@
+---
+author: Stephen Lewis <stephen@experiencehq.net>
+date: 2010-07-21
+title: Announcing MailChimp Subscribe for ExpressionEngine 2
+tags:
+- ExpressionEngine
+- Announcements
+---
+# Announcing MailChimp Subscribe for ExpressionEngine 2 #
+[MailChimp Subscribe 2.0.0](/software/mailchimp-subscribe "Go ape. Or something. Seriously, I've got nothing") is out, bringing with it [ExpressionEngine 2](http://expressionengine.com/ "ExpressionEngine 2. Like ExpressionEngine 1 but with JavaScript and bugs. Awesome!") compatibility. Finally, you can all upgrade. Seriously, I should charge EllisLab commission for this stuff.
+
+The [official documentation](/software/mailchimp-subscribe "Read the documentation or I will hunt you down like a dog") has all the gory details, along with the all-important download link. If you're just a Linux gal who can't say no, the GitHub repositories are [here (EE 1)](http://github.com/experience/sl.mailchimp_subscribe.ee_addon "This one goes out to the Boyink massive"), and [here (EE 2)](http://github.com/experience/sl.mailchimp_subscribe.ee2_addon "Please do not visit if you suffer from an irrational fear of 'Download Source' buttons").
+
+In addition to the epoch shafting news of EE 2 support, I've also allowed the EE 1 version of MailChimp Subscribe one last grand hurrah, with a shiny new <abbr title="User Interface">UI</abbr>.
+
+If you discover a bug in the EE 1 version of MailChimp Subscribe which causes the deletion of the internet and the death of a loved one, by all means [let me know](http://support.experienceinternet.co.uk/discussions/mailchimp_subscribe/ "Official MailChimp Subscribe support") and I'll fix it. Other than that, I won't be making any further updates to EE 1 branch.

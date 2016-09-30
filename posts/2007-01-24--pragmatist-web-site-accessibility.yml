@@ -1,0 +1,92 @@
+---
+author: Stephen Lewis <stephen@experiencehq.net>
+date: 2007-01-24
+title: A Pragmatist&#039;s Guide to Creating Accessible Web Sites
+---
+# A Pragmatist&#039;s Guide to Creating Accessible Web Sites #
+Accessibility and web standards usually live happily hand-in-hand, with good, semantic markup doing a lot to help with the accessibility of a web site.
+
+When it comes to real world implementation, however, there's one big difference; it's easy to introduce web standards by stealth, but accessibility generally requires the involvement and understanding of a content author. In most cases that means some unfortunate member of your client's staff (or the client herself) with no experience of writing content for the web, and no idea what the hell semantic markup is all about.
+
+## A brief disclaimer
+There are a few things that I need to make clear before going any further:
+
+1. This article is in no way a replacement for a proper understanding of accessibility. It's a pragmatic and partial solution to a problem that I frequently encounter, nothing more. If you want to learn more about accessibility, I suggest you [start with A List Apart](http://alistapart.com/topics/userscience/accessibility/ "Read articles related to accessibility on A List Apart"), and go on from there.
+2. If you are lucky enough to have a client (or content author) who is receptive to learning about accessibility, treasure her, for you are truly blessed. You can safely disregard all the subterfuge and underhand tactics described below, and your friends and colleagues will look towards you with envy.
+3. If you are a potential client reading this, please don't be offended by the talk of deviousness that follows. Hopefully you'll understand my reasoning, and will [happily employ me](/contact "Let me make your web site better, through cunning and stealth") with the unspoken understanding that I'm doing my underhanded best to improve your web site.
+4. If you are a potential client with a deep love and understanding of accessibility, [please hire me, I'll be your best friend forever](/contact "Let our love blossom").
+5. If you are an [existing client](/work "People I've deceived"), I'm sorry I lied to you. It was for your own good, really.
+
+Caveats and apologies complete, let's continue.
+
+## The problem is not the client
+Most clients don't care what's under the hood, just as long as it all renders correctly in their copy of <abbr title="Internet Explorer">IE</abbr>6, which means you can quietly go about your web standards business, writing valid, elegant code, without making a big deal about it.
+
+And that's the way it should be. Clients shouldn't be expected to know about web standards if they don't want to. That's why they're paying somebody else to do the work in the first place.
+
+Unfortunately, this hands-off approach doesn't really work when it comes to creating an accessible web site. Sure, your chosen <abbr title="Content Management System">CMS</abbr> can lead content authors down the correct path by demanding alt text for images and so forth, but unless the person writing the content understands *why* using semantically correct elements is important, *why* alternative text needs to be added for *every* image, and *why* those title attributes on links really are very useful, the chances are that things will start to unravel pretty quickly.
+
+And this is where the problems start. Our aforementioned put-upon content author probably has plenty on their plate already, thank you very much, doesn't know a damn thing about accessibility or writing for the web, and has neither the time nor the inclination to learn.
+
+Quite aside from all the project management headaches this causes, it usually means that a couple of months down the line the site is riddled with non-validating images (no alt text), extra-large bold text instead of headings, and all manner of other horrors.
+
+At this point, we, as conscientious web developers, huff and puff to each other, rolling our eyes and employing a wide variety of expletives to describe the people who have destroyed our lovely web site (the fact that these same people paid us to build it in the first place is momentarily forgotten during these bouts of self-righteous posturing).
+
+Really though, what do we expect? Since becoming self-employed, I have a much more pragmatic attitude towards such things. Ideology is great, but it's a darn sight easier to balance on your soap box when someone else is paying the bills.
+
+It's simply not reasonable to expect a client to invest the time required to learn about semantically meaningful content and markup, the importance of accessibility, and so forth. They're much too busy with the general tasks of running a business; you know, making money, paying bills, that sort of thing.
+
+And don't bother wittering on about how 98% of their potential visitors will be blind motor-function impaired Safari users with JavaScript disabled and a 14.4k internet connection, because it just won't wash.
+
+So what can be done? Well, we can continue huffing and puffing, or we can adopt a more pragmatic attitude to the problem. It might not be perfect (far from it, in truth), but the following plan of action is a *lot* better than just blowing hot air and expletives about the place.
+
+## Pragmatic accessibility: avoiding the word "accessibility"
+So, we've established that creating accessible content looks (to your client) like a lot of extra hassle for not much reward. What we need is a big fat incentive to encourage the necessary diligence required of our overworked content author. Luckily for us, we have one, and as carrots go, it's pretty big: Google.
+
+Once you explain that *Google* loves headings, alt text, title attributes, and all those other pesky little what-nots, your _client_ has a good reason to care about them. The word "accessibility" doesn't even need to pass your lips, just the promise of increased clout in the search engines is enough.
+
+Here's how the [Gods of Search](http://news.bbc.co.uk/1/hi/business/3666241.stm "Be humble before them, for they know where you live") can be employed in our devious scheme.
+
+### Google loves text
+If your client wants the entire products page to be one big image with no alt text, tell them -- better yet, show them -- what that page will look like to Google.
+	
+Turn off images in Firefox and load up the page. Explain that this is what Google will see. No keywords, no lovely special offer details, nothing.
+
+Explain that those dreams of riding high at the top of the search engines for ["motorised hamster wheel"](http://www.google.com/search?num=30&hl=en&lr=&safe=off&client=safari&rls=en&q=motorised+hamster+wheel&btnG=Search "782 matching pages. No, really.") will never be realised unless they start producing content that Google can "see."
+
+Which brings me rather neatly to my second point...
+
+### Google loves descriptive text
+The key word here being *descriptive*.
+
+Never mind that a blind person using a screen reader will have a tough time distinguishing between twenty "click here" links. Dismiss any thoughts of pointing out how horrific lengthy <abbr title="Uniform Resource Locator">URL</abbr>s with [no title attributes](http://www.amazon.co.uk/ "The Amazon web site, sadly devoid of link titles") sound to non-sighted visitors.
+
+Instead, just mention the fact that Google gives no weight or credibility to a "click here" link or a meaningless <abbr title="Uniform Resource Locator">URL</abbr>, but it positively gorges itself silly on link text and titles like "[Read our report on caring for your obese hamster](http://www.google.com/search?num=30&hl=en&lr=&safe=off&client=safari&rls=en&q=caring+for+your+obese+hamster&btnG=Search, "Words fail me.")."
+
+### In The Land of Google, the heading is king
+Google, lucky for us, is blind. Which means that, even though _we_ clearly understand that the 48px, bold, pink text is a heading (weep not, sweet designer, hope is at hand), Google doesn't.
+
+This may not seem like a big deal to your typographically-challenged client, until you explain that Google lives and dies by headings. It places more importance on the headings on a site than almost anything else. And the only way that Google knows when text is a heading is if you tell it; not *show* it, *tell* it.
+
+Suddenly, headings really are a big deal, the &lt;h1&gt; tag becomes your client's best friend, and the pink text is a thing of the past.
+
+### Google doesn't much like Flash (or JavaScript) ###
+In the days before I accepted web standards and accessibility into my life, I did a lot of Flash work. Now, I'll fight tooth and nail to avoid it for anything but the most innocuous of elements. A Flash movie instead of a static image you say? Fine, not a problem. A Flash movie for the primary navigation? Time to drop the Googlebomb.
+
+Google is all about links. Simple, easy to understand, easy to use, no bells or whistles, links. Once you start using Flash for navigation, obtrusive JavaScript for links, and other such nonsense, Google turns it's back on you.
+
+Sure, you can find ways around many of these problems, but such workarounds are mostly just one big time-consuming, ineffectual fudge. Good old <abbr title="HyperText Markup Language">HTML</abbr> is much better at all the important stuff, and it's just *so* Google friendly.
+
+## When all else fails
+If you try all this sneakiness, and your client still doesn't care, it's time to start talking figures.
+
+Point out that they could get a potentially huge amount of "free" traffic via the search engines, traffic that they would otherwise have to pay for through Google AdWords, banner ads, brochures, leaflets, and various other bits of costly marketing.
+
+If they still don't care, you have three options:
+
+1. Beat them.
+2. Plead with them. Cry, if you think it will help.
+3. Accept defeat, and stick a big, unoptimised bitmap right in the middle of the page. Some people are beyond saving, and it's best to just accept that fact.
+
+## Conclusion
+Got something to say? Don't just sit there, [spit it out](/contact "Send me your pearls of wisdom"), you know I can take it.

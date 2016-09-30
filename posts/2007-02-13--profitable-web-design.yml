@@ -1,0 +1,76 @@
+---
+author: Stephen Lewis <stephen@experiencehq.net>
+date: 2007-02-13
+title: How to Run a Profitable Web Design Agency
+---
+# How to Run a Profitable Web Design Agency #
+The government here in the <abbr title="United Kingdom">UK</abbr> has been running [a series of adverts](http://www.recyclenow.com/fun_stuff/watch_it_here/recycle_now_tv.html "Watch the Recycle Now adverts") of late, designed to encourage us all to be a little less wasteful, and little more mindful of our impact on the environment.
+
+Similar campaigns have been run in the past with the slogan "Reduce, Reuse, Recycle", a catchy little piece of alliteration that neatly sums up the three-pronged assault on us irresponsible consumers.
+
+It occurred to me that this slogan could serve equally well (with some slight shoe-horning) as a description of how to run a profitable web design business, particularly when faced with small budgets and tight deadlines.
+
+## Reduce
+Doing stuff takes time. Hardly a revelatory statement, I'm sure you'll agree, but a difficult one to contest. It therefore follows, quite logically, that doing less "stuff" will take less time.
+
+Impressive reasoning, and one which can make all the difference between profit and loss.
+
+### Less documentation
+Some web companies wouldn't know a decent project specification if it dressed in a [RaRa skirt](http://search.ebay.co.uk/search/search.dll?sofocus=bs&sbrftog=1&from=R10&satitle=rara+skirt&sacat=-1%26catref%3DC6&bs=Search&a6=-24&a47=-24&a56=-24&alist=a6%2Ca53%2Ca22750%2Ca14%2Ca47%2Ca56%2Ca3801&pfmode=1&reqtype=1&gcs=1551&pfid=2127&pf_query=rara+skirt&sargn=-1%26saslc%3D3&sadis=200&fpos=Postcode&ga10244=10425&ftrt=1&ftrv=1&saprclo=&saprchi=&fsop=1%26fsoo%3D1&coaction=compare&copagenum=1&coentrypage=search&fgtp= "Visit fashion heaven") and sang the _"I'm a pretty project spec, who are you?"_ song.
+
+However, if you're not working at such a company an easy way to reduce the amount of work involved in a project is to cut out some of the non-essential documentation (note the use of the phrase "non-essential", I'm not suggesting you skimp on the contracts here).
+
+Smaller projects (with smaller budgets) will generally require less documentation anyway, but some companies will still insist on following a process that has been designed to meet the demands of a much larger project. A standard working methodology is great, and I would heartily recommend that you clearly define and implement your own, but a little bit of flexibility is required in order for it to work well across different types of projects.
+
+Why not try something a bit different for smaller projects?
+
+Try stating the project objectives and deliverables on a single sheet of A4, for example. If you can't manage it, don't just decrease the font size; ask yourself _why_ you can't. More often than not it's because either you or the client (or both) don't really know what the project objectives and deliverables are, and you're just trying to ramble your way out of trouble.
+
+If you truly understand a concept or requirement, you can usually express it very succinctly, so this is a good litmus test.
+
+Alternatively, try using [Basecamp](http://www.basecamphq.com/ "Web-based project management"), or some other project collaboration software, and let your correspondence with the client act as the documentation.
+
+### Fewer designs
+I've never been the sort of person who routinely presents a client with three, four, or more designs for a project.
+
+My personal experience of such situations has been almost wholly negative, as the client invariably falls in love with the rather cruddy design you rustled together to make up the numbers, or adopts a Pick 'n' Mix attitude in an attempt to make their own "Best Of" design.
+
+However, if you're in the habit of presenting a client with several alternative designs for a project, here's an idea for you: don't.
+
+Make sure that your contract (you do have a contract, right?) clearly states what the client will be getting (one design, two rounds of revisions, for example), and budget accordingly. If the client wants half-a-dozen alternatives, that's fine, just as long as he's happy to pay for them.
+
+This may sound a trifle unreasonable (or impractical) to those of you used to the "buffet" approach, but there's a very strong argument why it's a good idea.
+
+Producing multiple designs for a single project inevitably means a lot of wasted time, effort, and money. The client gets more options from which to choose, which usually means more back-and-forth with tweaks and revisions, a much longer decision-making process, and a final design which resembles a Frankenstein's Monster of the various initial concepts.
+
+More than that though, by producing multiple designs, you (as a designer) are effectively shirking your responsibilities, and palming them off onto somebody without the training or knowledge to take up your slack.
+
+Designing is all about making a series of decisions in order to arrive at a solution that fulfills the stated requirements. Your client has employed you to make these decisions because he isn't trained to make them himself. If you decide to foist the decision-making process back onto the client, not only are you inviting disaster, you're also failing him by not providing the service for which you were employed.
+
+Sure, some clients like to contribute heavily (to put it politely) to a design, but that can be largely avoided by working with clients who respect your abilities and judgement (which is another topic altogether).
+
+So, keep it simple. Fewer designs mean more design decisions being made by the designer, less confusion for the client, reduced costs, and a smoother-running project.
+
+## Reuse and Recycle
+Building a library of reusable elements is essential if you want to make a profit on projects with a tight budget, whilst maintaining a high level of quality.
+
+With a bit of thought, pretty much every stage of a project can be abstracted to yield useful library elements. Here are a few ideas:
+
+- Documentation can be easily customised to suit a specific client (by merging data from an address book, for example). Reusing (thoroughly checked) documentation means less errors, and a higher-quality end product
+- When built correctly within Photoshop, design elements such as buttons or tabs can be easily adapted and reused across projects, whilst still retaining a distinctive appearance 
+- Standard <abbr title="eXtensible HyperText Markup Language">XHTML</abbr> data structures can be extracted and stored in separate files ready inclusion in a new document. When combined with a semantically solid naming convention for IDs and classes, this can greatly reduce a lot of the repetitive (and error-prone) decision-making that goes on when building common <abbr title="eXtensible HyperText Markup Language">XHTML</abbr> structures
+- Boilerplate <abbr title="Cascading Style Sheets">CSS</abbr> files containing a basic set of rules can save loads of time at the start of a project, obviating the need to type out everything from scratch for each and every project
+- Keep JavaScript and PHP modular, so that it can be easily "plugged-in" to a new site without any rewriting of code. Once again, consistent naming of IDs and classes is a big help here, especially for the <abbr title="JavaScript">JS</abbr>. If a script absolutely must be customised, try to restrict any changes to a few clearly labeled variables at the top of the file
+
+Building a decent library takes time, and more than a little effort. Most of us (myself included) will usually find ourselves hunting through old Photoshop documents and source files instead, looking for an element that "I know is in here somewhere."
+
+It's worth the effort though, and it's also worth remembering that the less time you spend on the tedious repetitive stuff, the more time you get to spend focusing on producing an excellent design for your client, which means everyone wins.
+
+I've had clients who've objected to the idea that I may be using library elements (particularly <abbr title="User Interface">UI</abbr> elements) on their project, but I always felt that they were missing the point somewhat.
+
+A client can pay me to re-create from scratch common elements that I've produced a hundred times before, or they can pay me to focus on creating a final product that is specific to their requirements, and helps their business to achieve it's goals. Either way they're paying for my time, but the latter strikes me as being much the better deal.
+
+## Conclusion
+Sometimes it can be difficult to make money on a project, especially if the budget is tight. By following the ideas outlined above, and being open and honest with my clients, I've found that I can continue to run a profitable web design business without compromising quality or customer satisfaction.
+
+I hope this post helps you to do the same.

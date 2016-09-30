@@ -1,0 +1,45 @@
+---
+author: Stephen Lewis <stephen@experiencehq.net>
+date: 2011-06-16
+title: Integrating ExpressionEngine With Third-Party APIs (Part 1 of 4)
+tags:
+- ExpressionEngine
+---
+# Integrating ExpressionEngine With Third-Party APIs (Part 1 of 4) #
+A few weeks ago, I presented a short talk at [the EE London meetup][londoneers] entitled "Integrating ExpressionEngine with Third-Party APIs". Free booze and snacks made for an easily-pleased crowd, and the whole thing went pretty well.
+
+[londoneers]: http://www.meetup.com/londoneers/ "Cocknees. Sorry"
+
+I've since received a few follow-up questions and slide requests, and decided some blogging was in order.
+
+Rather than attempting to cram the entire presentation into a single blog post, I've split it up into a number of smaller posts. I recommend supplying your own refreshments, in order to get the most out of the experience.
+
+## Introduction ##
+A number of my publicly-available add-ons integrate ExpressionEngine with third-party APIs, the most notable being my dual retirement funds [BucketList][bucketlist] and [Campaigner][campaigner].
+
+[bucketlist]: /software/bucketlist "Still waiting for Low to pull his finger out"
+[campaigner]: /software/campaigner "Like MailChimp Subscribe, but more expensive"
+
+I've also written dozens of custom add-ons for private clients, the majority of which revolve around making ExpressionEngine play nicely with a third-party service.
+
+Regardless of whether the service in question is Twitter, Salesforce, a credit card payment processor, or the latest creation from Amazon or Google, almost all client requests start with the words "we need to integrate our ExpressionEngine website with...".
+
+What this means is that I'm constantly dealing with new (and changing) APIs. As such, I've developed strategies that get me up and running with an unfamiliar service as quickly as possible, and uncover any inconsistencies and "gotchas" as early as possible. I've also developed a standard approach for dealing with common issues that arise, regardless of the target API.
+
+My goal with this short series of posts is to provide some practical tips on how to make the process of developing ExpressionEngine add-ons that interact with third-party APIs as trouble-free and painless as possible.
+
+## I have trust issues ##
+* I don't trust what the API says it wants.
+* I don't trust what the API says it returns.
+* I don't trust the API developer.
+* I sure as hell don't trust the API documentation.
+
+All of which raises the question: if you don't trust an API's input, output, developer, or documentation, how can you possibly write a reliable, robust add-on that interfaces with said API?
+
+The answer consists of three parts:
+
+1. Understand how the API _really_ works, and uncover any inconsistencies as early as possible.
+2. Implement a reliable, consistent approach for dealing with both the inevitable and unexpected failures.
+3. Implement a reproducible, efficient system of testing that covers both common scenarios, and potentially serious edge-cases.
+
+The remaining posts in this series cover each of these items in turn.

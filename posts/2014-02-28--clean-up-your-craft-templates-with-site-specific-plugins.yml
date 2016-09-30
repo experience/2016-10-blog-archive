@@ -1,0 +1,222 @@
+---
+author: Stephen Lewis <stephen@experiencehq.net>
+date: 2014-02-28
+title: Clean up your Craft templates with site-specific plugins
+tags:
+- Craft
+---
+# Clean up your Craft templates with site-specific plugins #
+[Craft][craft] is still a young product, and we--along with most of the burgeoning Craft community--are still feeling our way a bit, figuring out best practises as we go.
+
+[craft]: http://buildwithcraft.com/ "The Craft content management system. I hear Happy Cog uses it you know"
+
+Something which has been working very well for us of late is encapsulating site-specific variables and functionality in a plugin.
+
+Here's how we used a site-specific plugin to clean up our templates on the [Craft Cookbook website][craftcookbook].
+
+[craftcookbook]: http://craftcookbook.net "Craft Cookbook. Like the official Google+ group, for people who actually want to get something done"
+
+## Background
+In order to get the Craft Cookbook website launched, we made a few "good enough for now" decisions. One such decision means that the way in which contributors submit recipes to the site is very likely to change in the future, along with the "submit" URL.
+
+Given that this URL is used in multiple locations throughout the site, it made sense to create an [environment variable][docs_environmentVariables] with the URL "path" to the submit page (we could also have used a [Global][docs_globals], had we been so inclined):
+
+[docs_environmentVariables]: http://buildwithcraft.com/docs/multi-environment-configs#environment-specific-variables "Configure all the things"
+[docs_globals]: http://buildwithcraft.com/docs/globals "Like environment variables without the version control"
+
+```php
+// craft/config/general.php
+return array(
+    '*' => array(
+        'environmentVariables' => array(
+            'createRecipePath' => 'path/to/create-page',
+        ),
+    ),
+);
+```
+
+
+We then used this variable in our templates, to determine the "submit recipe" URL:
+
+```twig
+{% set createRecipeUrl = url(craft.config.environmentVariables['createRecipePath']) %}
+<a href="{{ createRecipeUrl }}">Submit a recipe</a>
+```
+
+
+This approach works, but it's ugly and repetitive, and we don't stand for such things around these parts.
+
+## Cleaner living through plugins
+Using a plugin, we can easily make a custom global `createRecipeUrl` variable available to all of our templates.
+
+The plugin is simplicity itself, and consists of just three files, organised as follows:
+
+```other
+craft/plugins/
+    craftcookbook/
+        CraftCookbookPlugin.php
+        services/
+            CraftCookbook_ConfigService.php
+        twigextensions/
+            CraftCookbookTwigExtension.php
+```
+
+
+### CraftCookbookPlugin.php
+The main plugin file does two things:
+
+1. It provides Craft with the information required to install and activate the plugin. This is boilerplate code, as described in the [official documentation][docs_pluginDevelopment].
+2. It registers a custom Twig extension, which will be responsible for making the `createRecipeUrl` global variable available to our templates.
+
+[docs_pluginDevelopment]: http://buildwithcraft.com/docs/plugins/setting-things-up "A short guide to painless plugin development"
+
+```php
+<?php
+namespace Craft;
+
+class CraftCookbookPlugin extends BasePlugin
+{
+    /**
+     * Returns the plugin name.
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return 'CraftCookbook';
+    }
+
+
+    /**
+     * Returns the plugin version.
+     *
+     * @return string
+     */
+    public function getVersion()
+    {
+        return '0.1.0';
+    }
+
+
+    /**
+     * Returns the name of the plugin developer.
+     *
+     * @return string
+     */
+    public function getDeveloper()
+    {
+        return 'Stephen Lewis';
+    }
+
+
+    /**
+     * Returns the preferred URL of the plugin developer.
+     *
+     * @return string
+     */
+    public function getDeveloperUrl()
+    {
+        return 'http://experiencehq.net';
+    }
+
+
+    /**
+     * Registers the Twig extension.
+     *
+     * @return CraftCookbookTwigExtension
+     */
+    public function addTwigExtension()
+    {
+        Craft::import('plugins.craftcookbook.twigextensions.CraftCookbookTwigExtension');
+        return new CraftCookbookTwigExtension();
+    }
+}
+```
+
+
+### CraftCookbook_ConfigService.php
+Our custom Craft service makes the plugin file appear positively bloated. It contains a single public method, which retrieves `createRecipePath` from the "general" configuration variables, and returns it to the calling code. If no such variable exists, the method returns `null`:
+
+```php
+<?php
+namespace Craft;
+
+class CraftCookbook_ConfigService extends BaseApplicationComponent
+{
+    /**
+     * Returns the 'createRecipePath' config variable, if it exists, or null.
+     *
+     * @return string | null
+     */
+    public function getCreateRecipePath()
+    {
+        return isset(craft()->config->generalConfig['createRecipePath'])
+            ? craft()->config->generalConfig['createRecipePath']
+            : '';
+    }
+}
+```
+
+
+### CraftCookbookTwigExtension.php
+Finally, we have the Twig extension, which makes the `createRecipeUrl` global variable available to our templates.
+
+Once again, the code is clean and simple: we retrieve the `createRecipePath` from our service, use it to construct a URL, and return that URL in an associative array of global variables.
+
+```php
+<?php
+namespace Craft;
+
+class CraftCookbookTwigExtension extends \Twig_Extension
+{
+    /**
+     * Returns an array of global variables.
+     *
+     * @return array An array of global variables.
+     */
+    public function getGlobals()
+    {
+        $globals['createRecipeUrl'] = UrlHelper::getUrl(
+            craft()->craftCookbook_config->getCreateRecipePath());
+        return $globals;
+    }
+
+
+    /**
+     * Returns the Twig extension name.
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return 'CraftCookbook';
+    }
+}
+```
+
+
+## Putting our plugin to work
+Now that we've created our custom plugin, we just need to make the `createRecipePath` variable part of the general configuration array (as opposed to the `environmentVariables` array).
+
+Our `craft/config/general.php` file now looks like this:
+
+```php
+return array(
+    '*' => array(
+        'createRecipePath' => 'path/to/create-page',
+    ),
+);
+```
+
+
+With that done, we can use our shiny new global variable in exactly the same way as built-in Craft variables such as [`loginUrl`][docs_loginUrl]:
+
+[docs_loginUrl]: http://buildwithcraft.com/docs/templating/global-variables#loginUrl "Imitation is the sincerest form of flattery"
+
+```twig
+<a href="{{ createRecipeUrl }}">Submit a recipe</a>
+```
+
+
+## Conclusion
+Whilst this is a fairly trivial example, it demonstrates how site-specific plugins can clean up your templates, and keep your Craft code nicely organised.

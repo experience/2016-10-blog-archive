@@ -1,0 +1,27 @@
+---
+author: Stephen Lewis <stephen@experiencehq.net>
+date: 2010-11-02
+title: Introducing Campaigner for ExpressionEngine 2
+tags:
+- ExpressionEngine
+- Announcements
+---
+# Introducing Campaigner for ExpressionEngine 2 #
+I first released Campaigner (then SL Freshview Subscribe) back in 2008. In ExpressionEngine terms those were wild and dangerous times, pre-dating such cultural touchstones as [(FF) Matrix](http://pixelandtonic.com/matrix/ "Bait and switch, bitches"), [Structure](http://buildwithstructure.com/ "EE without all that annoying EEness"), and [Jamie Rumbelow](http://bit.ly/9gnDPv "I hope you're not lactose intolerant, because the next word is 'dairy'").
+
+In the intervening years, I've rewritten Campaigner (twice), and become incredibly wealthy and popular due to its fame and commercial success.
+
+Perhaps not surprisingly, my adoring public wanted more. It's a damned imposition, certainly, but I recognise and understand your desperate longing in ways even you don't fully comprehend.
+
+So here it is, my sweet devoted minions: [Campaigner for ExpressionEngine 2](/software/campaigner "Finally, a reason to upgrade"). Completely rewritten, exhaustively tested, available today.
+
+## Huh? ##
+For those of you who have been stuck using WordPress (25 million people can't be wrong&trade;) for the past 2 years, Campaigner makes it easy to subscribe members of your ExpressionEngine site to [Campaign Monitor](http://campaignmonitor.com/ "Like MailChimp, with added Australian") mailing lists.
+
+It fully supports all the [ExpressionEngine account activation options](http://expressionengine.com/user_guide/cp/members/membership_preferences.html "ExpressionEngine documentation for 'Membership preferences'"), and even works if you go all power crazy, and start registering new members [via the Control Panel](http://expressionengine.com/user_guide/cp/members/new_member_registration.html "ExpressionEngine documentation for 'Register a new member'").
+
+On top of that, you can specify an optional "trigger" for each mailing list, enabling members to select (that's "opt-in" for all you e-marketing folk) which lists they wish to join.
+
+Hell, if you've got [User](http://solspace.com/software/detail/user/ "Taking up EllisLab's slack since 2008") installed, your site members can even _update_ their Campaign Monitor subscription preferences directly from your site. I know, even I was impressed by that last one.
+
+So there you go, [Campaigner for ExpressionEngine 2](/software/campaigner "Campaign Monitor and EE, sitting in a tree"). Buy it, and quit bugging me about [BucketList](/software/bucketlist "Patience").

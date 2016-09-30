@@ -1,0 +1,20 @@
+---
+author: Stephen Lewis <stephen@experiencehq.net>
+date: 2015-08-18
+title: Interviewed by Snipcart
+tags:
+- Announcements
+---
+# Interviewed by Snipcart #
+A few weeks ago, we updated the shopping cart and checkout on the venerable [Iconic Interiors website][iconic]. Iconic is still running on ExpressionEngine 1 so our options were pretty limited.
+
+Thankfully, [Snipcart][snipcart] came to our rescue, transforming the rather onerous (and time-consuming) process of implementing a shopping cart, and integrating with a payment provider, into a swift and pleasurable experience.
+
+[iconic]: https://iconicinteriors.com "The Iconic Interiors website; almost as old as the designs they sell"
+[snipcart]: https://snipcart.com "Our knights in shining JavaScript"
+
+As such, when Snipcart asked me if I'd like to have a chat with them as part of their "Geek Talk" series, I was more than happy to oblige. The interview covers such exciting topics as my favourite superhero, and we even find time to discuss some developer-type things.
+
+So, if you've ever wondered what my favourite quote is, now is [your chance to find out][snipcart-blog].
+
+[snipcart-blog]: https://snipcart.com/blog/geek-talk-interview-with-developer-stephen-lewis "Outside of a dog, a book is a man's best friend. Inside a dog it's too dark to read."

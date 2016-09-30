@@ -1,0 +1,42 @@
+---
+author: Stephen Lewis <stephen@experiencehq.net>
+date: 2012-07-27
+title: Testee 2.2
+tags:
+- ExpressionEngine
+- Announcements
+---
+# Testee 2.2 #
+Yesterday I released Testee 2.2, which contains a significant[^1] new feature: [automated testing][auto_docs].
+
+You can now run an add-on's test suite by loading an "ACTion" URL; Testee does your bidding, and returns the results as JSON:
+
+```javascript
+// Run the Testee test suite.
+http://example.com?ACT=101&addon=testee
+	
+// JSON response.
+{
+    "summary": {
+        "result": "failed",
+        "pass_count": "100",
+        "error_count": "0",
+        "exception_count": "0",
+        "fail_count": "0",
+        "skip_count": "0"
+    },
+    "errors": [],
+    "exceptions": [],
+    "fails": [],
+    "skips": []
+}
+```
+
+
+This is particularly handy if you use any sort of build process, or want to automatically run your test suite every time you make a Git commit (for example).
+
+[Check out the documentation][auto_docs] for comprehensive information on using this new feature.
+
+[auto_docs]: /software/testee/docs/testee-automated-testing/ "Includes HTTP Response Status Codes, and everything"
+
+[^1]: Or possibly completely insignificant, if you have no interest in unit testing ExpressionEngine add-ons.

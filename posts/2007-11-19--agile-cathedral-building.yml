@@ -1,0 +1,15 @@
+---
+author: Stephen Lewis <stephen@experiencehq.net>
+date: 2007-11-19
+title: The Agile Developer&#039;s Guide to Building a Cathedral
+---
+# The Agile Developer&#039;s Guide to Building a Cathedral #
+I just finished reading [The Pillars of the Earth, by Ken Follett](http://www.amazon.co.uk/Pillars-Earth-Ken-Follett/dp/0330450131/ref=pd_bbs_sr_1?ie=UTF8&s=books&qid=1195505691&sr=8-1 "The Pillars of the Earth at Amazon.co.uk"). It's a huge tome, centring around the building of a cathedral, a task spanning over three decades and 1100 pages.
+
+Wading through this book, I was struck by the transience of all the web sites and web apps that we produce, when compared with the permanence of a medieval cathedral. Web sites take weeks--sometimes days--to design and build, using all manner of time-saving productivity tools. A medieval cathedral was typically the life's work of the master builder, not to mention his teams of craftsmen.
+
+And then, nearly 900 pages into the tale, I came across this passage (emphasis added):
+
+> There were two ways to build a nave: bay by bay, beginning at the crossing and working west; or course by course, laying the base of the entire nave first and then working up. The second way was faster but required more masons. It was the method Jack had intended to use. Now he reconsidered. *Building bay by bay was more suited to a reduced workforce. It had another advantage, too: any modifications he introduced into his design to take account of wind resistance could be tested in one or two bays before being used throughout the building.*-- Ken Follett, "The Pillars of the Earth" (http://www.amazon.co.uk/Pillars-Earth-Ken-Follett/dp/0330450131/ref=pd_bbs_sr_1?ie=UTF8&s=books&qid=1195505691&sr=8-1)
+
+[Getting Real](http://gettingreal.37signals.com "The 37signals guide to building a successful web application. Or cathedral."), 15th Century style.

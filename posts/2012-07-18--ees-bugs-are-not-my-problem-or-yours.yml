@@ -1,0 +1,85 @@
+---
+author: Stephen Lewis <stephen@experiencehq.net>
+date: 2012-07-18
+title: EE&#039;s Bugs Are Not My Problem (Or Yours)
+tags:
+- ExpressionEngine
+- Opinion
+---
+# EE&#039;s Bugs Are Not My Problem (Or Yours) #
+A few hours ago, [Steven Hambleton][twitter_hambo] (of [Hambo Development][hambo] fame) posted this Tweet:
+
+[hambo]:http://hambodevelopment.com/ "Your digital partners, strategically speaking"
+[twitter_hambo]:http://twitter.com/stinhambo/ "He &heart;s ExpressionEngine"
+
+> @reedmaniac Why don't you apply to be on the #eereactor team? Make a difference :)-- Steven Hambleton (https://twitter.com/stinhambo/statuses/225622515865747456)
+
+This was in response to a Tweet by Paul Burdick ([@reedmaniac][twitter_reedmaniac]) bemoaning the number of bugs in EE2, and followed on from a more general discussion about whether ExpressionEngine (and EllisLab) has been going off the rails of late.
+
+[twitter_reedmaniac]:http://twitter.com/reedmaniac/ "PHP Grylls"
+
+I'm not well versed in the emotional subtleties of smileys, so it could be that Steven was simply trying to diffuse what was becoming a slightly heated conversation. That's not really relevant though, as this blog post isn't directed at one person, much less one passing comment.
+
+Rather, it's directed at anybody who considers it reasonable to suggest the ExpressionEngine community should be responsible for fixing the myriad bugs in EE2.
+
+## What's your problem?
+Let's look at that Tweet again, and consider what it's really suggesting. If it helps, imagine we're talking about Adobe, rather than our cuddly EllisLab overlords.
+
+Here's the meat of the Tweet:
+
+> Why don't you apply to be on the #eereactor team?
+
+And here's what it's really asking:
+
+> Why don't you pay money for a commercial product, and then--when it fails to work as advertised--apply to the product's makers for permission to fix the bugs in their software, free of charge?
+
+When phrased like that, the answer is pretty obvious.
+
+To be clear on this, I have no objection to the existence of an ExpressionEngine Reactor Team.
+
+In many respects, I think it's a really smart idea: a select group of interested individuals are invited to implement low-priority (but nevertheless useful) feature requests; the sort of thing that would otherwise be forever slipping to the bottom of EllisLab's to-do list.
+
+## The bigger issue
+Bug fixing is not a "low priority" activity--or at least it _shouldn't_ be--and as such should not become the responsibility of a group of unpaid contributors.
+
+When I first started using ExpressionEngine it was easy to justify the license fee: "As a commercial product," I would explain to my impudent client, "ExpressionEngine has better support, and bugs are much more likely to be fixed in a timely fashion."
+
+Ignoring the subject of support for the moment (another can of worms entirely), what am I supposed to say to my clients given the current state of the [ExpressionEngine bug tracker][ee_bug_tracker]?
+
+Me
+: Well, yes, there _are_ 244 open bugs--[178 of which][ee_bug_tracker_new] haven't even been looked at yet--stretching all the way back to August 2011. And yes, even EllisLab's own employees can't get [bugs][ee_bug_tracker_robin_01] [fixed][ee_bug_tracker_robin_02]. But if we run into any problems I can ask really, really nicely, and if we're lucky EllisLab might let me fix them for free!
+
+Client
+: What, like Open Source software?
+
+Me
+: Sort of, but we have to pay for it. And I can't just fix the bugs, I have to be given permission to do so.
+
+Client
+: …
+
+Me
+: We have [Matrix][matrix]! For $55.
+
+## This is not my problem, or yours
+The whole idea that fixing ExpressionEngine's bugs is somehow a problem for the "community" is completely wrong. This isn't Open Source, this is a _commercial product_. We're paying for the privilege of using it.
+
+The ExpressionEngine community is incredibly loyal, in this case to a fault. We want our beloved CMS to be solid, reliable, and bug free, and so (the illogic goes) we should just roll up our sleeves and make it so.
+
+EllisLab is lucky to have such a generous group of people dedicated to the success of their product, something [Leslie Camacho][twitter_knight777] (among others) has long acknowledged. And in fairness, EllisLab has never suggested it's the responsibility of community members to be fixing the bugs in its products.
+
+However, EllisLab has put us all in the position of _needing_ to do so. If EllisLab was doing its job properly, we wouldn't be having these conversations, and I wouldn't be ranting into my blog.
+
+Just because we want to see ExpressionEngine succeed doesn't mean we shouldn't hold EllisLab to task for its failings.
+
+## So what's the answer?
+I have no idea. I have no insider knowledge to share, and no insights into EllisLab culture or how the business is being run.
+
+What I do know is that--from a customer's perspective--things aren't running well, and it's not the community's job to fix them.
+
+[ee_bug_tracker]:http://expressionengine.com/bug_tracker/list_2.x "Read it and weep"
+[ee_bug_tracker_new]:http://expressionengine.com/bug_tracker/list_2.x/New "At what point does 'new' become 'ignored'?"
+[ee_bug_tracker_robin_01]:http://expressionengine.com/bug_tracker/bug/16608 "Never let it be said that EllisLab indulges in favouritism"
+[ee_bug_tracker_robin_02]:http://expressionengine.com/bug_tracker/bug/16607 "Or bug fixing, for that matter"
+[matrix]:http://pixelandtonic.com/matrix/ "As Firebug is to Firefox"
+[twitter_knight777]:http://twitter.com/knight777/ "The bug cheese"

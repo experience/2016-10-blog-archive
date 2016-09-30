@@ -1,0 +1,109 @@
+---
+author: Stephen Lewis <stephen@experiencehq.net>
+date: 2013-03-21
+title: Gender In Tech, And The Right Not To Be Offended
+tags:
+- Opinion
+---
+# Gender In Tech, And The Right Not To Be Offended #
+Along with most of the nerdiverse, I awoke this morning to yet another "[tech conference][dailydot] [gender discrimination][venturebeat]" Twitter storm.
+
+[dailydot]: http://www.dailydot.com/society/pycon-dongle-joke-misogyny-sexism-adria-richards/ "The Daily Dot's coverage of the incident"
+[venturebeat]: http://venturebeat.com/2013/03/20/playhaven-developer-fired-for-making-sexual-jokes-after-sendgrids-developer-evangelist-outs-him-on-twitter/ "VentureBeat's account"
+
+Normally I wouldn't comment on such a thing (much less blog about it), for a number of reasons:
+
+1. I'm not usually in the room when it all kicks off, and therefore have no first-hand knowledge of what _actually_ happened.
+2. I have neither the time nor the energy to get worked up over the latest storm in a teacup.
+3. I'm a middle-class, middle-aged, straight white male, so what do I know, right?
+
+This time, though, things are different.
+
+For a start, the incident in question relates to a private conversation between two male conference attendees, which was overheard by a nearby female attendee ([Adria Richards][adria-home]). As such, with the exception of those directly involved, we're _all_ working with second-hand information (thankfully there doesn't seem to be any disagreement regarding the facts of the matter).
+
+[adria-home]: http://butyoureagirl.com/ "The online abode of Adria Richards, assuming the DDoS hasn't evicted her"
+
+Far more importantly in terms of my decision to write a blog post on the subject, this particular teacup tempest _has_ got me worked up, although I still don't have the time for such things.
+
+## The incident in question
+Plenty of sites have covered what happened in exhaustive detail, so I'm not going to replicate their hard work. If you need some background information, [The Daily Dot][dailydot] and [VentureBeat][venturebeat] both have fairly complete write-ups. I also hear good things about [Google Search][google].
+
+[google]: http://google.com/ "Then again, I heard good things about Google Reader, too"
+
+The [CliffNotes][cliffnotes] are as follows:
+
+1. Two male conference attendees share a presumably rather lame private joke about the word "dongle".
+2. Adria Richards, sitting in the row in front of the two men, overhears said joke, and is terribly offended.
+3. Rather than confront them, Adria Richards--an extremely well-known personality in the technology world--decides to [Tweet a photograph][adria-tweet] of the two men.
+4. The men are expelled from the conference, and one is [subsequently sacked][ycombinator-sacked] as a result of the incident.
+
+[adria-tweet]: https://twitter.com/adriarichards/status/313417655879102464/photo/1 "Not cool is right, Adria"
+[cliffnotes]: http://www.cliffsnotes.com/ "Pandering to my American audience. Aluminum"
+[ycombinator-sacked]: https://news.ycombinator.com/item?id=5398681 "The implausibly polite and diplomatic Mr. Hank"
+
+## Why this matters
+The reason for my agitation is that a growing proportion of people appear to think that they have the right to never be offended, and noisily decry any violations of this non-existent "right" whenever possible.
+
+This seriously limits the opportunities for reasoned debate and argument, and causes massive headaches for conference organisers (who are typically nice people, trying to do something which benefits their online community).
+
+The way in which Adria Richards behaved is a perfect illustration of these issues.
+
+## The broader issue
+If somebody makes a non-threatening comment which you find offensive, there are two reasonable responses:
+
+1. Tell them that you find the comment offensive, and explain why. The person in question may not agree with you, but that's fine. We're all adults, and this approach doesn't preclude any further action.
+2. If you just haven't got the energy / patience / will for option 1, move out of earshot. It's not the other person's responsibility to ensure you're not offended, particularly if he or she is unaware that you have taken offence.
+
+Adria Richards didn't bother with either of these options[^1]. Instead, she proceeded straight to the public execution, courtesy of her considerable online following.
+
+The "public execution" option can only appear acceptable if you are labouring under the misapprehension that nobody should be _allowed_ to say anything which may offend your delicate sensibilities. This is why the "right not to be offended" myth is so pernicious.
+
+By immediately going public with her accusation, Adria Richards not only made it extremely difficult to engage in reasoned discussion or debate, she also placed the conference organisers in an impossible position.
+
+If they disagreed with her, the organisers ran the risk of being publicly denounced as a bunch of misogynists, who are happy to tolerate sexist behaviour at their conferences (and facts be damned).
+
+As such the [PyCon][pycon] organisers had little choice but to evict the protagonists[^2][^3].
+
+[pycon]: https://us.pycon.org/2013/ "Education, outreach, politeness, respect, tenacity, vision, please, and thank you"
+
+## A better way, perhaps
+The whole issue of gender in tech is turning into such a quagmire that no sane person would choose to wade in. Thankfully I have no regard for my future career prospects, and as a middle-class, middle-aged white male am perfectly suited to pontificating on matters of gender, and indeed race.
+
+Perhaps in this instance, though, it would be better to take some cues from others more versed in such matters. Like governments, for example.
+
+The [Human Rights Act][hra-index] outlines the responsibilities of public bodies with regard to [freedom of expression][hra-expression] and [freedom of thought, belief and religion][hra-thought]. It also, incidentally, covers [respect for privacy][hra-privacy], and the [right to a fair trial][hra-trial].
+
+[hra-index]: http://www.equalityhumanrights.com/human-rights/what-are-human-rights/the-human-rights-act/ "The Human Rights Act, soon to be dismembered by the Tories"
+[hra-expression]: http://www.equalityhumanrights.com/human-rights/what-are-human-rights/the-human-rights-act/freedom-of-expression/ "Jazz hands"
+[hra-thought]: http://www.equalityhumanrights.com/human-rights/what-are-human-rights/the-human-rights-act/freedom-of-thought-belief-and-religion/ "Even to understand the word 'doublethink' involves the use of doublethink"
+[hra-privacy]: http://www.equalityhumanrights.com/human-rights/what-are-human-rights/the-human-rights-act/respect-for-your-private-and-family-life/ "Personal information about you (such as photographs) should not be shared without your permission"
+[hra-trial]: http://www.equalityhumanrights.com/human-rights/what-are-human-rights/the-human-rights-act/right-to-a-fair-trial/ "Put down your weapons and prepare to be judged"
+
+Nowhere does it mention "freedom from being offended".
+
+This seems like a pretty good template for conference organisers wishing to put together a [code of conduct][pycon-code]. For example:
+
+[pycon-code]: https://us.pycon.org/2013/about/code-of-conduct/ "Thou shalt not make dick jokes"
+
+- Physical or verbal abuse, personal threats, and discrimination based on gender, race, religious beliefs, or sexual orientation are unacceptable, and will be dealt with by the conference organiser wherever possible.
+- Any opinion expressed by an individual which causes offence to a conference attendee is _not_ the responsibility of the organisers. The attendees in question should try to deal with the situation in a mature and adult fashion[^4].
+- Any decision by an attendee to circumvent reasoned debate and conversation in favour of punishment without a [fair "trial"][hra-trial] is unacceptable, and will be dealt with by the conference organiser.
+
+Clearly this is far from being a perfect solution. The Human Rights Act is constantly being debated and challenged, and includes some pretty vague caveats regarding what is acceptable, so it's very unlikely that any code of conduct derived from it will be free of ambiguity.
+
+Nevertheless, the Human Rights Act does do a reasonably good job of defining what constitutes a "right", and clarifying the responsibilities of public bodies (or the long-suffering conference organiser, in our case).
+
+Regardless of whether or not you consider this a realistic template for a conference code of conduct, the fact remains that _something_ needs to change.
+
+Nobody benefits from this endless carousel of overreactions, histrionics and knee-jerk misogyny, borne of a misguided sense of entitlement. It only serves to stifle genuine debate, impede progress, and discourage organisers of future conferences. It also causes me to waste my afternoon writing a blog post.
+
+[^1]: Although she apparently [has done previously][adria-blog].
+
+[^2]: Presumably this is what Adria Richards intended when she "[gave] PyCon the opportunity to address this."
+
+[^3]: The PyCon organisers have retrospectively given some indication of their opinion of Adria Richards's conduct, by adding the following to their [Attendee Procedure for Handling Harassment][pycon-harassment]: <q>Public shaming can be counter-productive to building a strong community. PyCon does not condone nor participate in such actions out of respect.</q>
+
+[^4]: The conference organisers could offer to mediate, if they're in the mood for a thankless task.
+
+[adria-blog]: http://butyoureagirl.com/14015/forking-and-dongle-jokes-dont-belong-at-tech-conferences/ "Adria Richards' account of the PyCon debacle"
+[pycon-harassment]: https://us.pycon.org/2013/about/code-of-conduct/harassment-incidents/ "Distancing language"

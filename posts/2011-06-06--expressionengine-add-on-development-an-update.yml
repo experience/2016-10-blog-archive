@@ -1,0 +1,33 @@
+---
+author: Stephen Lewis <stephen@experiencehq.net>
+date: 2011-06-06
+title: ExpressionEngine Add-on Development: An Update
+tags:
+- ExpressionEngine
+---
+# ExpressionEngine Add-on Development: An Update #
+As [the archives][blog_archive] of this blog will attest, some time ago I started work on a series of "ExpressionEngine add-on development" articles.
+
+After breezing through the [planning stage][series_planning], and cobbling together something approaching a [workable design][series_design], everything ground to a complete halt. It's now been nearly 10 months since the previous post in this series, which is just plain embarrassing.
+
+## Where did it all go so wrong? ##
+There are two answers to the question of how this project got to be 10 months late.
+
+The obvious one is lack of time; work and life in general have been hectic, and it was easy to let this series of posts fall by the wayside, particularly as it became apparent quite how much work was involved in each installment.
+
+We're all busy though, and the real answer is that because I couldn't write the next installment in one (or two, or three) sittings, I didn't write anything at all. In other words, "I'm not going to start until I know I can finish". Which is clearly stupid, and as such impossible to defend.
+
+## What now? ##
+The first step towards completing this insane undertaking is to finish the add-on itself.
+
+Things are as busy as ever, but I'm now grabbing bits of time here and there, and chipping away at the remaining tasks. You can follow my glacial progress on [the Tweedee GitHub repository][github_tweedee], an activity which will doubtless be every bit as educational as the blog series itself.
+
+Once the add-on is finished, I'll set about writing the accompanying blog posts. The benefit of hindsight will hopefully create the desirable impression that I never make any mistakes, or code myself into a corner.
+
+## When will we see the next "proper" post in this series? ##
+When it's ready; the one thing I am prepared to say is that you won't have to wait another 10 months. Chipping away at something may be slow work, but it's quicker in the long run.
+
+[blog_archive]: /blog/archive "Where does Seth Godin find the time?"
+[github_tweedee]: http://github.com/experience/tweedee.ee_addon "See all the mistakes that I will later deny"
+[series_design]: /blog/ee-add-on-development-designing-the-user-interface "Wireframing like a blind man"
+[series_planning]: /blog/ee-add-on-development-introducing-tweedee "Ahhh, the sweet smell of innocence"

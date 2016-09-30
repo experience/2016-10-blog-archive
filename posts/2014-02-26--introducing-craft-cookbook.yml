@@ -1,0 +1,76 @@
+---
+author: Stephen Lewis <stephen@experiencehq.net>
+date: 2014-02-26
+title: Introducing Craft Cookbook
+tags:
+- Craft
+- Announcements
+---
+# Introducing Craft Cookbook #
+![The Craft Cookbook home page.](https://d1ku3pk0j9a2g6.cloudfront.net/blog/2014-02-26-craftcookbook-home.jpg?mtime=20150726160155)
+
+We're big fans of [the Craft content management system][craft_home] here at Experience. Craft is a fine product under very active development, and despite [its youth][craft_birthday] it's well documented, and extremely well supported.
+
+[craft_home]: http://buildwithcraft.com "Like ExpressionEngine, but without the sobbing"
+[craft_birthday]: http://pixelandtonic.com/blog/craft-1-0 "The Craft birth announcement"
+
+As with most things, building a site with Craft involves a bit of a learning curve. In this case, though, the learning curve presents novice users with a bit of a problem:
+
+1. Googling for advice on "Craft" is an exercise in frustration, and more likely to result in a new-found love of crochet than an answer to your current CMS-based question.
+2. [The documentation][craft_docs]--whilst excellent--is more about high-level concepts than the quick solutions you need when you're just getting started.
+3. [The official Google+ group][craft_googleplus] is packed with useful information, but it's difficult to find (oh the irony), and painful to bookmark.
+
+[craft_docs]: http://buildwithcraft.com/docs/ "The official Craft documentation"
+[craft_googleplus]: https://plus.google.com/communities/106505340287442511226 "The official Craft Google+ Group"
+
+We found ourselves longing for a site which provided quick solutions to common Craft problems; something that would help us get to a working solution, fast, and remove some of the roadblocks to learning Craft.
+
+So we built it.
+
+## Quick solutions to your Craft problems
+[Craft Cookbook][cookbook_home] is a home for task-oriented Craft "recipes".
+
+[cookbook_home]: http://craftcookbook.net "The place to go for a quick solution to your Craft problem"
+
+Each recipe follows the format defined by the [O'Reilly cookbooks][oreilly_cookbook], and comprises:
+
+[oreilly_cookbook]: http://books.google.co.uk/books?id=1Shx_VXS6ioC&printsec=frontcover&source=gbs_ge_summary_r&cad=0#v=onepage&q&f=false "Problem, solution, discussion, done"
+
+- A succinct description of the problem;
+- A no-nonsense solution which you can quickly implement, and get on with your day;
+- Additional content, for those who want to know the _why_ as well as the _how_ (where applicable).
+
+For example, here's [how to add a file extension to your Craft URLs][cookbook_exampleRecipe].
+
+[cookbook_exampleRecipe]: http://craftcookbook.net/recipes/adding-an-extension-to-craft-urls "A recipe for adding an extension to Craft URLs"
+
+## Get involved (please)
+Right now the Craft Cookbook includes around half-a-dozen [recipes][cookbook_recipes] we unearthed whilst browsing the Google+ group, or building our first few Craft sites.
+
+[cookbook_recipes]: http://craftcookbook.net/recipes "The full list of Craft Cookbook recipes"
+
+We'll continue to add recipes as we encounter them, but our hope is that the Craft community as a whole gets behind Craft Cookbook, and uses it to share their wisdom.
+
+Together, we can make Craft Cookbook into a really valuable community resource, and drastically lower the barrier to entry for those new to the wonderful world of Craft (and Twig, and Yii).
+
+So please, [get involved][cookbook_join].
+
+[cookbook_join]: http://craftcookbook.net "Join today, and start helping your fellow Crafters"
+
+## What does Experience get out of this?
+Nothing, probably. We're not seeking to monetise Craft Cookbook, and anybody who submits a recipe will receive full credit for their contribution[^1].
+
+We just like to support good products and people, and Craft ticks both of those boxes.
+
+## What does Pixel and Tonic think of all this?
+We contacted P&T back when we first had the idea for Craft Cookbook, to check they were happy for us to proceed.
+
+Perhaps not surprisingly, [Brad was drunk][twitter_brad] and unavailable for comment, but Brandon gave us the go-ahead. In a brief moment of clarity, Brad later confessed that he didn't hate the idea.
+
+[twitter_brad]: https://twitter.com/search?q=drink%20from%3Aangrybrad&src=typd "Father Jack"
+
+We greatly appreciate the encouragement, and also the free Package licenses which P&T generously provided.
+
+Now [go share your knowledge][cookbook_join].
+
+[^1]: For the initial launch this means a simple "authored by" credit. The plan is to expand this over time, to accommodate a full profile and bragging rights.

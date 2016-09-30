@@ -1,0 +1,52 @@
+---
+author: Stephen Lewis <stephen@experiencehq.net>
+date: 2012-10-04
+title: EllisLab Bemoans Paltry 900% ROI
+tags:
+- ExpressionEngine
+- Opinion
+---
+# EllisLab Bemoans Paltry 900% ROI #
+So, the ExpressionEngine community is once again abuzz thanks to some unexpected EllisLab behaviour. In fairness it's always abuzz, I've just been avoiding such things because I've long since given up on both the product and the company (mostly the latter).
+
+That said, the latest piece of news regarding EllisLab ending its long-running affiliate program is so strange that it warrants more than [a snarky Tweet][snarky]. It warrants a snarky blog post. You're welcome.
+
+[snarky]: https://twitter.com/monooso/status/253622479241760769 "It's shit like this that made me quit Twitter in the first place"
+
+> After careful evaluation we've determined that the affiliate program has not been as effective at bringing new ExpressionEngine users into the fold as we had hoped.
+
+Really? That greatly surprises me.
+
+Over the past 12 months (September 2011--August 2012) I received a grand total of $803.85 in affiliate commission from EllisLab. The monthly amount varied greatly: when blogging regularly (and thus attracting traffic), I could easily earn $150 a month; when blogging irregularly (or not at all), I'd barely scrape into double figures.
+
+According to [the official FAQ][affiliates_faq], affiliates receive 10% of all "attributed sales"[^1], which means that--at a bare minimum--EllisLab sold licenses worth $8,038.50 as a result of my referral links.
+
+[affiliates_faq]: http://expressionengine.com/sales_faq/category/affiliate_program "Most frequently asked question: WTF, EllisLab?"
+
+<del>Given that most repeat customers would go straight to the ExpressionEngine site in order to purchase a license, it seems reasonable to assume that the majority of these purchases were made by "new ExpressionEngine users".</del>[^2]
+
+Furthermore, mine is not a high-traffic site, particularly if I'm not blogging regularly. Unless my regular criticism of ExpressionEngine is an astonishingly effective sales technique, it's unlikely that my figures are unusual, or even above average.
+
+All of which begs the question: just how effective was EllisLab hoping the affiliate program would be?
+
+[^1]: It's worth noting that "attributed sales" excludes purchases made via PayPal, which may account for a significant proportion of affiliate sales. See the Technical and Legal Notes on [the main "Affiliates" page][affiliates_main] for (scant) details.
+[^2]: Jamie Pittock [pointed out][pittock_tweet] an error in my reasoning. Clicking an affiliate link sets a cookie (with a lifetime of 90 days on my machine, not the 2 years stated in Jamie's Tweet), meaning that any purchases made during that time will be deemed an "affiliate referral". That's assuming the buyer hasn't clicked another affiliate link in the interim of course. Regardless of the details, I agree with Jamie that I overstated this point, hence the update. The general point still stands though, along with the rest of the article.
+
+> Mostly the program has provided long-time users and agencies with a commission on additional purchases.
+
+Quite why anyone at EllisLab thought this was a good "reason" to include in the announcement email is beyond me.
+
+They're attracting customers (new or repeat, it's not relevant to this point) for a marketing outlay of (at most) 10% of turnover, whilst in the process rewarding their most loyal customers and advocates, and this is somehow being touted as a good reason for ending the affiliate program[^3].
+
+Here's what I think happened: EllisLab finally realised that the canine-loyal ExpressionEngine community would continue driving traffic to the official EE site, regardless of the existence of an affiliate program, and thought to themselves "wait, why are we giving up 10% of our profits for traffic we're going to get anyway?".
+
+Why indeed.
+
+[^3]: An affiliate program which, incidentally, explicitly prohibits all those long-term users from making repeat purchases via their own affiliate links.
+
+[affiliates_main]: http://expressionengine.com/affiliates "Love ExpressionEngine? Get used to disappointment!"
+[pittock_tweet]: https://twitter.com/jamiepittock/status/253752940941160448 "The lone voice of dissent"
+
+> Making this change will enable us to look at more effective forms of advertising as ways to reach new ExpressionEngine users and grow the community.
+
+Because this is all about the "community", and a ten-fold marketing ROI sucks balls, obviously.

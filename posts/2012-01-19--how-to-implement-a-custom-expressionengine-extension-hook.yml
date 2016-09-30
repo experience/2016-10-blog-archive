@@ -1,0 +1,84 @@
+---
+author: Stephen Lewis <stephen@experiencehq.net>
+date: 2012-01-19
+title: How to Implement a Custom ExpressionEngine Extension Hook
+tags:
+- ExpressionEngine
+---
+# How to Implement a Custom ExpressionEngine Extension Hook #
+[Last time out][previous_post], I talked about the value of adding custom extension hooks to your add-ons.
+
+[previous_post]:/blog/add-on-developers-guide-to-abdicating-responsibility "A brief guide to shirking your responsibilities"
+
+Shortly after publication, several people got in touch to rebuke me for not discussing _how_ to add a custom extension hook to your add-on.
+
+This wasn't quite the stupid oversight it may have seemed: the official [ExpressionEngine User Guide][user_guide] includes [an example][user_guide_hook] of an extension hook which may be used as a template for your own hooks.
+
+[user_guide]:http://expressionengine.com/user_guide/ "Is a mystery why they won't give me commit access to this thing"
+[user_guide_hook]:http://expressionengine.com/user_guide/development/extensions.html#id6 "The EllisLab way"
+
+That said, the conversations I've had since my previous post suggest that the EE documentation isn't quite as clear on this subject as it might be. Hopefully this post will fill in the blanks [^1].
+
+[^1]: I've assumed you have a basic understanding of ExpressionEngine extensions and hooks. If you don't [start here][user_guide_extensions].
+
+[user_guide_extensions]:http://expressionengine.com/user_guide/development/extensions.html "Genesis to my Origin of the Species"
+
+## A typical extension hook
+Here's an example of a typical extension hook:
+
+```php
+if ($this->EE->extensions->active_hook('my_hook'))
+{
+  $hook_result = $this->EE->extensions->call('my_hook', $hook_data);
+  $hook_result = is_string($hook_result) ?: '';
+}
+```
+
+
+There are three main elements to that snippet of code; let's look at each in turn.
+
+## Step 1: Check if the hook is "active"
+The first step is to check whether any extensions have registered an interest in your extension hook. The ExpressionEngine `extensions` object provides a built-in method for checking whether your extension is alone and unloved.
+
+```php
+$this->EE->extensions->active_hook('my_hook');
+```
+
+
+The EE User Guide example uses an [absolute equality check][absolute_equality], but this is unnecessary. The `active_hook` method always returns a boolean.
+
+[absolute_equality]:http://php.net/manual/en/language.operators.comparison.php "Absolute equality compares absolutely"
+
+## Step 2: Call the hook
+Assuming your hook is "active", the next step is to call it. This is achieved as follows:
+
+```php
+$this->EE->extensions->call('my_hook');
+```
+
+
+The `call` method accepts an arbitrary number of arguments, enabling you to provide additional information about your hook. For example:
+
+```php
+$this->EE->extensions->call('my_hook', 'Woody Allen', 'Sleeper');
+```
+
+
+The hook handler function will receive each additional argument as a parameter, so the handler for the previous hook would look something like this:
+
+```php
+public function on_my_hook($actor, $film)
+```
+
+
+## Step 3: Accept and _validate_ return data
+If you expect the hook handlers to return data, just assign the result of the `EE->extensions->call` method to a variable:
+
+```php
+$hook_result = $this->EE->extensions->call('my_hook');
+```
+
+
+As ever when accepting data from an external source, you should validate whatever information is returned from the extension hook handlers.
+
+[The example in the User Guide][user_guide_hook] doesn't bother with such basic security; in this instance, I don't suggest you follow EllisLab's example.

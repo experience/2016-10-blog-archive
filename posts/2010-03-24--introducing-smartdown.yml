@@ -1,0 +1,20 @@
+---
+author: Stephen Lewis <stephen@experiencehq.net>
+date: 2010-03-24
+title: Introducing SmartDown: Markdown Extra and SmartyPants for ExpressionEngine
+tags:
+- ExpressionEngine
+- Announcements
+---
+# Introducing SmartDown: Markdown Extra and SmartyPants for ExpressionEngine #
+[SmartDown](/software/smartdown "SmartDown: Markdown and SmartyPants for ExpressionEngine") uses the pant-moistening power of Markdown Extra and SmartyPants to make your quotes smarter and your hyphens more dashing.
+
+What's that you say? You're not familiar with these text formatting superheroes. Bad dog, no cookie. Very well, allow me to enlighten you.
+
+[Markdown Extra](http://michelf.com/projects/php-markdown/extra/ "The official Markdown Extra page, courtesy of Michel Forin") turns your plain text content into properly formatted paragraphs, headings, links, lists, blockquotes, code, footnotes, and tables. In short, everything you're likely to need when writing content for the web.
+
+[SmartyPants](http://daringfireball.net/projects/smartypants/ "The official SmartyPants page, courtesy of John Gruber") takes this formatted content, and adds a few glorious typographic touches to make you look like a publishing deity. You know the sort of thing... (the type guys are laughing right now, trust me).
+
+SmartDown packages up these two pocket wonders into a single bite-sized plugin that makes publishing perfectly formatted, typographically ravishing content a breeze.
+
+Download the plugin, and read the documentation, on [the official SmartDown page](/software/smartdown "SmartDown: Markdown and SmartyPants for ExpressionEngine"). Your clients will thank you for it.

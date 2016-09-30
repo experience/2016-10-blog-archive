@@ -1,0 +1,36 @@
+---
+author: Stephen Lewis <stephen@experiencehq.net>
+date: 2015-05-18
+title: The Definitive Guide to Craft Validation for Plugin Developers (The Book)
+tags:
+- Craft
+- Announcements
+---
+# The Definitive Guide to Craft Validation for Plugin Developers (The Book) #
+![](https://d1ku3pk0j9a2g6.cloudfront.net/blog/craft-validation-book-cover.png?mtime=20150726160156)
+
+Today I'm very pleased to announce the release of our first Craft ebook: [The Definitive Guide to Craft Validation for Plugin Developers][leanpub-book].
+
+[leanpub-book]: https://leanpub.com/craft-validation "The ideal Christmas gift for Angry Brad"
+
+It provides a complete guide to validation in Craft 2, all the way from the high-level concepts, right down to the nuts and bolts of implementation.
+
+## A little history ## 
+Regular readers of this blog[^regular-readers] may remember that towards the tail-end of 2014 I wrote a series of posts on validation in Craft. As with most of the blog posts I write, that series came about because I needed the information, and couldn't find an existing resource which answered my questions.
+
+[^regular-readers]: If such a thing is possible, given the extremely irregular blogging schedule.
+
+Since then, my complete inability to retain useful facts has resulted in me becoming a very regular reader of that original series of posts.
+
+This, in turn, meant that I kept noticing its flaws. I also found myself longing for something as basic as a table of contents, because I can't even remember _which post_ to go most of the time.
+
+Rather than facing up to my impending dementia, I decided the best course of action would be to organise the posts into an ebook. With a table of contents. Hell, maybe even an appendix.
+
+The idiotic misconception which prompted this idea was _"How much work can it possibly be?"_.
+
+Quite a lot, it turns out.
+
+Now that the book is finally done, I expect we'll see a massive drop in (my) traffic to this site, but it's been worth it. I've rectified the structural deficiencies of the original blog series, fixed a couple of outdated references, and generally improved things all round. My amnesiac self appreciates the effort.
+
+## The obligatory call to action ##
+If you want to know how to implement validation in your Craft plugins as quickly and effectively as possible, [check out the book on Leanpub][leanpub-book]. You can download a free sample, and all purchases come with a 45 day, no quibble, 100% money-back guarantee.

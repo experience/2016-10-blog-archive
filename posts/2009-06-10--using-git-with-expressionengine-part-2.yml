@@ -1,0 +1,126 @@
+---
+author: Stephen Lewis <stephen@experiencehq.net>
+date: 2009-06-10
+title: Using Git to Manage an ExpressionEngine Website (Part 2 of 4)
+tags:
+- ExpressionEngine
+---
+# Using Git to Manage an ExpressionEngine Website (Part 2 of 4) #
+The [first installment in this series](/blog/archive/using-git-with-expressionengine-part-1 "Read the first installment") was little more than an introduction. Now it's time to get your hands dirty, setting up Git, and laying the groundwork for your day-to-day development tasks.
+
+Before you get to the nitty-gritty, it's worth taking a moment to review what exactly you're working towards.
+
+## What you're working towards ##
+The setup described below is pretty simple, but can be easily expanded to accommodate more developers, or more "staging" servers.
+
+Dealing, as it does, with the ins-and-outs of setting up your development environment, this will be the most implementation-specific article in this series. If you're using a different operating system, or a different hosting company, you'll most likely need to adapt a few of the step-by-step instructions accordingly.
+
+At this stage, it's also worth stating the obvious; that these instructions are presented as-is, without warranty or guarantee. We're all grown-up boys and girls, and whilst these instructions worked (and continue to work) just fine for me, if you accidentally delete the internet whilst following them, it's not my fault.
+
+Caveats dispensed with, here's what you'll be setting up:
+
+1. The **local development environment** is where all of the work gets done on a day-to-day basis. Each developer has his own local Git repository, enabling him to commit changes into source control quickly and easily, even when he's offline. He can then periodically `push` whatever local changes he's made to the "origin" repository.
+2. The **"origin" repository** lives on a remote (DreamHost) server. Every other Git repository pushes and pulls to and from this repository.
+3. The **live site** (and / or staging site) is another Git repository, living on a MediaTemple (dv) server. Updating the live site is simply a case of SSHing into the server, and pulling the latest code from the origin repository. A more seamless alternative would be to [use Capistrano](http://hivelogic.com/articles/view/deploying-expressionengine-github-capistrano "Read Dan Benjamin's guide to using Capistrano").
+
+## Laying the foundations ##
+Before you can start pushing and pulling your code about the place, you need to get everything set up.
+
+### Step 1. Install Git on your local development machine ###
+Provided you're on a Mac, the first step is easy -- you can either install Git via [MacPorts](http://www.macports.org/install.php "The MacPorts home page"), or [download the Git OS X installer](http://code.google.com/p/git-osx-installer/ "Find out more about the Git OS X installer").
+
+If you're feeling particularly adventurous, there's always the option to [compile and install Git manually](http://github.com/guides/compiling-and-installing-git-on-mac-os-x "GitHub's guide to compiling and installing Git on Mac OS X"), but unless you have very specific requirements, it's probably not worth the effort.
+
+Windows users may [find this useful](http://code.google.com/p/msysgit/ "Git on Windows").
+
+### Step 2. Install Git on DreamHost ###
+In a piece of tremendous good fortune, it appears that <abbr title="DreamHost">DH</abbr> now installs Git as standard on new hosting accounts. To confirm that you're all set up and ready to go, SSH into your DH account, and run the following commands:
+
+```other
+[server]$ which git
+/usr/bin/git
+[server]$ git --version
+git version 1.5.6.5
+```
+
+
+If you're one of the unlucky few not to have Git installed, the official DreamHost Wiki has [detailed instructions for installing Git](http://wiki.dreamhost.com/Git "If you're unlucky enough not to have Git pre-installed").
+
+### Step 3. Install Git on MediaTemple ###
+After the effortless ease with which you glided through steps 1 and 2, you may be thinking now is a good time to kick back with a self-congratulatory cup of tea.
+
+Not so fast.
+
+Installing Git on a MediaTemple (dv) server actually requires a (little) bit of effort, and whilst the <abbr title="MediaTemple">MT</abbr> [knowledgebase article](http://kb.mediatemple.net/questions/820/Installing+Git+on+a+dv+3.5+server "The MediaTemple guide to installing Git on a (dv) server") is a good starter for 10, it doesn't work quite as advertised.
+
+MediaTemple recommends using Yum to manage the installation of software on your (dv) server, but unfortunately the [knowledgebase guide to installing Yum](http://kb.mediatemple.net/questions/1564/Installing+the+yum+package+manager "MediaTemple's incomplete knowledgebase guide to installing Yum") falls a bit short, neglecting to mention a number of Yum's dependencies.
+
+This leads to lots of errors message, typically followed by loud and sustained cursing. Not to worry, you can benefit from my bitter experience by following the Yum installation instructions below:
+
+1. [Install the developer tools](http://kb.mediatemple.net/questions/1672/Install+the+Developer+Tools "MT knowledgebase guide to installing developer tools on a (dv) server") via your AccountCenter.
+2. Log into your (dv) server using SSH:<br>`ssh root@mydomain.com`
+3. Install Yum's dependency files:
+  * `rpm -Uvh http://mirror.centos.org/centos/5.2/os/i386/CentOS/python-iniparse-0.2.3-4.el5.noarch.rpm`
+  * `rpm -Uvh http://mirror.centos.org/centos/5.2/os/i386/CentOS/yum-metadata-parser-1.1.2-2.el5.i386.rpm`
+  * `rpm -Uvh http://mirror.centos.org/centos/5.2/os/i386/CentOS/python-elementtree-1.2.6-5.i386.rpm`
+  * `rpm -Uvh http://mirror.centos.org/centos/5.2/os/i386/CentOS/python-sqlite-1.1.7-1.2.1.i386.rpm`
+  * `rpm -Uvh http://mirror.centos.org/centos/5.2/os/i386/CentOS/rpm-python-4.4.2-48.el5.i386.rpm`
+  * `rpm -Uvh http://mirror.centos.org/centos/5.2/os/i386/CentOS/m2crypto-0.16-6.el5.2.i386.rpm`
+  * `rpm -Uvh http://mirror.centos.org/centos/5.2/os/i386/CentOS/python-urlgrabber-3.1.0-2.noarch.rpm`
+4. Install Yum:<br>`rpm -Uvh http://mirror.centos.org/centos/5.2/os/i386/CentOS/yum-3.2.8-9.el5.centos.1.noarch.rpm`
+
+Once that's done, you can return to MT's standard Git installation instructions:
+
+1. Install [EPEL](http://fedoraproject.org/wiki/EPEL "More about EPEL"):<br>`rpm -Uvh http://download.fedora.redhat.com/pub/epel/5/i386/epel-release-5-2.noarch.rpm`
+2. And finally, install Git:<br>`yum install git`
+
+## Making life easy for yourself ##
+At this point, you should have everything setup and ready to go. If you've had enough for one day, feel free to go and have that cup of tea now.
+
+If you're still bursting with Terminal energy, there are a couple of additional things you can do that will make your life at the command line at lot simpler.
+
+### Easier SSH ###
+As you're going to be doing a lot of SSHing between servers, it's worth spending a few minutes setting up some SSH keys. Otherwise you'll spend your life mistyping passwords in the Terminal.
+
+Here's how to setup an SSH key on your local development machine. Do this for each remote server that you want to access via SSH (DreamHost and MediaTemple, in this setup).
+
+1. Open the Terminal. At the prompt, type:<br>`ssh-keygen`
+2. Specify the file as `~/.ssh/key_name`, where `key_name` is the name you wish to assign to this SSH key.
+3. Enter a passphrase.
+4. Copy the public key to your remote server:<br>`scp ~/.ssh/key_name.pub username@remoteserver.com:./key_name.pub`
+5. Secure shell into the remote server using `ssh username@remoteserver.com`. You'll still need to enter your password at this point.
+6. At the prompt, type `ls -l`, to list all the files and directories in the current folder. If the `.ssh` directory already exists, `cd .ssh` into it, and skip to step 12.
+7. Create the `.ssh` directory:<br>`mkdir .ssh`
+8. Change the directory properties:<br>`chmod 700 .ssh`
+9. Move to the `.ssh` directory:<br>`cd .ssh`
+10. Create a new file:<br>`touch authorized_keys`
+11. Change the file permissions:<br>`chmod 600 authorized_keys`
+12. Add your public SSH key to the "authorized keys" file:<br>`cat ../key_name.pub >> authorized_keys`
+13. Remove your public SSH key file:<br>`rm ../key_name.pub`
+14. Exit the remote server:<br>`exit`
+15. On your local machine enter:<br>`ssh-add ~/.ssh/key_name`
+
+With that out the way, you can now log into your DreamHost or MediaTemple server using `ssh username@remoteserver.com`, without entering a password.
+
+It's also worth taking the time to set up an SSH key on MediaTemple, so you can easily log into your DreamHost server _from_ your MediaTemple server. Here's how to do that:
+
+1. Log into your MediaTemple server as root:<br>`ssh root@remoteserver.com`
+2. Follow the instructions above, substituting the file path in step 3 with:<br>`/root/.ssh/key_name`
+3. Add the code from [this MediaTemple knowledgebase article](http://kb.mediatemple.net/questions/1624/Preventing+multiple+password+prompts+when+using+svn+subversion "Read the MediaTemple KB article") to your `~/.bash_profile` file.
+
+### Even easier SSH ###
+You can shave even more keystrokes off your day by adding SSH "aliases" to your `config` file. You can then log into your remote server by typing (for example) `ssh dh`, instead of the much less catchy `ssh username@remoteserver.dreamhosters.com`.
+
+To achieve this state of keyboard Zen, add the following block of code to your `~/.ssh/config` file, for each server you're connecting to.
+
+```other
+Host shortname
+User username
+HostName remoteserver.com
+# You probably won't need to specify the port, so just omit the following line
+Port 2222
+```
+
+
+## Next time ##
+After a suitable recovery period, the next installment will deal with the task of setting up your ExpressionEngine site as a Git repository. In the meantime, please [join the discussion](http://expressionengine.com/forums/viewthread/118990/ "Share your thoughts on the EE forums").

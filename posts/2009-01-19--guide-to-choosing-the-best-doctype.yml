@@ -1,0 +1,83 @@
+---
+author: Stephen Lewis <stephen@experiencehq.net>
+date: 2009-01-19
+title: A Guide to Choosing the Best DOCTYPE for your Website
+---
+# A Guide to Choosing the Best DOCTYPE for your Website #
+For those of you not interested in the whys and wherefores that make up the bulk of this article, here's a quick quiz to determine which <abbr title="Document Type Declaration">DOCTYPE</abbr> you should be using for your website:
+
+1. Do you understand the concept of namespacing as it applies to <abbr title="eXtensible Markup Language">XML</abbr> documents?
+2. Can you clearly explain the differences between <abbr title="HyperText Markup Language">HTML</abbr> and <abbr title="eXtensible HyperText Markup Language">XHTML</abbr>?
+3. Do you understand (and are you capable of effectively implementing) content negotiation?
+
+If you answered "no" to any of the above, chances are that you should choose HTML over XHTML. I'll even go out on a limb, and recommend a flavour: HTML 5.
+
+If you answered "yes" to all of the above, chances are you really don't need this article.
+
+To understand the reasoning behind this pithy summary, read on...
+
+## The problem with XHTML ##
+The problem with XHTML is that it's overkill for most websites. Sure, it brings a lot of eXtensibility to the table, but for most of us the hassles greatly outweigh the benefits.
+
+### Calling a spade a spade ###
+If you elect to use an XHTML DOCTYPE, you should serve your document with the appropriate content (or <abbr title="Multipurpose Internet Mail Extensions">MIME</abbr>) type -- `application/xhtml+xml`.
+
+You _can_ [get away with](http://www.w3.org/TR/xhtml1/#guidelines "Backwards compatibility guidelines for XHTML 1.0") serving XHTML 1.0 as `text/html`, but if you plan to do that for all browsers there's little point in bothering with XHTML in the first place, as you're not getting any of the benefits.
+
+If you choose to start serving up your XHTML in the correct manner, you'll find that things soon start to get a little hairy. Those browsers capable of handling XML have two parsers?--?one for XML, and one for HTML. The browser uses the MIME type to decide which parser to use.
+
+As you may have inferred from the previous paragraph, not all browsers have an XML parser, meaning that they can't handle XHTML-served-as-XHTML properly.
+
+Of course, when I say "not all browsers", what I actually mean is "most browsers visiting your website".
+
+No version of Internet Explorer includes an XML parser, and [Mozilla themselves](https://developer.mozilla.org/en/Mozilla_Web_Developer_FAQ "Several alarming things you never knew about Firefox") actively caution against invoking the XML parser in all version of Firefox prior to the latest (version 3).
+
+The only way around this particularly hefty roadblock is to take a detour down the murky back road that is content negotiation.
+
+### Double trouble ###
+Content negotiation sounds quite benign. A bit of code on your server asks a user agent whether it can cope with "proper" XHTML, and based on that information decides what to send.
+
+Simple, eh? Not quite.
+
+For a start, some user agents (I'm looking at you, Internet Explorer) don't seem to know their own mind, and will happily claim that they support XHTML, when the truth is anything but.
+
+Once you've dealt with that little problem, you'll discover that genuine content negotiation isn't just a case of changing the DOCTYPE, switching the MIME type, and sending the same document to both browsers.
+
+No siree.
+
+Proper content negotiation requires that you _transform_ your XHTML into HTML. At first glance this is simple stuff; sort out some closing tags, change `selected="selected"` to `selected` and so forth, and you're done.
+
+Done, that is, unless you're actually using any of the things that make XHTML useful in the first place. Namespace-mixing, for example. Or the extended structures in XHTML 1.1 and 1.2, such as Ruby, ARIA, and ACCESS.
+
+And if you're _not_ using any of these features it begs the question, why are you using XHTML in the first place?
+
+Assuming your XHTML can realistically be transformed into HTML, you'll still need to store (or output) your data as XML, before generating the appropriate document using XSLT transformations.
+
+By this stage you're probably questioning whether this is all a bit over the top for the two-grand florist's website you're building.
+
+### Intolerant to a fault ###
+That's not the worst of it though.
+
+Let's say that you've got your content negotiation working smoothly. Your XML-sheathed data is being XSLT-transformed into shimmering HTML and XHTML, and dealt to your eager punters with the well-practised ease of a Vegas blackjack dealer.
+
+The question now becomes how do you ensure that your beautifully-formed pages don't lose their shape in the months and years to come?
+
+A badly-nested element here, a missing closing-tag there, and suddenly your users find themselves confronted not with a web page of such beauty as to make Salma Hayek blush, but with a fugly [yellow screen of death](http://en.wikipedia.org/wiki/File:Yellow_screen_of_death.png "The Firefox Yellow Screen of Death").
+
+Whereas an HTML parser will typically roll its eyes at your shoddy code in a "you crazy Frontpage users" sort of way, and do its best to make your page display in a reasonable fashion, an XHTML parser simply _cannot_ tolerate such blunders.
+
+And as anybody who has clients that use a <abbr title="Content Management System">CMS</abbr> to manage their content will tell you, mistakes will happen, regardless of how elegantly constructed your markup was when the site first launched -- especially if your CMS of choice uses a <abbr title="What You See Is What You Get">WYSIWYG</abbr> editor.
+
+## Choosing a flavour ##
+Assuming you're sold on the virtues of HTML, the only remaining question is "which flavour"?
+
+We've now switched to HTML 5. You may think that's because we're just a bunch of geeks who can't say no, desperately attempting to hang out with the cool kids in the hope of getting some girls.
+
+There is that, but it's not the full story. Here are a few good reasons for making the switch:
+
+1. _It works_. There's been plenty of talk about how HTML 5 won't be finished until your great grand children are surfing t'interweb on their jet packs, but the reality is that you can start using the HTML 5 DOCTYPE today.
+2. _It's the future, man_. True, we can't use all the swanky new HTML 5 elements just yet, but when the browsers catch up, we'll be ready.
+3. _I can remember [the DOCTYPE declaration](http://dev.w3.org/html5/html-author/#doctype-declaration "The super-simple HTML 5 DOCTYPE")_. Not a biggie, I grant you, but it makes a pleasant change nevertheless.
+
+## In conclusion ##
+If you know your <abbr title="Resource Description Framework attributes">RDFa</abbr> from your elbow, XHTML may be for you. For the rest of us, HTML -- and HTML 5 in particular -- is the better choice.

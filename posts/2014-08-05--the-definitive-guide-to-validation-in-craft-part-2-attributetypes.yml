@@ -1,0 +1,325 @@
+---
+author: Stephen Lewis <stephen@experiencehq.net>
+date: 2014-08-05
+title: The Definitive Guide to Validation in Craft, Part 2: AttributeTypes
+tags:
+- Craft
+---
+# The Definitive Guide to Validation in Craft, Part 2: AttributeTypes #
+The [first instalment][part1] of this series provided a high-level overview of validation in Craft. We covered what happens behind the scenes when Craft validates your model, which model validation methods are available (and what each one does), and how to define your model attributes.
+
+[part1]: /blog/the-definitive-guide-to-validation-in-craft-part-1-foundations "The foundations of validation in Craft"
+
+This instalment is all about Craft's AttributeTypes: what they are, what they do, and which ones are available.
+
+## What is an AttributeType?
+Every model attribute must have a type, expressed in the form `AttributeType::TypeName`. For example, the following code tells Craft that the `age` attribute is a number.
+
+```php
+[
+    'age' => [
+        'type' => AttributeType::Number,
+    ]
+]
+```
+
+
+In practice these AttributeTypes are simply class constants, defined in `craft/app/enums/AttributeType.php`. You could, if you were so inclined, substitute each constant for its associated string representation, and everything would continue to work as normal.[^attributeTypeConstant]
+
+## The many roles of AttributeTypes
+AttributeTypes are used in a number of locations throughout Craft, and serve several purposes. This article is concerned with how AttributeTypes affect model validation, but you should at least be aware of the other roles that AttributeTypes have to play.
+
+### Normalising data
+Both the `DateTime` and `Mixed` AttributeTypes normalise the data assigned to the associated model attribute.
+
+- `AttributeType::DateTime` accepts either a `DateTime` object or a valid timestamp. If you choose to assign a timestamp, it will be converted to a `DateTime` object;
+- If you assign a JSON string to an `AttributeType::Mixed` attribute, it will be converted to an array.
+
+### Defining database columns
+When used in the context of a record, an AttributeType declaration defines the database column used to store the attribute.
+
+If you decide to override a default model AttributeType parameter for the purposes of validation (for example, by increasing the `maxLength`), you should take care to modify the associated record attribute.
+
+### "Packaging" and "de-packaging" data for storage
+When a record is saved to the database, the AttributeType will convert its value into a format suitable for storage within the database. The same process happens in reverse when retrieving data from the database.
+
+## How do AttributeTypes affect validation?
+As you will recall from part 1, when you call the `validate` method on your model, Craft translates your attribute definitions into Yii-compatible validation rules.
+
+This doesn't just apply to explicit validation rules such as `min` and `max`, it also applies to AttributeTypes. You can think of an AttributeType as being a convenient way of telling Craft to apply a predefined set of validation rules to your attribute.
+
+For example, behind the scenes Craft translates our `age` attribute definition into the following Yii-compatible validation rules:
+
+```php
+[
+    [
+        'age',
+        'numerical',
+        'min'         => -2147483648,
+        'max'         => 2147483648,
+        'integerOnly' => true,
+    ]
+]
+```
+
+
+This automatic translation of an AttributeType into zero or more Yii-compatible validation rules is the reason you can't define your own custom AttributeType.[^customAttributeTypes]. It is also how Craft determines which validator class to use when verifying the attribute value.
+
+The validator class can be:
+
+1. A built-in Yii validator class, such as `CBooleanValidator`;
+2. A custom Craft validator class, such as `DateTimeValidator`;
+3. Your own custom validator method or class (we'll get to this in a later instalment on more advanced validation techniques).
+
+Which validator class is used is important because some accept additional parameters or constraints, which are implicitly set by the AttributeType, but which you may override if necessary.
+
+## Overriding the default validator parameters
+There are two ways to override the validator parameters which are automatically set by the AttributeType: the easy but limited way, and the flexible but advanced way.
+
+The easy but limited way simply involves using one of the built-in Craft validation rules. For example, `AttributeType::ClassName` specifies that the attribute value be no longer than 150 characters. We can easily override this by setting the `maxLength` rule:
+
+```php
+[
+    'myClass' => [
+        'type'      => AttributeType::ClassName,
+        'maxLength' => 100,
+    ],
+]
+```
+
+
+The downside of this technique is that it can only override a very limited subset of the automatically-generated validation rules. Furthermore, this approach cannot be used to override the built-in validation class defaults.
+
+The flexible but advanced approach suffers from none of these limitations. However, it is a little more involved, so we'll cover it in a later instalment, dedicated to more advanced validation techniques.
+
+## Available AttributeTypes
+Craft defines 17 AttributeTypes, each of which is described below. For each AttributeType, I have included:
+
+1. A description of the type of validation implicitly defined by the AttributeType;
+2. The validator class used to perform the validation;
+3. Where applicable, those Craft validation rules which may be used to override the AttributeType defaults.
+
+### Bool
+`AttributeType::Bool` uses the Yii `CBooleanValidator` class to validate that the attribute value is a boolean.
+
+You may override the `maxLength` validation rule, but there is no reason why it would make sense to do so.
+
+### ClassName
+`AttributeType::ClassName` uses the Yii `CStringValidator` class to validate that the attribute value is a string with a maximum length of 150 characters.
+
+You may override the maximum length constraint using the `maxLength` validation rule.
+
+```php
+[
+     'maxLength' => 100,  // Default is 150
+]
+```
+
+
+### DateTime
+`AttributeType::DateTime` uses the Craft `DateTimeValidator` class to validate that the attribute value is a valid date. The value will pass validation if it is:
+
+1. An instance of the `DateTime` class;
+2. A valid timestamp, as determined by the Craft `DateTimeHelper` class.
+
+### Email
+`AttributeType::Email` uses the Yii `CEmailValidator` class to validate that the attribute value is a valid email address, with a minimum length of 5 characters, and a maximum length of 254 characters.
+
+Email validation is performed using a regular expression.
+
+You may override the minimum length constraint using the `minLength` validation rule. However, you cannot override the maximum length constraint, as it is hard-coded in the validator class.[^emailHardCoded].
+
+```php
+[
+    'minLength' => 15,  // Default is 5
+]
+```
+
+
+### Enum
+`AttributeType::Enum` uses the Yii `CRangeValidator` class to validate that the attribute value exists in the array of values specified by the `values` key in the attribute definition.[^enumNotIn]
+
+That's quite a mouthful, so here's an example:
+
+```php
+'color' => [
+    'type' => AttributeType::Enum,
+    'values' => ['R', 'G', 'B'],
+]
+```
+
+
+In the above example, the attribute will pass validation only if its value is "R", "G", or "B".
+
+### Handle
+`AttributeType::Handle` uses the Craft `HandleValidator` class to validate that the attribute value:
+
+1. Is a valid "handle";
+2. Is not a reserved word;
+3. Does not exceed 255 characters.
+
+So what constitutes a valid handle? Here are the exact rules, as defined by the `HandleValidator` regular expression. A handle:
+
+- **Must** start with a letter;
+- **Must** be at least one character in length;
+- **Must** contain only alpha-numeric characters, or the underscore character (`_`).
+
+It's worth noting that a handle **may not** contain a hyphen (`-`).
+
+As mentioned above, in order to pass validation the handle must not be a reserved word. Here is the default list of reserved words:
+
+- attribute
+- attributes
+- attributeLabels
+- attributeNames
+- classHandle
+- content
+- dateCreated
+- dateUpdated
+- false
+- fields
+- handle
+- id
+- n
+- name
+- no
+- rawContent
+- rules
+- section
+- this
+- true
+- uid
+- y
+- yes
+
+It is not possible to override the list of reserved words. However, you may _supplement_ it, by specifying the `reservedWords` key in your attribute definition. You may also override the maximum string length.
+
+```php
+[
+    'maxLength'     => 150,
+    'reservedWords' => ['Bob', 'Kate', 'Wibble'],
+]
+```
+
+
+### Locale
+`AttributeType::Locale` uses the Craft `LocaleValidator` class to validate that the attribute value is a known locale for the current site (for example, "en_us").
+
+Specifically, the `LocaleValidator` checks whether the attribute value appears in the array of site locales returned by the `craft()->i18n->getSiteLocaleIds()` method.
+
+### Mixed
+`AttributeType::Mixed` does not apply any validation rules.
+
+### Name
+`AttributeType::Name` uses the Yii `CStringValidator` class to validate that the attribute value is a string with a maximum length of 255 characters.
+
+You may override the maximum length constraint using the `maxLength` validation rule.
+
+```php
+[
+     'maxLength' => 100,  // Default is 255
+]
+```
+
+
+### Number
+`AttributeType::Number` uses the Yii `CNumberValidator` class to validate that the attribute value is an integer, with a minimum value of `-2147483648`, and a maximum value of `2147483648`.
+
+As you might expect, you may override both the minimum and maximum values. You may also instruct the validator to accept non-integers values, by assigning a positive integer to the `decimals` key.
+
+```php
+[
+    'min'      => 0,     // Default is -2147483648
+    'max'      => 1024,  // Default is 2147483648
+    'decimals' => 1,     // Disables the "integerOnly" rule
+]
+```
+
+
+### Slug
+`AttributeType::Slug` does not apply any validation rules.[^slugSurprise]
+
+### SortOrder
+`AttributeType::SortOrder` does not apply any validation rules.[^sortOrderBug]
+
+### String
+`AttributeType::String` does not apply any validation rules.
+
+### Template
+`AttributeType::Template` uses the Yii `CStringValidator` class to validate that the attribute value is a string with a maximum length of 500 characters.
+
+You may override the maximum length constraint using the `maxLength` validation rule.
+
+```php
+[
+     'maxLength' => 250,  // Default is 500
+]
+```
+
+
+### Url
+`AttributeType::Url` uses the Craft `UrlValidator` class to validate that the attribute value is a valid URL. Behind the scenes, it overrides the Yii `CUrlValidator` class, to add support for [protocol-relative URLs][protocolRelativeUrl].
+
+[protocolRelativeUrl]: http://paulirish.com/2010/the-protocol-relative-url/ "Paul Irish, soul brother of Ryan 'The D is silent' Irelan(d)"
+
+So what constitutes a valid URL in this case? Rather than attempting to describe the `UrlValidator` regular expression using a series of bullet points[^urlValidatorRegexp], here are some examples of URLs which Craft considers valid.
+
+```other
+//here.com                       # No schema
+http://here.com                  # HTTP
+https://here.com                 # HTTPS
+http://here.com/                 # Optional trailing slash
+http://here.com/you/were/        # Sub-section(s)
+http://you.were.here.com         # Sub-domain(s)
+https://pinkfloyd@here.com       # Username in URL
+https://pinkfloyd:wish@here.com  # Username and password in URL
+```
+
+
+So far, so predictable. However, it's worth noting that the following less conventional URLs will also pass validation.
+
+```other
+//
+///
+//#!@£$%^&*()+=~§±`|\'";:?/><,.™©®
+```
+
+
+### UrlFormat
+`AttributeType::UrlFormat` uses the Craft `UrlFormatValidator` class. It does not perform any validation, but does directly _modify_ the attribute value, by removing any leading or trailing forward-slashes.[^requireSlugCheck]
+
+### Uri
+`AttributeType::Uri` uses the Craft `UriValidator` class to validate that the attribute value is a valid URI.
+
+So what constitutes a valid URI? Here are the exact rules, as defined by the `UriValidator` regular expression. A URI:
+
+- **Must** be at least one character in length;
+- **Must not** contain any whitespace characters.
+
+## Conclusion
+And so we come to the end of another mammoth instalment. You should now know everything worth knowing about AttributeTypes: what they are, which ones are available, and how they affect model validation.
+
+You may have noticed that, along the way, we made quite a few references to Craft's built-in validation rules, without ever defining which rules are available, or what they do.
+
+We'll rectify that in the next instalment of "The Definitive Guide to Validation in Craft", so don't forget to check back at the same time next week (or just [subscribe to our newsletter][newsletter]).
+
+[newsletter]: #newsletter "Join our newsletter, for lots more Craft goodness."
+
+
+[^attributeTypeConstant]: Don't do this.
+
+[^customAttributeTypes]: Technically you could, because it's just a string value. However, Craft wouldn't know what to do with it, so there's no point.
+
+[^emailHardCoded]: If you examine the Yii-compatible validation rules generated by Craft, you will notice that the maximum string length is set to 255 (`['max' => 255]`). This value is both redundant (it cannot be overridden), and incorrect (the maximum length is actually 254 characters).
+
+[^enumNotIn]: The `CRangeValidator` class can also validate that a value is _not_ in the range of given values. This is not supported by Craft.
+
+[^slugSurprise]: Surprisingly.
+
+[^defaultScheme]: The automatically-generated Yii-compatible validation rules include a `defaultScheme` key, with a value of "http". It is not possible to override this value.
+
+[^sortOrderBug]: That's not entirely true. `AttributeType::SortOrder` currently uses the Yii `CStringValidator` class to validate that the attribute value is a string with a maximum length of 4 characters. However, my understanding is that this is not the intended behaviour, and may soon be "fixed".
+
+[^urlValidatorRegexp]: I tried this. You end up with a very long list which is far less comprehensible than the original regular expression.
+
+[^requireSlugCheck]: Having trimmed the forward-slashes, the `UrlFormatValidator` class checks its public `requireSlug` property, to determine whether to validate the value. This property is set to `false` by default, and cannot be overridden via the Craft validation rules, hence no validation is carried out.

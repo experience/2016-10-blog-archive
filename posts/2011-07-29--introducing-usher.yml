@@ -1,0 +1,40 @@
+---
+author: Stephen Lewis <stephen@experiencehq.net>
+date: 2011-07-29
+title: Introducing Usher
+tags:
+- ExpressionEngine
+- Announcements
+---
+# Introducing Usher #
+Late last night I quietly released [Usher][usher_home], a new ExpressionEngine 2 add-on. When a site administrator logs into the Control Panel, Usher redirects him to the CP page of your choosing, based on his Member Group.
+
+I've been using Usher on various client sites for several months, and it has proven very useful in taking members directly to the area of the Control Panel that interests them most.
+
+For example, one of my client sites includes multiple "author" Member Groups, each assigned to a Channel. Usher takes each author directly to the Publish page for his assigned Channel.
+
+## Born of frustration ##
+There is another very good reason to use Usher, which applies even if you're happy for all your site administrators to start their journey on the Control Panel home page. Namely, browser autocompletion.
+
+Way back in mid-2010 I posted a [bug report][bug_report], detailing confusing behaviour and PHP errors caused by browsers autocompleting the CP URL. If you're particularly interested, you can read [the original bug report][bug_report], and the [related feature request][feature_request] for the full story.
+
+For those of you with high-powered executive lifestyles, here's the summary:
+
+* Browser autocompletion can result in a site administrator being taken to a completely unexpected--and undesirable--CP page directly after login.
+* At best, this behaviour is confusing. At worst, it can result in "error" or "not permitted" messages, and confused clients crying down the phone.
+* EllisLab do not consider this behaviour to be a bug. On the contrary, it is expressly intended, and borne of actual support requests in EE1.
+
+I can understand EllisLab's position on this, to an extent. If a user's session expires he will, in all likelihood, want to return to the same page when logging back in.
+
+However, as I stated in the feature request thread, _everybody_ has to log in to the CP at some point, and ensuring that experience is predictable and not confusing is far more important than dealing with expired sessions. It could also be argued that the new logged out "overlay" in EE2 makes this less of an issue.
+
+## Licking my wounds ##
+As you'll have gathered, my feature request was politely declined.
+
+I retired to my code editor, muttering darkly about how they wouldn't be so dismissive if I was Brandon-bloody-Kelly, and set about writing an extension to fix this undesirable behaviour. This is the reason extension hooks exist, after all.
+
+And so [Usher was born][usher_home], and I was finally able to pacify my weeping clientele.
+
+[usher_home]: /software/usher "Visit the Usher home page"
+[bug_report]: http://expressionengine.com/bug_tracker/bug/12867/ "Gasp at my mesmerising bug report"
+[feature_request]: http://expressionengine.com/forums/viewthread/178212/ "Swoon at the sexual tension in my feature request"

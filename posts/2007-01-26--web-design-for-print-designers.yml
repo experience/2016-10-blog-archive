@@ -1,0 +1,68 @@
+---
+author: Stephen Lewis <stephen@experiencehq.net>
+date: 2007-01-26
+title: 6 Top Web Design Tips for Print Designers
+---
+# 6 Top Web Design Tips for Print Designers #
+I've worked with some excellent print designers over the years, and all of them, without exception, consistently made fundamental mistakes when attempting to design an information-rich web site.
+
+Brochure sites weren't such an issue, but the more complex the site architecture became, the more problems crept in with the layouts produced by my print designer colleagues.
+
+## Print design is not web design
+This shouldn't really be a surprise. After all, each discipline has it's own demands, processes, technical constraints, and conventions. The problem is, print design and web design are both also largely about the same thing--displaying the written word using appropriate typography, colour and layout. As such, the assumption is made that if you can do one, you can do the other.
+
+This is absolutely not the case.
+
+I'm not a print designer. I don't understand the first thing about spot colour, separations, and all the other hugely essential ins-and-outs of producing a well-designed, successful piece of print work. In other words, all the stuff that a good print designer is familiar and comfortable with.
+
+If I were to be called upon to produce a nice swanky brochure for a client (against my will, I might add), I can guarantee that I would make an unseemly number of fundamental, costly mistakes.
+
+The same holds true of print designers working on the web. It's not _just_ about understanding typography, grids, and the like; it's also about understanding the constraints, the processes, and the conventions.
+
+## Some helpful tips for print designers working on the web
+So, just to prove that this isn't just one big anti-print-designer rant, I'd like to offer a few helpful pointers for every print designer being forced against his will to design a web site (or for those just starting out making the transition to web design).
+
+I've assumed that you won't be building the site yourself, and will be handing off your design to an experienced web developer, so if you're looking for pointers on producing the <abbr title="HyperText Markup Language">HTML</abbr> and <abbr title="Cascading Style Sheets">CSS</abbr>, I'm afraid you're out of luck.
+
+Similarly, if you've been tasked with the information architecture for the site (i.e. working out the site structure), this isn't going to answer any questions you might have.
+
+In both cases, this is simply because these are huge topics in themselves, and I can't possibly hope to even scratch the surface of either one of them in this article.
+
+Assuming you're still here, read on. These hints won't tell you everything you need to know about web design by any means, but they should at least explain why web developers give you that exasperated look every time you present them with your latest creation.
+
+### Accept the fact that you have lost control
+This is the big, fundamental shift in attitude that you have to accept, and in truth I can't honestly comprehend what a horrible shock to the system it must be for a designer used to having total control over every element.
+
+I'm sorry to have to do this to you, but here are some of the many reasons that you need to relinquish (at least some) control of your designs:
+
+- You can't use 99.9% of the fonts in the world because your users won't have them installed. Of the remaining .1%, most of them probably don't render too well in a browser anyway. This leaves you with a choice of about 6 fonts, if you're lucky.
+- You can't reliably control the text size. Different operating systems and browsers all do things their own way, and besides, users can increase or decrease the size of your text as they see fit.
+- You can't precisely control the colours. If you thought the whole font thing was bad, colour is even worse. Not only do you have the whole Mac / Windows disparity, there's also the issue of colour correction in some browsers but not in others.
+- You can't (totally) control the layout. There are some [excellent grid-based web site designs](http://www.subtraction.com/ "The beautiful personal web site of Khoi Vinh") (produced, largely, by print designers who have made the successful transition to web design), but even they need to make certain compromises. If you fix the width of your design, will it fall apart when the user increases the text size? Will it look daft plonked in the middle of a high-resolution display, or not fit on an 800 x 600 screen? And if you go for flexible width, well... maybe we should save that one for another time.
+- Things change on the web, particularly if the site is built on a <abbr title="Content Management System">CMS</abbr>. Content that you never expected gets added, and your clients might even choose to add and remove items of navigation willy-nilly.
+
+If your design can't accommodate and adapt to these constraints (up to a point), it's not doing it's job. Oh, and one last point on this subject, just leave the form controls as they are, as much as possible. I know they're ugly, but they work, and that's the important thing.
+
+### The person building your design is not deliberately trying to destroy it
+For the many reasons why your beautiful design doesn't look just like the Photoshop mock-up, see above.
+
+### Flash is not the answer
+This is an information-rich site we're talking about here, remember, not a piece of brochureware. As such there's going to be a lot of (hopefully) useful content knocking about. Content that you want your users, and the search engines, to read. Now, I know that Flash lets you lay things out precisely, and allows you to use the fonts you want, so you may view it as the answer to all your problems. However, it's almost certainly not the answer to *your client's* problems.
+
+### Be consistent
+This is probably already familiar territory, particularly if you've been involved in information-rich print design (newspapers, for example), but it's worth stating nevertheless: consistency is an essential part of usability. That means all the links looking and acting the same way, the headings being a consistent size, font, colour, and so forth.
+
+### Embrace conventions
+This doesn't mean that all your links have to be blue and underlined--even Mr. Nielsen has made [some concessions on this point](http://www.useit.com/alertbox/20040510.html "Visit useit.com, the home of usability 'guru' and frequent annoyance, Jakob Nielsen"). It does mean, however, that it's probably not wise to try reinventing the wheel too much.
+
+Certain layouts--and variations on those layouts--work, and are widely used as a result. This may mean less creative freedom for the designer, but it also means a more immediately understandable interface for the end-user, and that's the most important thing.
+
+This is where familiarity with well-designed, well-organised web sites is invaluable, so get surfing (and avoid the look-at-me Flash portfolio sites, at least for the purposes of this exercise).
+
+### Be obvious
+As stifling as it may be to your creativity, just accept the fact that most people have neither the time nor the patience to _learn_ how to use a web site. This means (among other things) that the navigation really does need to look like navigation, and links need to look like links. Otherwise people won't click them, and links that don't get clicked aren't a great deal of use.
+
+## Conclusion ##
+Hopefully this has explained a few of the more common pitfalls that print designers encounter when designing for the web. As always, if you've got any comments, [please let me know](/contact "Get in touch with me").
+
+And if you're looking to [hire a web designer](/contact "Get a free quote for your web design project"), I'm your man.

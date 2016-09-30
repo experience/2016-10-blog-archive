@@ -1,0 +1,48 @@
+---
+author: Stephen Lewis <stephen@experiencehq.net>
+date: 2012-08-10
+title: A Brief Introduction to ExpressionEngine ACTions
+tags:
+- ExpressionEngine
+---
+# A Brief Introduction to ExpressionEngine ACTions #
+A couple of weeks ago, I wrote a [quick blog post][testee-post] to announce that Testee 2.2 now lets you run your tests via an ACTion ID.
+
+[testee-post]: /blog/testee-2.2 "An earlier episode from my thrilling life"
+
+Whilst writing said blog post, I spent a few minutes scouring [the ExpressionEngine documentation][ee-docs] for a succinct ACTion ID overview that I could link to. I wasn't expecting much, just an explanation of what an ACTion ID is and does, for the completely uninitiated.
+
+[ee-docs]: http://expressionengine.com/user_guide/ "In the beginning was the WordPress, and the WordPress was godawful"
+
+## The missing manual
+The astute amongst you will have gathered that I found no such overview. There are a few [developer-oriented][action-doc-a] [mentions][action-doc-b] scattered about the place, but that's about it.
+
+[action-doc-a]: http://expressionengine.com/user_guide/development/usage/cp.html#fetch-an-action-id "The fetch_action_id method. No, not that one, the other one"
+[action-doc-b]: http://expressionengine.com/user_guide/development/reference/functions.html#fetch-action-id-class-str-method-str "The fetch_action_id method that isn't the one I just linked to"
+
+This is a bit surprising, given that many (probably most) ExpressionEngine modules couldn't function without the existence of ACTion IDs. If you've implemented a [comments form][comments-form], used [the Simple Commerce module][simple-commerce], or allowed a visitor to [register as a Member][member-register], you've used ACTion IDs. They're everywhere in EE.
+
+[comments-form]: http://expressionengine.com/user_guide/modules/comment/index.html#comment-submission-form "The first time I've ever visited this page"
+[simple-commerce]: http://expressionengine.com/user_guide/modules/simple_commerce/index.html "My condolences"
+[member-register]: http://expressionengine.com/user_guide/modules/member/index.html "Have you people not heard of FreeMember?"
+
+Read on for my attempt to plug this hole in the ExpressionEngine documentation dam.
+
+## What it is
+An ACTion ID is a number that appears in an ExpressionEngine URL as a query string parameter. It looks something like this:
+
+```other
+http://example.com/index.php?ACT=123
+```
+
+
+Whenever ExpressionEngine encounters an ACTion URL, it attempts to run the code associated with the provided ACTion ID.
+
+## How it works
+When an ACTion URL is loaded, ExpressionEngine looks in the `exp_actions` database table for an entry with the supplied ACTion ID. Each ACTion ID is associated with a class and method (i.e. the code to run).
+
+Assuming the ACTion ID exists in the `exp_actions` table, ExpressionEngine automatically creates a new instance of the associated class, and calls the appropriate method.
+
+What happens next is entirely up to the code being called. It could register a new Member, process a purchase, or drop all your database tables whilst emitting an evil cackle and twirling its moustache.
+
+The latter scenario is why you should never install any software you dont trust; but Im sure anyone as whip-smart and fragrant as your good self already knew that.

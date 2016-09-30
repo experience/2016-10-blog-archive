@@ -1,0 +1,55 @@
+---
+author: Stephen Lewis <stephen@experiencehq.net>
+date: 2010-06-10
+title: ExpressionEngine Add-on Development
+tags:
+- ExpressionEngine
+---
+# ExpressionEngine Add-on Development #
+For quite a while now, I've been mulling over the idea of writing a series of blog posts covering the nitty-gritty of developing ExpressionEngine add-ons; everything from the initial idea, right through to the everyday practicalities of support.
+
+## What prompted this? ##
+The initial impetus for this was the lack of current writing on the subject. The [official ExpressionEngine Developer documentation](http://expressionengine.com/docs/development/ "Start here") will get you up and running, and [the forums](http://expressionengine.com/forums/ "Engage with your fellow nerds") can be a great help during your initial forays into add-on development. After that, you're pretty much on your own.
+
+In particular, the more time you spend developing ExpressionEngine add-ons, the more apparent it becomes that "serious" development topics aren't widely discussed within the EE community. Try finding some useful information about [Test-Driven Development in ExpressionEngine](http://www.google.co.uk/search?q=Test-Driven+Development+in+ExpressionEngine "Tumbleweed"), for example.
+
+The best way for us to improve our collective development skills (sorry, skillz) is to start discussing these topics; to share our ideas, our mistakes, and our hard-won knowledge.
+
+## What to expect ##
+Given that the subject under discussion is add-on development, it makes sense to cover topics in the order that they would be encountered when developing an add-on.
+
+Here's my initial topic list:
+
+* Deciding what to build
+* Defining the scope of your add-on
+	* What the add-on is, and is not
+	* Identifying core features, nice-to-haves, and someday-maybes
+* Designing the user interface
+* Testing the user interface 
+* Software design
+	* Object-oriented design
+	* Design patterns
+* Test-driven development
+* Beta testing
+* Pricing
+* Release and promotion
+* Support
+* Beyond 1.0
+
+Some items on the list will doubtless need to be broken down further. Others may be dropped, or combined, depending on how much of value I have to say on the subject. In short, this shouldn't be viewed as a table of contents for my yet-to-be-written blog series; it's simply some initial thoughts on what I _could_ write about.
+
+There are only two ground rules:
+
+1. The series will focus on ExpressionEngine 2 add-on development.
+2. PHP4 is persona non grata.
+
+It's the future kids, get used to it. Everything else is up for debate, and that's where you come in.
+
+## What I need from you ##
+Are there any topics you'd particularly like me to cover? Have any of my proposed topics already been covered in-depth?
+
+[Tell me what interests you](http://www.surveymonkey.com/s/HNZT9DC "Tell me about your mother"), and I'll do my best to update my plans accordingly.
+
+If you're already well-versed in some of the more esoteric subjects listed (I'm looking at you, "design patterns in ExpressionEngine add-ons"), brilliant, [get in touch](/contact "Feed me, Seymour"). I'd love to include a guest post or interview, or just pick your brains for a while.
+
+[Cast your vote](http://www.surveymonkey.com/s/HNZT9DC "Proportional representation FTW!"), [spread the word](http://twitter.com/home?status=ExpressionEngine%20developers%20unite!%20Have%20your%20say%20on%20%22ExpressionEngine%20Add-on%20Development%22:%20http://bit.ly/ee-addon-dev%20%23eecms "Tweet some sweet nothings"), and help me to regret ever embarking upon this foolish venture.

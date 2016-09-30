@@ -1,0 +1,30 @@
+---
+author: Stephen Lewis <stephen@experiencehq.net>
+date: 2011-06-09
+title: Introducing DropDate for ExpressionEngine 2
+tags:
+- Announcements
+- ExpressionEngine
+---
+# Introducing DropDate for ExpressionEngine 2 #
+Exciting news, loyal follower: [DropDate][dropdate] is now fully compatible with ExpressionEngine 2.
+
+Of course, if you really were that loyal you would realise that this is rather old news, as the EE2 version has been proudly swaggering its way around our [GitHub account][github] for some time.
+
+After one support request too many, we finally got around to updating [the official documentation][dropdate_docs], so we can all hug and be friends again.
+
+## Credit where it's due ##
+Full credit for the EE2 version goes to the PHP leviathan that is [Lodewijk Schutte][low].
+
+We added a few niceties, but Low took care of all the hard work, after growing tired of waiting for us. I knew he'd blink first.
+
+## About that ExpressionEngine 1 thing ##
+The DropDate download still includes the EE1 version, and indeed the [DropDate documentation][dropdate_docs] still includes EE1 installation and usage instructions.
+
+However, as of today, the EE1 version is officially deprecated. The eagle-eyed among you will note that the [last few enhancements][dropdate_changelog] have been EE2 only, and that is the shape things to come.
+
+[dropdate]: /software/dropdate "Dropping dates like they're hot"
+[dropdate_changelog]: /software/dropdate/changelog "Read our social diary"
+[dropdate_docs]: /software/dropdate/docs "Get you some schoolin'"
+[github]: http://github.com/experience "The official Experience GitHub account"
+[low]: http://twitter.com/low "His houseboat brings all the girls to the canal"

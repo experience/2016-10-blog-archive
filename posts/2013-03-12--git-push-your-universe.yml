@@ -1,0 +1,115 @@
+---
+author: Stephen Lewis <stephen@experiencehq.net>
+date: 2013-03-12
+title: Git Push Your Universe
+tags:
+- Announcements
+- ExpressionEngine
+---
+# Git Push Your Universe #
+A couple of weeks ago, we quietly relaunched the Experience website.
+
+The most obvious difference is that the new site now meets the predefined buzzword quota for all websites developed since 2012 (responsive! icon fonts!), but actually the biggest change is behind the scenes: Experience HQ is no longer built on [ExpressionEngine][ee].
+
+[ee]: http://expressionengine.com/ "Publish your universe, slowly"
+
+## Why the change?
+Not so long ago, ExpressionEngine was a good choice for the Experience website. We had, in no particular order:
+
+- A software section containing copious amounts of documentation.
+- A portfolio of past work.
+- A smattering of case studies.
+- A client list.
+- A page of customer testimonials.
+- Several "About Us" pages.
+- E-commerce capabilities, courtesy of the excellent [Store][store] add-on.
+- A cobbled-together knowledge-base for each add-on.
+- A support system, with internal ticketing, auto-responders, and other related cleverness.
+
+[store]: http://exp-resso.com/store "A splendid e-commerce solution for ExpressionEngine, despite the awful pun"
+
+How times have changed. Now this site is little more than a blog, a homepage, and a form which allows people selling Gucci handbags to [contact us][contact].
+
+[contact]: /contact "Whilst we are mostly interested in purchasing surgical enhancements and cheap designer goods, please be aware that we must occasionally build web applications in order to fund our addiction"
+
+ExpressionEngine is complete overkill for a site like this, but worse than that, it actually gets in the way of publishing content.
+
+## The publishing problem
+My process for writing a new blog post has always been something akin to the following:
+
+1. Open a plain text document, usually in [Byword][byword], and jot down a few vague bullet points about the post in question.
+2. Immediately veer off on several incompatible tangents, until the document resembles the group therapy musings of a collection of people who haven't really grasped the original subject.
+3. Attempt to organise everything into a sensible structure, through the application of yet more bullet points.
+4. Realise that, were I to write this post, it would be at least 5,000 words long.
+5. Press and hold the "Enter" key for several seconds, until the original mess has scrolled off the bottom of the screen.
+6. Repeat the above process several times over, until I have something approaching an outline.
+7. Start writing.
+8. Ramble uncontrollably.
+9. Spend far too long fussing over minor grammatical niceties, even though the article as a whole still barely makes sense.
+10. Re-read [Strunk and White][strunk].
+11. Despair of ever publishing this damn thing.
+12. Progress inexorably from something that sounds like the voices inside my head, to something that resembles an actual publishable blog post.
+13. Proof, edit, reword, rewrite, and fuss some more.
+
+[byword]: http://bywordapp.com/ "How do I make this bit of text red?"
+[strunk]: http://en.wikipedia.org/wiki/The_Elements_of_Style "Worst. Buddy movie. Ever"
+
+This entire process can take anything from an hour to several days, and almost always involves a single text editing application, and a single plain text file.
+
+My obvious failings as a writer notwithstanding, from a technological perspective, the entire process is friction-free; right up, that is, until the point of publication.
+
+At that point (when using ExpressionEngine), I have to:
+
+1. Open a browser window.
+2. Log-in to the EE Control Panel.
+3. Click around far more than I would like, all the while cursing those stupid drop-down menus.
+4. Copy-paste my already-written blog post into various form fields.
+5. Do a bit more clicking around, in order to set the publication date, metadata, and so forth.
+6. Click "Publish".
+
+That's not the most onerous process imaginable, but it does get in the way rather.
+
+To make matters worse, I was increasingly unhappy about my content being locked inside the ExpressionEngine database, and found myself loathe to exacerbate that problem by publishing further articles.
+
+Clearly something had to change.
+
+## Making publishing a priority
+By now, my criteria for selecting a new CMS (I use the term loosely) should be pretty obvious: I wanted something that supported my existing process of writing content using Markdown and plain text files, without the final fiddly "publishing" bit of logging-in to a web application, and copy-pasting everything into a web form.
+
+In other words, I wanted a flat-file CMS.
+
+The chosen one should also be capable of handling separate sections, and be reasonably easy to hack or extend, just in case I need something that it doesn't offer out the box.
+
+After a lot of research[^1] and a few false starts, I finally settled on [Kirby][kirby].
+
+[kirby]: http://getkirby.com/ "No database, just files and folders. And occasional swearing"
+
+## Kirby
+Kirby meets all of my basic requirements, and a few more besides.
+
+Everything runs off plain Markdown-formatted text files, and there's a (very) simple [plugin system][kirby_plugins] in case I want to knock things about a bit under the hood, without hacking the core (predictably, I have).
+
+[kirby_plugins]: http://getkirby.com/downloads/ "Additional Kirby odds and sods"
+
+Publishing a blog post is now as simple as adding a new text file to the site's Git repository, and deploying[^2].
+
+That's not to say that Kirby is perfect, of course.
+
+Kirby is built on the [Kirby Toolkit][kirby_toolkit], which essentially consists of a handful of helper classes. As such it's a little less structured than I would personally like.
+
+Also--and somewhat surprisingly, given its simplicity--Kirby is not always quite as easy to customise or debug as you might imagine. [Joel Bradbury][joel] can attest to the amount of time I wasted tracking down a particularly annoying bug in the Kirby URL parser on the flights to-and-from Washington D.C.
+
+[kirby_toolkit]: http://toolkit.getkirby.com/ "jQuery for PHP, apparently"
+[joel]: http://thingsthatlooklikejoelbradbury.tumblr.com/ "Joel Bradbury, co-organiser of the ExpressionEndor UK conference"
+
+It's at times like that you begin to understand why [Pixel & Tonic][pt] decided to write [their own CMS][craft].
+
+[pt]: http://pixelandtonic.com/ "Long-time sponsors of EECI, EEUK, the EE Podcast, EE Insider, and Devot-EE. You know, unlike EllisLab"
+[craft]: http://buildwithcraft.com/ "Would anybody like to buy my 'blocks-addons.com' domain?"
+
+Overall, though, I'm happy with the new system. Now that the site is built, I have a clean, simple publishing process that fits around the way I write.  Just as importantly, all of my content is now in plain text files, so if I do choose to move onto something new it will be a much simpler process.
+
+All of which means that I'll have to find another excuse for the next extended writing hiatus.
+
+[^1]: Dithering.
+[^2]: Hence the title of this post, a pun on the old ExpressionEngine / pMachine strapline, "Publish Your Universe", which you're probably too young to remember anyway.

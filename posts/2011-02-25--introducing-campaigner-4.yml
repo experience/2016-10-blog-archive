@@ -1,0 +1,50 @@
+---
+author: Stephen Lewis <stephen@experiencehq.net>
+date: 2011-02-25
+title: Introducing Campaigner 4
+tags:
+- ExpressionEngine
+- Announcements
+---
+# Introducing Campaigner 4 #
+Look alive excitable minions, [Campaigner 4][campaigner] is now available for your totally non-exclusive downloading pleasure.
+
+## All new and improved ##
+Behind the scenes, the Campaigner codebase has undergone some major changes, and now uses the brand new version of the [Campaign Monitor API][cm_api]. It's the future, and it smells amazing.
+
+There's also a new extension hook for the code savvy amongst you, and a slew of minor tweaks and enhancements.
+
+## Wait a minute, didn't you just release Campaigner 3? ##
+Yes I did, anonymous questioner, and thank you for following the development of my highly-regarded add-on so closely.
+
+After releasing [Campaigner 3][campaigner_3], I decided it was high time I had a much-deserved rest. Anticipating my imminent relaxation, Campaign Monitor leapt into action, booby-trapping my RSS reader with news of a brand new version of their API.
+
+Emerging from a drunken stupor several weeks later, I resigned myself to the task ahead, swept the empty bottles from my desk, and set to work updating Campaigner. 
+
+Call it bad timing, call it drunken myopia, call it a rather stupid choice in the original Campaigner architecture if you absolutely must; whatever the reason, converting Campaigner to the new API was a lot of work.
+
+On top of that, there are a bunch of minor enhancements, and a brand new extension hook for the cool kids to play around with.
+
+So yeah, all in all I figured that was enough to justify a version release.
+
+## Farewell to old friends ##
+Finally, there is the small matter of ExpressionEngine 1 support. Or, more precisely, the lack of said support.
+
+That's right, Campaigner 4 is EE2 only.
+
+The two branches of Campaigner 3 already shared precious little code, a situation which was holding back development, and making support far more painful than it needed to be.
+
+The situation was only going to deteriorate with the release of Campaigner 4, so I decided the time was right to ditch the old, and move ahead with the new.
+
+Of course, you may consider this a shocking abuse of my considerable power, and a heartless kick in the balls for a venerable platform that has served us all selflessly for many years; but I figured what the heck, why should [Brandon Kelly][bk] have all the fun?
+
+## What does this mean for EE1 users? ##
+From here on, Campaigner for EE1 will be treated as a legacy product. That means bug fixes and basic support, but no new features. <strike>WordPress</strike> EE2 is where it's at folks, so you might as well get on board.
+
+The EE1 version will still be included in the Campaigner download for the time being, just in case you really, really need it. However, all the documentation has been updated to be EE2-only, and the product is now listed as such, both here and on [Devot-ee][devotee].
+
+[campaigner]: /software/campaigner "Campaigner 4. Now with new Campaign Monitor API goodness baked in."
+[cm_api]: http://campaignmonitor.com/api/ "See what those bastards did to me."
+[campaigner_3]: /blog/introducing-campaigner-for-expressionengine-2 "It seems like only last blog post I was announcing Campaigner 3..."
+[bk]: http://pixelandtonic.com/ "That Kenny Meyers gets around."
+[devotee]: http://devot-ee.com/ "You come to me and you say'Don Masuga, give me add-on sales.'but you don't ask with respect. You don't offer friendship. You don't even think to call me Godfather."

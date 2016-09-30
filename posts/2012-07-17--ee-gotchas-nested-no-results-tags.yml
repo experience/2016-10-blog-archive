@@ -1,0 +1,129 @@
+---
+author: Stephen Lewis <stephen@experiencehq.net>
+date: 2012-07-17
+title: EE Gotchas: Nested &#039;no_results&#039; Tags
+tags:
+- ExpressionEngine
+---
+# EE Gotchas: Nested &#039;no_results&#039; Tags #
+Last night, whilst working on a simple ExpressionEngine module, I encountered an annoying bug in the EE Template parser. Namely, ExpressionEngine fails to output `no_results` blocks in nested template tags.
+
+This is a pretty pernicious bug, for two reasons:
+
+1. It affects _all_ ExpressionEngine developers, not just add-on developers such as myself[^1];
+2. It only appears under specific circumstances. 
+
+[^1]: In this post, an "ExpressionEngine developer" is someone who uses pre-built ExpressionEngine add-ons to create ExpressionEngine templates; an "add-on developer" builds said add-ons.
+ 
+The second point is something of a double-edged sword for the typical EE developer.
+
+On the one hand, it means you can easily work around the issue, once you understand it (read on for the fix). On the other hand, it makes it very easy to break your site with a seemingly innocuous edit.
+
+## Show and tell ##
+I've built a quick plugin to demonstrate the issue. If you want to play along at home for (purely optional) extra credits, you can [grab it from GitHub][github_plugin].
+
+[github_plugin]:https://github.com/experience/no_results.ee_addon "Stick a fork in me, I'm done."
+
+The following example code uses the `test_case` method of the aforementioned plugin to automatically return the `no_results` content:
+
+```css
+{exp:channel:entries channel='blog' limit='1'}
+  <h2>{title}</h2>
+        
+  {exp:no_results:test_case}
+    {if no_results}<p>Nested "no results" content.</p>{/if}
+  {/exp:no_results:test_case}
+{/exp:channel:entries}
+```
+
+
+Assuming the most recent entry in our blog is entitled "The Cold Hard Bluths", we would expect to see the following:
+
+```css
+<h2>The Cold Hard Bluths</h2>
+<p>Nested "no results" content.</p>
+```
+
+
+In reality, we just get the headline.
+
+## A series of sneaks ##
+This is where the things start to get tricky.
+
+If the "parent" template tag has _its own_ `no_results` block, everything works. So, the following code will output the nested `no_results` content, even though the Channel Entries `no_results` block is ignored:
+
+```css
+{exp:channel:entries channel='blog' limit='1'}
+  {if no_results}<p>Magic!</p>{/if}
+      
+  <h2>{title}</h2>
+        
+  {exp:no_results:test_case}
+    {if no_results}<p>Nested "no results" content.</p>{/if}
+  {/exp:no_results:test_case}
+{/exp:channel:entries}
+   
+{!-- Output --}
+<h2>The Cold Hard Bluths</h2>
+<p>Nested "no results" content.</p>
+```
+
+
+WTF indeed, dear reader.
+
+## A simple workaround (for EE developers) ##
+If you're not an add-on developer, you can safely make a note of the above fix, and stop reading.
+
+Ensure that your "parent" template tag has its own `no_results` block, and you'll never fall foul of this unpleasant little bug.
+
+## An simple fix (for add-on developers) ##
+Sadly, the above workaround isn't much help if you _are_ an add-on developer, as you can't very well insist that your users employ it in every template.
+
+Instead of the aforementioned workaround, we need a (very) slightly more sophisticated fix. Rather than relying on ExpressionEngine to locate and parse the `no_results` content, we're going to do it ourselves.
+
+A side bonus of this minor hassle is that we get to name the `no_results` block whatever we want. For example:
+
+* An affiliate management module could use `{if no_affiliates}`;
+* A hotel bookings system could use `{if no_available_rooms}`;
+* And so forth.
+
+In fact, using a custom name for the `no_results` tag enables us to neatly sidestep any further nesting issues, and keep our code simple.
+
+Here's the basic fix, in all its simplistic glory:
+
+```php
+$tagdata  = $this->EE->TMPL->tagdata;
+$tag_name = 'no_soup_for_you';    
+$pattern  = '#' .LD .'if ' .$tag_name .RD .'(.*?)' .LD .'/if' .RD .'#s';
+
+if (is_string($tagdata) && is_string($tag_name)
+  && preg_match($pattern, $tagdata, $matches)
+)
+{
+  return $matches[1];
+}
+```
+
+
+You can see it in action by adding the following code to your template:
+
+```css
+{exp:channel:entries channel='blog' limit='1'}      
+  <h2>{title}</h2>
+        
+  {exp:no_results:the_fix}
+    {if no_soup_for_you}<p>Come back, one year!</p>{/if}
+  {/exp:no_results:the_fix}
+{/exp:channel:entries}
+```
+
+
+Which will output the following dream comedy mashup:
+
+```css
+<h2>The Cold Hard Bluths</h2>
+<p>Come back, one year!</p>
+```
+
+
+Job done.

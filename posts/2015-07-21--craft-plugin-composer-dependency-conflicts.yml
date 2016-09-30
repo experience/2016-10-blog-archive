@@ -1,0 +1,173 @@
+---
+author: Stephen Lewis <stephen@experiencehq.net>
+date: 2015-07-21
+title: How To Handle Composer Dependency Conflicts In Your Craft Plugins
+tags:
+- Craft
+---
+# How To Handle Composer Dependency Conflicts In Your Craft Plugins #
+Composer dependency conflicts between Craft plugins are a thorny problem. Here's a simple example, in case you're unfamiliar with the problem (you lucky thing).
+
+## From the benign ##
+
+Let's say we're using two plugins within our Craft site, both of which depend upon the same Composer package.
+
+Each plugin has its own `composer.json` file, and associated `vendor` directory, so our plugins directory looks something like this:
+
+```other
+|- plugins/
+   |- first/
+      |- composer.json
+      |- FirstPlugin.php
+      |- vendor/
+   |- second/
+      |- composer.json
+      |- SecondPlugin.php
+      |- vendor/
+```
+
+
+Each plugin requires the `autoload.php` from its `vendor` directory, to facilitate autoloading of the Composer package classes:
+
+```php
+<?php namespace Craft;
+
+class FirstPlugin extends BasePlugin
+{
+    public function init()
+    {
+        require_once __DIR__ . '/vendor/autoload.php';
+    }
+}
+```
+
+
+This setup works fine, just as long as both plugins depend upon the same version of the Composer package.
+
+However, let's imagine a situation where `SecondPlugin` depends upon a feature in version 1.1 of the package, whereas `FirstPlugin` is happy to bimble along with version 1.0.
+
+In that situation, `SecondPlugin` is in trouble.
+
+## To the ridiculous ##
+
+The first plugin loaded wins the race of the autoloaders, and dictates which version of the package is used _throughout the entire application_ [^composer-issue].
+
+[^composer-issue]: It's worth mentioning that this is not a Craft-specific issue; rather, it's a consequence of how Composer works.
+
+The load order of plugins within Craft appears to be alphabetical, but that's not really something upon which you can rely. And even if it was, there's no guarantee that `AAAPlugin` won't turn up and ruin the party for everyone.
+
+So, if you can't control the load order of the plugins, and by extension have no control over which version of a package is used, what _can_ you do to guard against this problem?
+
+## Some solutions, of sorts ##
+
+### Option 1: Use a "global" composer.json ###
+
+If you are responsible for all of the plugins within the site, you could use a "global" `composer.json` to manage the dependencies of every plugin in one place.
+
+In other words, rather than having a `composer.json` file (and the associated `vendor` directory) for each plugin, we instead move everything to a general-purpose `dependencies` directory.
+
+Our plugins directory now looks like this:
+
+```other
+|- plugins/
+   |- dependencies/
+      |- composer.json
+      |- vendor/
+   |- first/
+      |- FirstPlugin.php
+   |- second/
+      |- SecondPlugin.php
+```
+
+
+And of course, we also need to ensure that our plugins use the new "global" autoloader:
+
+```php
+public function init()
+{
+    require_once __DIR__ . '/../dependencies/vendor/autoload.php';
+}
+```
+
+
+This solution works, but comes with a couple of important caveats:
+
+1. The use-case for this solution is pretty limited. Most sites use third-party plugins which you (as the site author) did not build from scratch, each of which could still cause a dependency conflict.
+2. This solution won't work if one of your plugins depends upon a different version of a package included by Craft itself, such as Guzzle [^craft-packages].
+3. This only works for minor[^semver] package version conflicts. If `FirstPlugin` depends on version 1.0, and `SecondPlugin` depends on version 2.0, we're once again out of luck.
+
+[^craft-packages]: Welcome to a fresh circle of hell. Now go rewrite your plugin to use Craft's package.
+
+[^semver]: Assuming the package author abided by the rules of [semantic versioning][semver].
+
+[semver]: http://semver.org/ "Major Minor Patch"
+
+Regarding the final point, the only thing we can do in that situation is to fail gracefully. Which leads us to the second solution.
+
+### Option 2: When all else fails, fail gracefully ###
+
+In situations where the "global dependencies" solution isn't feasible, the best we can hope to do is fail gracefully.
+
+Ideally we'd like a way to confirm that the loaded version of a Composer package meets a plugin's requirements, but unfortunately it's tough to reliably do this[^package-versions].
+
+[^package-versions]: I have some thoughts on how to accomplish this, but it's still very much a work-in-progress.
+
+The next-best option is to confirm that the loaded version of a Composer package "belongs" to a plugin; that is, it's loaded from the plugin's `vendor` directory.
+
+Clearly this isn't ideal, as it doesn't account for the fact that two plugins may require the same version of a package, and will therefore work just fine with either one. But it's called [defensive programming][defensive-programming] for a reason: better safe than sorry.
+
+[defensive-programming]: https://en.wikipedia.org/wiki/Defensive_programming "Defensive programming is primarily concerned with the security of a program. Defensive brogramming is primarily concerned with the insecurity of the programmer."
+
+Here's how we might go about implementing this safeguard:
+
+```php
+<?php namespace Craft;
+
+class FirstPlugin extends BasePlugin
+{
+    public function init()
+    {
+        $this->initializeAutoloader();
+        $this->checkPackageDependencies();
+    }
+
+    protected initializeAutoloader()
+    {
+        require_once __DIR__ . '/vendor/autoload.php';
+    }
+
+    protected checkPackageDependencies()
+    {
+        $dependencies = [
+            '\Namespaced\Package\Class',
+            '\Another\Namespaced\Package\Class',
+        ];
+
+        foreach ($dependencies as $dependency) {
+            if (! $this->isPackageLoadedByPlugin($dependency, 'first')) {
+                // Log the problem.
+                // Take drastic measures.
+            }
+        }
+    }
+
+    protected function isPackageLoadedByPlugin($namespacedClass, $pluginHandle)
+    {
+        $reflector = new \ReflectionClass($namespacedClass);
+        $pattern = '#' . CRAFT_PLUGINS_PATH . $pluginHandle . '/#';
+
+        return (bool) preg_match($pattern, $reflector->getFileName());
+    }
+}
+```
+
+
+You can find the `isPackageLoadedByPlugin` method in [this Gist][package-gist].
+
+[package-gist]: https://gist.github.com/monooso/817318b369a07ebc2d9b "Helper method to determine whether a third-party Composer package is loaded by a particular Craft plugin."
+
+## Conclusion ##
+
+Dependency conflicts between Craft plugins are a thorny problem, not of Craft's making.
+
+In very specific circumstances, we can sidestep these issues by using "global" plugin dependencies. The rest of the time, the best we can do is err on the side of caution, and fail gracefully.

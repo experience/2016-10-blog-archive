@@ -1,0 +1,31 @@
+---
+author: Stephen Lewis <stephen@experiencehq.net>
+date: 2011-06-29
+title: Introducing OmniLog: System-Wide Message Logging for ExpressionEngine Add-on Developers
+tags:
+- ExpressionEngine
+- Announcements
+---
+# Introducing OmniLog: System-Wide Message Logging for ExpressionEngine Add-on Developers #
+Yesterday, I--along with the rest of the known ExpressionEngine universe--spent some time kissing [Brandon Kelly's Assets][assets].
+
+[assets]: http://pixelandtonic.com/assets "No way! EllisLab were totally just about to do something exactly like this"
+
+As I waited patiently for the file to upload to my preferred warez site, I impudently pondered what could possibly be done to make Brandon Kelly's <strike>life a living hell</strike> add-on even better.
+
+And then, like an "upload complete" notification written entirely in Russian, it hit me: [Assets][assets_b] should tell me when a problem occurs deep in the bowels of its <strike>ropey</strike> flawless code.
+
+[assets_b]: http://pixelandtonic.com/assets "Sometimes I think Brandon Kelly could release some overpriced piece of crap breadcrumbs module, and people would still buy it"
+
+Surely this would be of great benefit not only to me, his Kellyship's humble customer, but also [Our Underbearded Overlord][underbeard] Himself, on those rare occasions when a misguided fool submits a "doesn't work, fix it" support request.
+
+[underbeard]: http://www.flickr.com/photos/mirrorimagegallery/5458346169/ "A sneak preview of the new Pixel & Tonic 'About Us' page"
+
+I decided it was time to help a brother out, and set to work. Several hours later, I am happy to present [OmniLog][omnilog]: a system-wide message logging add-on, specifically designed for use by ExpressionEngine add-on developers.
+
+As I type this, it also occurs to me that [OmniLog][omnilog] ties in rather nicely with the "log everything" directive, from [part 2][part_2] of my "Integrating ExpressionEngine with Third-Party APIs" series.
+
+Isn't life full of strange coincidences? Don't bother answering that, I still haven't enabled comments.
+
+[omnilog]: /software/omnilog "System-wide message logging for ExpressionEngine add-on developers"
+[part_2]: /blog/integrating-ee-with-apis-part-2 "Almost like it was planned"

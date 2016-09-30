@@ -1,0 +1,312 @@
+---
+author: Stephen Lewis <stephen@experiencehq.net>
+date: 2009-10-12
+title: Using Git to Manage an ExpressionEngine Website (Part 4 of 4)
+tags:
+- ExpressionEngine
+---
+# Using Git to Manage an ExpressionEngine Website (Part 4 of 4) #
+Summer has turned to Autumn, that duplicitous charlatan [Masuga has attempted to steal my thunder](http://devot-ee.com/articles/item/version-control-for-expressionengine-using-git-part-1/ "Do not trust this man with your wife"), and yet somehow we've managed to stumble our way to the final installment in this series.
+
+This is the point at which all your hard work and inexhaustible patience pays off.
+
+The previous post concluded with a brief overview of a typical Git workflow, and the promise of a more detailed description of the day-to-day usage of Git in the next installment. Ever a man of my word, that's exactly what this article is all about.
+
+## The scenario ##
+Your client is the proud owner of a fairly large, busy website, requiring lots of minor ongoing updates and improvements. He also plans to launch a big new product (the Widget-o-matic) a few months hence, an event which requires a number of significant changes to the site.
+
+The prospect of building a major new website feature, whilst simultaneously making regular updates to the existing site, would terrify a lesser man. But not you dear reader, for you have Git at your elbow, and such things no longer hold any fear.
+
+## The solution ##
+Something that Git does very well -- indeed continually brags about -- is branches. A branch is a separate line of development that shares a common ancestor with the other branches within your project.
+
+In this case, your default branch (`master`) will be used to manage the current (live) website, and a new `widget` branch will be used to manage the development work for the new Widget-o-matic section.
+
+## The workflow ##
+Working with Git is very simple, and really only involves a handful of commands. Here's how the above solution translates into Gitspeak.
+
+### Create the `widget` branch ###
+First up, create the new `widget` branch in your local repository.
+
+```other
+$> git checkout -b widget
+```
+
+
+This simultaneously creates a new branch named `widget`, and makes the `widget` branch active. If you prefer to do things one at a time, you can _instead_ enter.
+
+```other
+$> git branch widget
+$> git checkout widget
+```
+
+
+Let's see what we've got so far.
+
+```other
+$> git branch -a
+  master
+* widget
+  origin/HEAD
+  origin/master
+```
+
+
+In an attempt to keep this post a manageable length, I'm not going to get into a discussion of the `origin/HEAD` and `origin/master` branches right now. Suffice to say that you should never attempt to work with them directly; they are _tracking_ branches, whose sole purpose is to track the branches in your remote repository.
+
+Which leads us neatly into the next step: creating the remote repository `widget` branch. The simplest way to do this is as follows.
+
+```other
+$> git push origin widget
+```
+
+
+Git is smart enough to realise that the `widget` branch doesn't currently exist in your remote repository, and creates it for you. You can confirm that everything is hunky-dory by listing all of your branches again.
+
+```other
+$> git branch -a
+  master
+* widget
+  origin/HEAD
+  origin/master
+  origin/widget
+```
+
+
+You could get on with building the Widget-o-matic right now, but ideally you'd be able to `push` and `pull` from both the `master` and `widget` branches without the need to specify the remote repository branch every time.
+
+Running the `git remote show origin` command displays lots of useful information about your remote repository.
+
+```other
+$> git remote show origin
+* remote origin
+  URL: ssh://shell_username@account_name.dreamhosters.com:git-repos/example_website
+  Remote branch merged with 'git pull' while on branch master
+      master
+  Tracked remote branches
+      master
+      widget
+```
+
+
+As you can see, there's no mention of what happens when you do a `git pull` whilst on the `widget` branch. You can rectify this by updating the `.git/config` file, either manually (through a text editor), or via the command line.
+
+Before you do that, let's take a look at what your `config` file looks like now.
+
+```other
+$> cat .git/config
+# Some information removed for clarity
+[remote "origin"]
+    url = ssh://shell_username@account_name.dreamhosters.com:git-repos/example_website
+    fetch = +refs/heads/*:refs/remotes/origin/*
+[branch "master"]
+    remote = origin
+    merge = refs/heads/master
+```
+
+
+The first block (in the above example, you'll likely have some other information at the top of your `config` file) defines the remote repository that you're tracking.
+
+It gives it the short name `origin`, and then specifies the URL that should be associated with this short name. This saves you typing it in every time you want to perform a `push` or `pull`. I'll skip over the `fetch` line in the interests of brevity.
+
+The second block includes some important information about the `master` branch. Firstly, that it's tracking the remote repository with the short name `origin`. Secondly, that performing a `git pull` whilst on the local `master` branch will merge the remote `master` branch (identified by `refs/heads/master`).
+
+Again, we're at risk delving deep into the bowels of Git here, which is not the intention with this series. The important point is that you need to create an information block in your `.git/config` file for the `widget` branch.
+
+There are two ways of doing this: via the command line, and editing the `config` file manually. I'll run through the former, and then show you the resultant changes to your `config` file.
+
+```other
+$> git config branch.widget.remote 'origin'
+$> git config branch.widget.merge 'refs/heads/widget'
+$> cat .git/config
+# Some information removed for clarity
+[remote "origin"]
+    url = ssh://shell_username@account_name.dreamhosters.com:git-repos/example_website
+    fetch = +refs/heads/*:refs/remotes/origin/*
+[branch "master"]
+    remote = origin
+    merge = refs/heads/master
+[branch "widget"]
+    remote = origin
+    merge = refs/heads/widget
+```
+
+
+All being well, your `config` file will contain a new configuration block for the `widget` branch. Running `git remote show origin` again will confirm that your local `widget` branch is now tracking your remote `widget` branch.
+
+```other
+$> git remote show origin
+* remote origin
+  URL: ssh://shell_username@account_name.dreamhosters.com:git-repos/example_website
+  Remote branch merged with 'git pull' while on branch master
+      master
+  Remote branch merged with 'git pull' while on branch widget
+      widget
+  Tracked remote branches
+      master
+      widget
+```
+
+
+All is right in the world. Onwards!
+  
+### Build the Widget-o-matic ###
+Before you can work on the Widget-o-matic, you need to ensure that you're working on the `widget` branch.
+
+When you ran the `git branch` command a few moments ago, you may have noticed an asterisk next to the `widget` branch. This asterisk tells you which branch you're currently working on. To work on a different branch, simply run `git checkout`.
+
+```other
+$> git checkout master
+$> git checkout widget
+```
+
+
+Now that you have your ducks in a row, it's time to crack on with creating the Widget-o-matic. Create a readme file, with a description of exciting new feature, and add it to your local repository.
+
+```other
+$> echo The Widget-o-matic is an automatic widget. >> widget_readme.txt
+$> git add widget_readme.txt
+$> git commit -m "Added widget readme file."
+```
+
+
+Running `git status` will inform you that you're one commit ahead of `origin/widget`, so go ahead and `push` your changes to the remote repository.
+
+```other
+$> git push
+```
+
+
+Thanks to your earlier `config` fiddling, you don't need to specify the local or remote branches. Nice.
+
+Finally, confirm that your new file is present in your working directory.
+
+```other
+$> ls
+example_file.txt    # Created in the previous installment
+widget_readme.txt
+```
+
+
+Now for the exciting part. No, really.
+
+### Update the live site ###
+Your hypothetical client now wants you to make a few changes to the live site. Not a problem. First, `checkout` the `master` branch.
+
+```other
+$> git checkout master
+```
+
+
+Before continuing, list the files in the current directory again, and notice that `widget_readme.txt` has disappeared.
+
+```other
+$> ls
+example_file.txt
+```
+
+
+Git automatically updates the files and directory structure of your working copy, to reflect the currently-active branch. Told you it was exciting.
+
+Create a new file in the `master` branch, and commit it as before.
+
+```other
+$> echo Coming soon, the Widget-o-matic! >> latest_news.txt
+$> git add latest_news.txt
+$> git commit -m "Created latest news file."
+$> git push
+```
+
+
+Once again, you'll notice that `git push` automatically sends your updates to the appropriate remote repository branch.
+  
+The only problem is, the news on your `widget` branch is now out-of-date. Again, Git has the answer.
+
+```other
+$> git rebase master widget
+```
+
+
+This writes any outstanding `master` commits to the `widget` branch, bringing it up to date with any changes made to the live site. It also switches you to the `widget` branch, so run a quick `ls` to confirm that `latest_news.txt` is present.
+
+```other
+$> ls
+example_file.txt
+latest_news.txt
+widget_readme.txt
+```
+
+
+Perfect.
+
+### Launch the Widget-o-matic ###
+The time has come to launch the Widget-o-matic. To do so, you need to `merge` the changes on the `widget` branch into the `master` branch, and `push` them to the remote repository.
+
+Before doing that, confirm that you don't have any uncommitted changes in either the `widget` or `master` branches (`git status` will tell you what you need to know).
+
+Once everything is current, you can proceed with the `merge`.
+
+```other
+$> git checkout master
+$> git merge widget
+$> ls
+example_file.txt
+latest_news.txt
+widget_readme.txt
+```
+
+
+Awesomeness. `git push` your changes to the remote repository, and you're done.
+
+### Housekeeping ###
+Now that the Widget-o-matic is launched, and part of the `master` branch, it makes sense to delete the obsolete `widget` branch. The simplest way to do this is by first deleting the remote branch, as follows.
+
+```other
+$> git push origin :widget
+```
+
+
+Perhaps a little counter-intuitive at face value, but it has the desired effect. You can confirm that the remote branch has been deleted by running `git branch -a`.
+
+```other
+$> git branch -a
+* master
+  widget
+  origin/HEAD
+  origin/master
+```
+
+
+Now that the remote branch has been deleted, you can delete your local `widget` branch.
+
+```other
+$> git branch -d widget
+$> git branch -a
+* master
+  origin/HEAD
+  origin/master
+```
+
+
+Doing so also cleans up your `config` file.
+
+```other
+$> cat .git/config
+# Some information removed for clarity
+[remote "origin"]
+    url = ssh://shell_username@account_name.dreamhosters.com:git-repos/example_website
+    fetch = +refs/heads/*:refs/remotes/origin/*
+[branch "master"]
+    remote = origin
+    merge = refs/heads/master
+```
+
+
+Neat.
+
+## Conclusion ##
+Those of you that skipped to the end, I understand completely, but your ingratitude makes me weep. Those of you that read this far, well done, and seek help.
+
+The conscientious amongst you should now have a reasonable understanding of [how to setup your Git working environment](/blog/archive/using-git-with-expressionengine-part-2 "How to setup your Git and ExpressionEngine working environment"), [how to create your local and remote Git repositories](/blog/archive/using-git-with-expressionengine-part-3 "How to create your local and remote Git repositories"), and how to work with Git on a day-to-day basis.
+
+There's an awful lot to Git that I've deliberately shied away from covering in this series. If you have any questions or comments, I encourage you to [join the discussion on the ExpressionEngine forums](http://expressionengine.com/forums/viewthread/118990/ "Join the Git and ExpressionEngine conversation on the EE Forums"). Hopefully we can all learn something from each other.

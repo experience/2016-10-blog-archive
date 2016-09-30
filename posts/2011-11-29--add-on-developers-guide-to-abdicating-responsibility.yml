@@ -1,0 +1,67 @@
+---
+author: Stephen Lewis <stephen@experiencehq.net>
+date: 2011-11-29
+title: The Add-on Developer&#039;s Guide to Abdicating Responsibility
+tags:
+- ExpressionEngine
+---
+# The Add-on Developer&#039;s Guide to Abdicating Responsibility #
+The ability to add custom extension hooks to your add-on is one of the most powerful features of ExpressionEngine. It is also woefully under-used by most add-on developers.
+
+There are three main reasons for implementing custom extension hooks in your add-ons:
+
+1. To let your PHP-savvy users bend your add-on to their will without resorting to nasty hacks;
+2. To prevent code and feature bloat;
+3. To facilitate code re-use and easier maintenance, by building multiple related add-ons, instead of a single über add-on.
+
+The final point is particularly relevant to private projects, where you don't have to worry about the additional support requests that may result from requiring end-users to install multiple discreet add-ons.
+
+This post expands on the first two points.
+
+## Without X your add-on is USELESS!
+Not all feature requests are created equal. Some are extremely insightful and far-reaching, and improve the add-on in ways you never imagined. Most are narrow, case-specific, and don't belong in the core product.
+
+Extension hooks provide a means of dealing with the latter in a way that doesn't adversely affect the core add-on.
+
+Allow me to furnish you with an example.
+
+## The problem
+[Campaigner][campaigner] is an ExpressionEngine 2 extension which automatically adds newly registered members of an ExpressionEngine site to the [Campaign Monitor][campaign_monitor] mailing lists of your choosing.
+
+One of Campaigner's most-used features is the ability to [set a "trigger"][campaigner_trigger] for each mailing list. A trigger is simply a condition which states "member field X must contain value Y". If this condition is met, the member is subscribed to the associated Campaign Monitor mailing list.
+
+For example, you may decide that you're only interested in members who select "Blue" in answer to the question "What is your favourite colour?".
+
+In this case Campaigner will check the `m_favorite_color` custom member field (or whatever you've called it) for the string "Blue". All pretty simple stuff.
+
+But what if the question is "What are your preferred colour(s)?", and the member has the option of choosing from a series of checkboxes?
+
+This presents Campaigner with a real problem. If the member selects more than one colour the "trigger" condition will fail, even if one of the selected values is "Blue".
+
+Even worse, the selected values could be stored in the database as: a comma, pipe, or line-break delimited string; a serialised array; some other fanciful concoction of which I've never even heard.
+
+In other words, there's no way to reliably implement a universal solution that will work for all the possible variations of this problem.
+
+This is where an extension hook can prove invaluable.
+
+## The solution
+[Campaigner 4.3.0][campaigner_430] introduced the `campaigner_should_subscribe_member` hook, largely in response to a number of feature requests related to this problem.
+
+The hook enables a third-party add-on to cleanly override Campaigner's internal logic governing whether a member should be subscribed to Campaign Monitor.
+
+I used the `campaigner_should_subscribe_member` hook in [Campaigner Multi-Select][campaigner_ms], a stand-alone extension which solved the original feature request. Those who need to support multi-value fields can install Campaigner MS; life continues as normal for the majority who don't.
+
+While it may sound like more work than is strictly necessary, there are two big advantages to this solution:
+
+1. The Campaigner code-base remains free of unnecessary cruft, resulting in easier maintenance;
+2. _Anyone_ may now override Campaigner's internal "trigger" logic, making for a more flexible and useful add-on.
+
+## Conclusion
+Custom extension hooks are an excellent way to make your add-ons more flexible, whilst avoiding code bloat. Even the [simplest add-ons][smartdown_hooks] can benefit from a custom hook or two.
+
+[campaign_monitor]:http://campaignmonitor.com/ "The primary reason there are no monkeys in Australia"
+[campaigner]:/software/campaigner "Effortlessly subscribe members of your ExpressionEngine site to Campaign Monitor mailing lists"
+[campaigner_430]:{path=software/campaigner/changelog/#v4.3.0} "Read the Campaigner 4.3.0 release notes"
+[campaigner_ms]:https://github.com/experience/campaigner_multiselect.ee_addon "Campaigner Multi-Select. An extension on the extension"
+[campaigner_trigger]:/campaigner/docs/campaigner-configuration "Campaigner configuration instructions"
+[smartdown_hooks]:/software/smartdown/docs/smartdown-extension-hooks/ "Even smarter Markdown"

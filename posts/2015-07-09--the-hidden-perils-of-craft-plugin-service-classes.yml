@@ -1,0 +1,145 @@
+---
+author: Stephen Lewis <stephen@experiencehq.net>
+date: 2015-07-09
+title: The Hidden Perils of Craft Plugin Service Classes
+tags:
+- Craft
+---
+# The Hidden Perils of Craft Plugin Service Classes #
+When writing a Craft plugin, you should be very selective about what you put in your service classes.
+
+This advice appears to run contrary to the guidance given in [the official Craft documentation][craft-docs-services], and keeping your plugin code in service classes is certainly preferable to keeping it in your controller or variable classes. But it's still a bad idea.
+
+[craft-docs-services]: http://buildwithcraft.com/docs/plugins/services "All of your plugin’s business logic should go in services, except when it shouldn't."
+
+## The problems with plugin service classes ##
+
+Let's say we need to send details of the actions performed within our plugin to an external logging service. This isn't the primary purpose of our plugin, but our client is very keen on "metrics".
+
+We need to log actions from several points within our plugin, so a logging service would seem to make sense.
+
+Here's how that might look:
+
+```php
+<?php namespace Craft;
+
+class LocateMe_LoggerService extends BaseApplicationComponent
+{
+    public function log($message)
+    {
+        // Send message to external service.
+    }
+}
+```
+
+
+Simple enough, and now we can do something like this:
+
+```php
+<?php namespace Craft;
+
+class LocateMe_AddressService extends BaseApplicationComponent
+{
+    public function convertAddressToLocation($street, $zip)
+    {
+        craft()->locateMe_logger->log('Converting address...');
+
+        // Convert address to location.
+    }
+}
+```
+
+
+Marvellous. Except it's not, because now _everyone_ can use our `log` method.
+
+### Service classes define your plugin's API ###
+
+When you declare a public method within a service class, you are implicitly giving every other plugin permission to use that method. In other words, the public methods of your service classes define your plugin's API.
+
+Being a responsible developer, this should strike fear into your  heart.
+
+Let's take another look at our previous example:
+
+1. Anybody can send messages to our external logging service. It's no use complaining that this will completely screw up your client's logs, it's part of your API.
+2. You built a logging plugin. It's no use explaining that logging is an implementation detail, and not in any way the primary function of your plugin, it's part of your API.
+3. You're responsible for ensuring that your `log` method remains backward-compatible. It's no use exclaiming that you never intended that anybody else use it, it's part of your API.
+
+Get the picture?
+
+### Service classes are extremely difficult to test ###
+
+As if that wasn't enough to make you swear off Craft plugin service classes for life, there's another problem with them: they're nigh-on impossible to test.
+
+There are a number of reasons for this, some of which are down to Craft itself, some of which are down to the underlying Yii framework, and none of which fall within the scope of this article.
+
+Suffice to say that you can't feasibly test a Craft plugin service class in isolation. Thanks to the inheritance chain, you effectively have to boot the entire Craft application, which in turn means mocking out dozens of peripheral classes which you couldn't care less about, which in turn means drinking and bitter tears of regret. Just ask Brad.
+
+The upshot of all this frustration is that you simply won't write unit tests for your Craft service classes, and that's never going to end well.
+
+## How to keep your service classes lean ##
+
+The solution to these problems is simple: keep your "service layer" code in utility classes, and treat your service classes as nothing more than a way of defining your plugin's public API.
+
+In order to achieve this goal, we need a way of easily loading our utility classes as-and-when required. And as luck[^careful-planning] would have it, we covered how to do exactly that in our [guide to using PSR-4 autoloading in your Craft plugins][psr4-post].
+
+[^careful-planning]: Or possibly careful planning.
+
+[psr4-post]: /blog/how-and-when-to-use-psr-4-autoloading-in-your-craft-plugins "Our recent guide to using PSR-4 autoloading in your Craft plugins. It's almost like we planned this."
+
+Observant readers of that article will notice that it contains the solution to our "logger" problem. Here it is again, for the slackers in the audience.
+
+First, we create a simple `Logger` class.
+
+```php
+<?php namespace LocateMe\Utilities;
+
+class Logger
+{
+    public function log($message)
+    {
+        // Send message to external service.
+    }
+}
+```
+
+
+And then we use that `Logger` class instead of our logger service:
+
+```php
+<?php namespace Craft;
+
+use LocateMe\Utilities\Logger;
+
+class LocateMe_AddressService extends BaseApplicationComponent
+{
+    private $logger;
+
+    public function __construct()
+    {
+        $this->logger = new Logger;
+    }
+
+    public function convertAddressToLocation($street, $zip)
+    {
+        $this->logger->log('Converting address...');
+
+        // Convert address to location.
+    }
+}
+```
+
+
+It doesn't look like much, but this simple change solves both of our previous problems:
+
+1. Our plugin no longer exposes the logging functionality as part of its API[^manual-require].
+2. The `Logger` class is self-contained, and easy to test[^easier-testing].
+
+[^manual-require]: Yes, `SomeOtherPlugin` could still manually load our `Logger` utility class, but at that point they're on their own. The `log` method is no longer part of the public API of our plugin, and as such we're free to change it as we see fit.
+
+[^easier-testing]: We can make testing easier still by using a dependency injection container within our plugin, but that's a topic which demands its own article. We'll get to that soon.
+
+## Conclusion ##
+
+If you're developing a very simple Craft plugin, chances are you won't need to worry about its public footprint.
+
+For more complex projects, the techniques described in this article will make your plugin easier to test, and ensure that it is only used in the manner you originally intended.

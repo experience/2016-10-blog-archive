@@ -1,0 +1,204 @@
+---
+author: Stephen Lewis <stephen@experiencehq.net>
+date: 2010-08-13
+title: ExpressionEngine Add-on Development: Designing the User Interface
+tags:
+- ExpressionEngine
+---
+# ExpressionEngine Add-on Development: Designing the User Interface #
+Those of you with particularly long memories will recall that we're in the process of designing and building Tweedee, a Twitter module for [ExpressionEngine 2][1].
+
+[The original brief][2] provided us with a decent description of the requirements, whilst still providing plenty of rope to hang ourselves with:
+
+> Tweedee makes it easy to build a custom Twitter search, and control which tweets are displayed on your website. Tweedee automatically removes duplicate tweets from your search results, and enables site administrators to approve tweets for display on the website with a single click. Perfect if you want to display the latest Twitter buzz about your new product, without opening the doors to everyone with a hash-tag.
+
+From the layered nuances of this brief emerged a requirement for two Control Panel screens:
+
+1. A screen for building and saving a Twitter search.
+2. A screen for displaying the search results, and controlling which Tweets should appear on the website.
+
+## Going where the money is ##
+As ever, resources are limited, so it makes sense to spend our time where the user will spend his time: in this case the "Manage Tweets" page.
+
+We don't want the UI of either screen to be shoddy, but if corners must be cut, it's better to cut those that won't be noticed.
+
+With that thought in mind, we'll spend considerably more time working on the "Manage Tweets" page than on the "Create Search" page.
+
+## Choosing the right tool for the job ##
+Before we DiCaprio into the passive aggressive depths my mind, it's worth discussing some tools of the trade.
+
+Designing a user interface usually involves one or more of the following:
+
+* Pen and paper.
+* A wireframing application, such as OmniGraffle.
+* HTML and CSS.
+* Photoshop, or a less temperamental alternative.
+
+Creating the user interface for an ExpressionEngine add-on is somewhat different to creating a UI entirely from scratch, because you're already working within an existing visual framework.
+
+For this reason, you may decide to get your handy dirty with some code quite early on, instead of painstakingly Photoshopping your design into life. There's no correct answer, just choose the tools that work for you.
+
+### Common approaches ###
+At the start of any project, I'm given to a considerable amount of writing and sketching. Where I go next depends on the complexity of the interface: I may create a few simple HTML wireframes; I may dive headlong into EE; I may push some pixels around in Photoshop.
+
+Which option I choose is dictated by how comfortable I am with moving onto the next stage. Some ideas require little more than a scrawled sketch (as you'll see), whereas others may require a rough HTML wireframe, or even a full-blown Photoshop mockup. Whatever works.
+
+To provide some perspective on this, I asked some EE royalty how they approach this stage of a project.
+
+[Mr. Brandon Kelly][3] is also given to skipping the light pentastic, but considers Photoshop to be solely for those possessing a weak constitution, and always heads straight for the HTML and CSS. His graphics program of choice is only opened towards the end of the design process, for the purposes of creating icons, buttons, and similar UI trinkets.
+
+And then, of course, there is [mein herr Leevi Graham][4]. Leevi has poured his seemingly limitless time and attention into creating [Morphine][5], a very shiny box of UI tricks which Leevi describes as follows:
+
+> [Morphine is] a set of classes and standard markup that allow me to quickly build control panel pages and custom fields with a similar feel. Morphine for EE2 also introduces a bunch of jquery plugins for sorting / dragging table rows, cloning, magic checkboxes etc.
+
+Using Morphine, Leevi can create the UI for simple add-ons extremely rapidly, without the need for any preliminary sketching or Photoshop work.
+
+### Tweedee tools ###
+For Tweedee, I concentrated on filling my sketchbook with the usual array of illegible doodles and barely literate scribbling.
+
+For the "Manage Tweets" screen, I also created a few quick HTML mockups, in order to get a feel for how my ideas worked in practise. It was a very worthwhile exercise, and exposed a number of flaws in my thinking, as you will soon see.
+
+As the project progresses, I may yet coax Photoshop into life, and hurriedly attempt to create a few swanky UI elements before it crashes like Tiger Woods on the way to the marriage counselor.
+
+## The "Create Search" page ##
+Back to the task in hand.
+
+The purpose of the "Create Search" page is pretty simple: enable the user to easily create, save, and edit a Twitter search.
+
+Even with such modest goals, there are a number of possible approaches. Here are the ones I jotted down, along with a quick list of pros and cons.
+
+### Option 1: "Free text" search ###
+A simple text field, which allows the user to enter advanced search criteria, using `AND`, `OR`, quoted phrases, brackets, and so forth.
+
+Pros:
+
+- UI is very easy to implement.
+
+Cons:
+
+- Requires existing knowledge of search syntax.
+- Big learning curve for the user, with little or no assistance.
+- No way for the user to know if his search terms are badly formed.
+
+### Option 2: "Advanced search" form ###
+A simplified version of Twitter's own [Advanced Search][6] form.
+
+Pros:
+
+- UI is very easy to implement.
+- Requires no knowledge of search syntax.
+
+Cons:
+
+- Not as powerful as the "free-text" option.
+- Very cumbersome and unapproachable interface.
+
+### Option 3: Search "wizard" ###
+A guided "search wizard" approach, similar to the Finder search in Mac OS X <del>(figure 1)</del>.
+
+Pros:
+
+- Requires no knowledge of search syntax.
+- Enables user to incrementally build very sophisticated searches.
+- Provides clear guidance as to the available search options.
+- Sentence-based interface makes it easy to apprehend existing searches.
+
+Cons:
+
+- UI is trickier to implement than the other two options.
+- Not as powerful as the "free-text" option.
+
+You may have guessed which way I'm leaning on this one.
+
+### A wonderful wiz if ever a wiz there was ###
+The "wizard" option presents a number of interesting challenges, particularly with regard to nomenclature (I'll save my fascination with such things for a later post, in an attempt to keep this opus below 2,500 words).
+
+It also relates directly to one of the UI design principles which I covered in [the previous instalment][7]: _Embrace Conventions_.
+
+As you might expect, the Apple approach is dang purdy. It's also completely alien both to ExpressionEngine, and potentially the operating system. Snarky comments about Windows aside, this does mean that blindly aping the OS X approach might not be the most appropriate solution.
+
+Sketching out a few UI designs confirmed what I already suspected; a more harmonious approach is the way to go in this case. Here's my indecipherable solution <del>(figure 2). Yes, I know it's rough; whatever works, remember?</del>
+
+## The "Manage Tweets" page ##
+And so to the meat in our module sandwich. The "Manage Tweets" page will display a list of tweets matching the user's search criteria, and enable him to choose which are displayed on the website.
+
+This screen needs to be quick and easy to use. No configuration options, just a simple list of tweets, and clear feedback on which ones have been selected.
+
+My initial notes raised two questions:
+
+1. Should the number of tweets displayed be configurable?
+2. Should the user be able to load older tweets?
+
+In both cases, I decided to keep things simple: a fixed number of Tweets, ordered chronologically, with no option to step back in time.
+
+A quick sketch of a typical [Tweetie][8]-like tweet <del>(figure 3)</del> immediately raised the question of hierarchy. Some of the information that may be of interest in everyday Twitter usage -- such as the user's avatar, for example -- is extraneous to Tweedee's requirements.
+
+The _content_ of a tweet will typically determine whether it is chosen for publication. Secondary to that is timeliness, followed by author identity. What picture the tweet's author is currently sporting is neither here nor there.
+
+This pecking order of requirements leaves us with a simple block of content (the tweet), and a byline containing the author's Twitter handle, and a relative publication date (such as "2 days ago"). Simple enough, which is just how we like it <del>(figure 4)</del>.
+
+### Being an idiot, so you don't have to ###
+With the basic tweet layout sorted, I moved on to the next major UI element; the mechanism by which a tweet is either chosen for publication, or cruelly discarded by a bitter pen-pusher who is incapable of recognising your true genius and to whom you wouldn't sell the rights to your screenplay even if he begged you so shut up.
+
+My first attempt at solving this problem was fundamentally flawed. Rather than attempting to shroud my fallibility in my awesomeness cloak[^1], I'll walk you through where I went wrong and -- most importantly -- why.
+
+### Starting off on the wrong foot ###
+My initial requirements list dictated that I provide the user with the ability to distinguish between "tweets for publication", "tweets not for publication", and "tweets not yet reviewed".
+
+This seemed like too many options to me, and I quickly realised that a tweet is "not for publication" by default, so a "mark as not for publication" button was surplus to requirements.
+
+Excellent work, I thought to myself, as I powered blindly down a design cul-de-sac.
+
+Now all I needed was a "publish" button, and some way of marking non-published tweets as reviewed. A nice big "mark all as reviewed" button should do the job.
+
+Sketches were sketched, and I began to cobble together a quick wireframe based on my doodles. In short order, I had a working prototype of sorts. It was OK, but I wasn't happy with it. It seemed way too cluttered.
+
+I fiddled with the relative importance of the tweet author, and publication date. I added a nice "Publish" button. I created "mark all as reviewed" links, above _and_ below the list of tweets.
+
+<del>It was better</del>, but it still wasn't right.
+
+I tweaked. I dithered. I changed from buttons to links and back to buttons again. Finally, I went out for coffee.
+
+### Forehead slap ###
+Within 2 minutes of leaving the house I knew what was wrong. I continued onwards; coffee is always a good idea, regardless of whether you have a problem to solve. By the time I returned home, I'd sketched out a revised design, with none of the previous flaws.
+
+And what was the eureka moment? Simple: remove the "review" option.
+
+A tweet is either published, or not published (the default). All that is required is a means of publishing a tweet, and that we clearly distinguish published tweets from unpublished tweets.
+
+### Where I went wrong ###
+Maybe I was just having an off day. Maybe I really haven't got a clue what the hell I'm doing, and always waste this much time on simplistic UI challenges. I couldn't possibly say, clients may be reading this.
+
+Regardless of the underlying cause of my incompetence, this entire debacle could have been avoided if I'd heeded the words of [Messrs Mullet and Sano][10], whose advice I went to great lengths to emphasise in the [UI design principles instalment][11] of this series:
+
+> Before you do anything else to improve the quality of a design, make sure you have reduced its formal and conceptual elements to the absolute minimum.
+
+### The revised design ###
+Suitably castigated, I returned to my HTML wireframe.
+
+First to go were the "reviewed" tweets, followed rapidly by the "mark all as reviewed" buttons. I also moved the "publish" button to the left of the tweet, to ensure that the "action" is as close to the "cause for action" as possible, regardless of the screen width.
+
+<del>Here's the final wireframe</del>, with some basic interactivity thrown in for good measure. Internet Explorer users should leave now. Please.
+
+## Conclusion ##
+Simple and obvious solutions are typically neither simple nor obvious.
+
+Make sure you've fully understood the problem, and reduced it to its most essential elements, before you begin designing in earnest.
+
+Also, go out for coffee more.
+
+## Next time ##
+Code!
+
+[^1]: Actual garment.
+
+[1]:http://expressionengine.com/ "What is this 'WordPress' of which you speak?"
+[2]:/blog/ee-add-on-development-introducing-tweedee "Yeah, I know it's been a while. Less bitching, more reading"
+[3]:http://pixelandtonic.com/ "The original dancing queen"
+[4]:http://expressionengine-addons.com/ "An errant shave away from invading Poland"
+[5]:http://expressionengine-addons.com/nsm-morphine-cp-theme "Manly enough to wear pink"
+[6]:http://search.twitter.com/advanced "See, this is what happens when Douglas Bowman goes on holiday"
+[7]:/blog/ee-add-on-development-ui-design-principles "Get yourself some UI schooling"
+[8]:http://www.atebits.com/tweetie-iphone/screenshots/ "He's the man, man, working for the man, man"
+[10]:http://www.amazon.co.uk/dp/0133033899/ "Come on, the guy's name is 'Mullet'. Throw me a bone here."
+[11]:/blog/ee-add-on-development-ui-design-principles "Proof positive that I never read this crap after I've written it"

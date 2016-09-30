@@ -1,0 +1,33 @@
+---
+author: Stephen Lewis <stephen@experiencehq.net>
+date: 2007-10-09
+title: HTML vs. Plain Text Emails: Get Your Priorities Straight
+tags:
+- Opinion
+---
+# HTML vs. Plain Text Emails: Get Your Priorities Straight #
+The <abbr title="HyperText Markup Language">HTML</abbr> vs. Plain Text email debate [continues to rage ad-nauseum](http://www.37signals.com/svn/posts/604-navigating-the-html-email-jungle "Even the less-is-more boys are getting in on the HTML email act"). Each side has its supporters, both alternatives have their strengths and weaknesses, and the majority of the populous is blissfully unaware that such dilemmas even exist.
+
+I'm not going to wade through the old arguments here. Instead, I'm going to raise an issue that I've never seen mentioned by the plain text supporters--that of priorities.
+
+## It's about time
+The thing about HTML emails is that they take a lot longer to produce than plain text emails.
+
+Despite the fact that I'm far from being a novice in such things, I recently wasted a full day on a HTML email template for our newsletter, before finally deciding it just wasn't good enough.
+
+Unsurprisingly, I began to consider what else I could have done with that time. I could have written an absolutely killer newsletter for a start. I could also have written a few blog posts, or refined my skill-set.
+
+All of which would have benefitted my clients, prospects, and visitors a lot more than a few pretty colours and some swanky typography in an email.
+
+## Deciding what matters
+Of course, you could argue that the same applies to this (or any) web site. "Why", you may ask, "did you even bother designing this site, if content is so much more important than appearance?"
+
+To which I would reply that I'm not suggesting that we completely abandon branding, interface design, and the many other things that contribute positively to the user experience.
+
+I would also point out that the hard work on this site has largely been completed. Every time I write a new blog post I only have to worry about the content, because the glory of [web standards](http://en.wikipedia.org/wiki/Web_standards "The W3C is our leader, sort of") takes care of the appearance.
+
+Conversely, each edition of the newsletter would require copious amounts of fiddling, as styling information is intermingled with the content. To top it all, each edition would then need to be rigourously tested in eight or nine email clients.
+
+In short, its an *ongoing* time commitment.
+
+Time--along with money--is generally in pretty short supply when youre running a small business, and it's what you do with those limited resources that defines your company. In my case, I decided that the priority should be to provide more value to our clients, even if it is at the expense of some of my own design sensibilities.

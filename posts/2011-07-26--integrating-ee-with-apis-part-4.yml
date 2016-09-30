@@ -1,0 +1,70 @@
+---
+author: Stephen Lewis <stephen@experiencehq.net>
+date: 2011-07-26
+title: Integrating ExpressionEngine with Third-Party APIs (Part 4 of 4)
+tags:
+- ExpressionEngine
+---
+# Integrating ExpressionEngine with Third-Party APIs (Part 4 of 4) #
+This is the fourth (and final) post in a short series of articles. If you havent read parts [one][part_one], [two][part_two], and [three][part_three] yet, you should do so before proceeding.
+
+[part_one]: /blog/integrating-ee-with-apis-1-of-4 "Well, it's time to meet the teams, and I can honestly say that you couldn't ask for four better comedians. So that's answered your next question."
+[part_two]: /blog/integrating-ee-with-apis-part-2 "Incidentally, you may be interested to know that Colin's musical influences are, in fact, Middle Eastern in origin. Yes, mainly Shiite."
+[part_three]: /blog/integrating-ee-with-apis-part-3 "On with the show, and our teams tonight are undoubtedly the foremost available comedy talents in the country. Something wrong there. Sorry, that should read, 'The four most available comedy talents in the country'."
+
+Whereas the previous instalment was concerned with uncovering inconsistencies in the target API, this post is all about testing _your_ code; what you need to test, and how.
+
+## Full disclosure ##
+I'm a big fan of Test-Driven Development, as those who endured my EECI 2010 talk on the subject will attest.
+
+Unit testing and TDD are huge topics, and I've made no attempt to cover them in this post. If you're completely unfamiliar with such things, the following resources should get you started:
+
+* [Wikipedia's unit testing page][wiki_unit] provides a decent overview of unit testing.
+* [Wikipedia's Test Driven Development page][wiki_tdd] does a similarly good job for TDD.
+* ["Test-Driven Development: By Example"][tdd_book] is the best introduction to TDD that I've come across.
+* If you prefer to learn by watching, the Pragmatic Programmers have [a series of TDD screencasts by Kent Beck][tdd_screencasts], the author of "Test-Driven Development: By Example".
+
+[wiki_unit]: http://en.wikipedia.org/wiki/unit_testing "Samantha nearly made it. She's been detained at the last minute in the city's Latin Quarter. An Italian gentleman friend has promised to take her out for an ice cream, and she likes nothing better than to spend the evening licking the nuts off a large Neapolitan."
+[wiki_tdd]: http://en.wikipedia.org/wiki/Test-driven_development "Incidentally, Colin's piano playing is widely believed by faith healers to hold miraculous powers. It once made a blind man deaf."
+[tdd_book]: http://www.amazon.com/Test-Driven-Development-Kent-Beck/dp/0321146530/ref=sr_1_1?s=books&ie=UTF8&qid=1311593878&sr=1-1 "Hello and welcome to I'm Sorry I Haven't A Clue - it's the show where quality and comedy go together like the Lone Ranger and Toronto."
+[tdd_screencasts]: http://pragprog.com/screencasts/v-kbtdd/test-driven-development "Now do any of you know the difference in meaning between the words 'microscopic' and 'minute'? I thought not. Well, 'microscopic' refers to something that's so small that it's not visible to the naked eye, whereas 'minute' lives in my pond with my frog and my toad..."
+
+## Basic requirements ##
+Whatever your chosen testing strategy, it must satisfy the following basic criteria:
+
+1. Testing must be efficient.
+2. Testing must be effective.
+3. Testing must be (or at least have the potential to be) comprehensive.
+
+## Efficient testing ##
+Efficient testing is:
+
+* Quick and easy to run.
+* Non-destructive.
+* A natural part of your workflow.
+
+### Quick and easy ###
+Running your tests should not require _any_ preparation time. If your testing strategy requires that your reset a bunch of database tables before each test, or fiddle with configuration files, it is neither quick nor easy.
+
+This is vitally important, because testing that is not quick and easy soon becomes no testing at all.
+
+### Non-destructive ###
+Every test you write should leave the world as it found it. Just as your tests shouldn't require any preparation time, so they should not require any recovery time.
+
+If you find yourself recreating rows in the `exp_members` table every time you test your `delete_member` method, it's time to rethink your approach.
+
+### Natural workflow ###
+A couple of keystrokes, or a simple click of the mouse, should be all it takes to run all of your tests. Once again, when it comes to testing, inertia is your mortal enemy.
+
+## Effective and comprehensive testing ##
+Your chosen testing strategy should allow you to test edge-cases as easily as common scenarios.
+
+Equally, it should enable you to test "destructive" actions (such as `delete_member`) and non-destructive actions (`get_member`) with similar ease.
+
+## Conclusion ##
+And so, as the hamster of time loses its footing on the exercise wheel of fate and cartwheels helplessly towards the water bottle of destiny, and the seagull of eternity circles the freshly-washed car of hope, it is time to draw this short series of articles to a close.
+
+Before I turn and flounder my way back towards the shoreline, leaving you bobbing helplessly in a sea of unfamiliar APIs, allow me to throw you a lifebelt that may keep you afloat in these treacherous waters: [RESTful Web Services][restful_book] is a splendid book covering APIs in general, and RESTful APIs in particular; its only failing being a lack of [Humphrey Lyttelton][humph] references.
+
+[restful_book]: http://www.amazon.com/Restful-Web-Services-Leonard-Richardson/dp/0596529260/ref=sr_1_1?s=books&ie=UTF8&qid=1311596352&sr=1-1 "It's time now for our version of the great college student TV quiz which has been retitled specially to suit our teams - it's called Universally Challenged..."
+[humph]: http://en.wikipedia.org/wiki/Humphrey_Lyttelton "Well, all good things must come to an end, and so must this programme..."

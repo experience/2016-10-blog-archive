@@ -1,0 +1,23 @@
+---
+author: Stephen Lewis <stephen@experiencehq.net>
+date: 2014-09-02
+title: Craft Quick Tip: Add CTRL-S Support to Your Plugin Forms
+tags:
+- Craft
+---
+# Craft Quick Tip: Add CTRL-S Support to Your Plugin Forms #
+One of Craft's many pleasant surprises is its support for the standard "save" keyboard shortcut. Hit `CTRL-S`[^cmd-s] on any form, and Craft behaves just as if you'd clicked the save button. Neat.
+
+[^cmd-s]: If you're on a Mac, `CMD-S` also works.
+
+Pretty soon, this behaviour becomes a basic expectation. It's also around this time that people start complaining your plugin is broken, because it doesn't save when they press `CTRL-S`.
+
+Thankfully, Craft makes it trivially easy to add this functionality to your own plugin forms. Just add `data-saveshortcut=1`[^new-version] to the opening form tag, and you're done:
+
+[^new-version]: As of Craft 2.2, you can just use `data-saveshortcut`.
+
+```markup
+<form method="post" data-saveshortcut="1">
+...
+</form>
+```

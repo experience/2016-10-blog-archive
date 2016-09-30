@@ -1,0 +1,91 @@
+---
+author: Stephen Lewis <stephen@experiencehq.net>
+date: 2009-11-30
+title: The ExpressionEngine 2.0 add-on Dilemma
+tags:
+- ExpressionEngine
+- Opinion
+---
+# The ExpressionEngine 2.0 add-on Dilemma #
+ExpressionEngine 2.0 is nearly upon us, as countless tweets and blog posts will attest. After the initial false start at <abbr title="South by South West">SXSW</abbr> 2007, the subsequent lengthy delays, and the protracted radio silence, the past few months have seen a glut of information disseminated to the clamouring <abbr title="ExpressionEngine">EE</abbr> masses.
+
+When the release date was officially announced at [EECI2009](http://eeci2009.com/ "The ExpressionEngine and CodeIgniter Conference") in October, people -- proper people, not just Americans -- actually applauded. Not since "The Remains of the Day" had I witnessed such an outpouring of emotion.
+
+[Leslie's keynote](http://vimeo.com/7260725 "Leslie Camacho's keynote at EECI2009") made it clear that this was a "soft launch", but he also emphasised that this would be a full commercial release of ExpressionEngine 2.0. The "soft launch" bit simply referred to the fact that EllisLab wouldn't be heavily promoting their new baby for the first few months of its public life.
+
+Given that the people at EllisLab had frequently stated that they wouldn't announce a launch date for EE 2.0 until it was absolutely set-in-stone, it was clear that we finally had a reliable date to plan around.
+
+## Making plans ##
+As an active EE add-on developer, with the goal of releasing at least one commercial add-on in the coming months, I began to rethink my plans.
+
+EE add-on development differs from normal site development in that it makes sense to focus your efforts on what will be the largest potential market over the next 6-12 months.
+
+The general consensus at EECI2009 was that it would undoubtedly take a little while for EE 2.0 to really take off, but that within 6 months the majority of new ExpressionEngine sites would be built using the new version.
+
+In light of this, my priorities shifted, plans for new 1.x add-ons were shelved, and I started delving deeper into the ExpressionEngine 2.0 Beta.
+
+## Shifting sands ##
+And then, EllisLab did something unexpected.
+
+[They announced](http://expressionengine.com/blog/entry/official_ee2_faq/ "The original ExpressionEngine 2.0 Release Candidate announcement") the "ExpressionEngine 2.0 Release Candidate" on the official ExpressionEngine blog.
+
+Alarm bells [started ringing](https://twitter.com/monooso/status/5811794360 "My initial response on Twitter"). The <abbr title="Frequently Asked Questions">FAQ</abbr>s page at the time had a handy definition of what EllisLab meant by "release candidate". It's worth repeating it verbatim:
+
+> EllisLab considers a Release Candidate to be a X.0.0 version of a software product. This means the product has been thoroughly beta tested but has little to no real world usage. The purpose of a Release Candidate is to acquire real world usage data and respond rapidly to reported bugs and issues that beta testing isn't capable of catching.
+
+This means that EllisLab considers ExpressionEngine 2.0 RC ready for the rigors of the real world but there are likely bugs and issues that are commonly associated with a X.0.0 release.
+
+ExpressionEngine 2.0 RC is recommended for people who want to put it to work right away yet understand that there are some risks associated with using a Release Candidate, and are comfortable working with EllisLab to resolve issues in a timely manner.
+
+ExpressionEngine 2.1 will be considered the full public release and be a free upgrade from ExpressionEngine 2.0 RC.
+
+This was news to me. In fact, this was probably news to everyone outside of EllisLab.
+
+ExpressionEngine 2.0 went from being a full commercial release, to being a full commercial release _candidate_.
+
+Whilst EllisLab confidently stated that EE 2.0 RC would be "ready for the rigors of the real world", the clear implication was that waiting for ExpressionEngine 2.1 might be the sensible thing to do.
+
+I began to reassess my 6 month timeframe for EE 2.0 uptake on commercial sites, but didn't immediately jump ship.
+
+## Not just semantics ##
+A few days ago [EllisLab moved the goalposts again](http://expressionengine.com/blog/entry/important_release_updates/ "We spoke, they listened, apparently"). The Release Candidate was now a "Public Beta".
+
+Once again, [the FAQs provide clarification](http://expressionengine.com/ee2_faq "Read the ExpressionEngine 2.0 Public Beta FAQs") on the terminology (emphasis mine):
+
+> EllisLab considers a Public Beta to be a the most important step _prior to a X.0.0 product release_. The Public Beta stage means that we've done all we can to test internally with a private beta program and now its time to open the beta to the public for real world use.
+
+This is no longer semantic deckchair shuffling, it's a clear statement that the product being released on December 1st isn't even a two-point-oh release.
+
+Just in case there was any lingering doubt as to whether the ExpressionEngine 2.0 Public Beta should be used on a commercial site, the FAQs spells it out:
+
+> If you have a mission critical project on a tight release schedule, please use ExpressionEngine 1.6.8.
+
+Not much ambiguity there, and no longer any assertion that EE 2.0 will be "ready for the rigors of the real world".
+
+Hundreds of bugs have been [reported and fixed](http://expressionengine.com/bug_tracker/list_2.x/ "The official ExpressionEngine bug tracker") since the most recent beta version was released, so it's a bit disconcerting to read that EllisLab still don't consider their new product suitable for use on "mission critical" projects.
+
+In my experience, _every_ client project is mission critical to the client.
+
+## Where does this leave us? ##
+So what does this mean for add-on developers, and indeed for ExpressionEngine?
+
+In part, the choice between developing a new add-on for EE 1.x or 2.x will be dictated by whether it is intended for commercial release. As ExpressionEngine add-on development becomes [more commercially focused](http://vimeo.com/7561777 "Watch Brandon Kelly's EECI2009 talk"), potential market size and value inevitably becomes a concern.
+
+If it's likely to be knocking on for 12 months before ExpressionEngine 2.x begins to take over from its predecessor, any add-on developer will have a long time to wait for a return on his investment. Many may be tempted to continue focusing on the 1.x branch for the time being, adopting a wait-and-see attitude towards the young pretender.
+
+This could potentially present EllisLab with a problem. One of the great strengths of ExpressionEngine is the wealth of high-quality add-ons that expand its core capabilities.
+
+Indeed, in his keynote, Leslie Camacho explicitly referred to ExpressionEngine as a framework for the development of first and third-party add-ons.
+
+A paucity of add-ons for EE 2.x could further impede adoption, creating a chicken-and-egg situation as add-on developers wait for the market to grow, before committing to the development of the very add-ons which would encourage it to do so.
+
+This situation would be unlikely to continue for long, and if it did CodeIgniter developers would be only too happy to step into the breach, but it remains a potential sticking point.
+
+## Where does this leave me? ##
+So what are my plans?
+
+Given the way things currently stand, over the next few months I'll be concentrating on releasing a number of commercial add-ons for the 1.x branch of ExpressionEngine.
+
+I'll then make a decision regarding the development of any new (i.e. not already started) add-ons, based on the progress of ExpressionEngine 2.x.
+
+In the meantime, I'll be getting my feet wet with EE 2.0 by converting [my most popular add-ons](/resources "ExpressionEngine plugins, extensions, and modules"). By doing so, I hope to play my own small part in encouraging (or at least not impeding) adoption of the new version.

@@ -1,0 +1,22 @@
+---
+author: Stephen Lewis <stephen@experiencehq.net>
+date: 2010-02-24
+title: New ExpressionEngine Module: SL Developer Info
+tags:
+- ExpressionEngine
+- Announcements
+---
+# New ExpressionEngine Module: SL Developer Info #
+A couple of days ago, whilst hunting through an old ExpressionEngine site, searching for the short name of a custom field, I finally cracked.
+
+_"There's got to be an easier way to do this."_, I bleated, pathetically.
+
+Well, now there is. [SL Developer Info](/resources/details/sl-developer-info "Visit the SL Developer Info documentation and download page") is a new module that collates all the Weblog, Template, and File Upload Preference information you need when developing an ExpressionEngine site, and makes it available in one location.
+
+No more hunting forlornly through the Administration section, or faffing about with Template preferences. Just open SL Developer Info, and you're done.
+
+If you're an ExpressionEngine developer, chances are you left several paragraphs ago to visit [the documentation and download page](/resources/details/sl-developer-info "Visit the SL Developer Info documentation and download page"), and are already mid-way through installing the module.
+
+If you're not an ExpressionEngine developer, chances are you left several paragraphs ago because none of this means anything to you.
+
+Either way, it's time I stopped typing.

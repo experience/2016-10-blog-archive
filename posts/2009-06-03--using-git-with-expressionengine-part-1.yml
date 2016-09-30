@@ -1,0 +1,29 @@
+---
+author: Stephen Lewis <stephen@experiencehq.net>
+date: 2009-06-03
+title: Using Git to Manage an ExpressionEngine Website (Part 1 of 4)
+tags:
+- ExpressionEngine
+---
+# Using Git to Manage an ExpressionEngine Website (Part 1 of 4) #
+Git has rapidly established itself as the version-control system of choice for [ExpressionEngine add-on developers](http://github.com/search?type=Repositories&language=&q=ee_addon&repo=&langOverride=&x=20&y=13&start_value=1 "ExpressionEngine add-ons hosted on GitHub"), and various EE developers (myself included) have also Tweeted about using Git to manage entire ExpressionEngine sites.
+
+However, there's only so much you can say in 140 characters, and I've yet to see a proper discussion about best practises for managing an ExpressionEngine site with Git.
+
+This series of posts is my attempt to fill that gap, by documenting how I use Git to manage ExpressionEngine websites. My goal is to start a conversation on this topic, from which we can all (myself included) benefit.
+
+With this in mind, I've started [a thread on the ExpressionEngine forums](http://expressionengine.com/forums/viewthread/118990/ "Join in the discussion on the EE forums"), rather than opening comments for this (and subsequent) posts. This will hopefully encourage greater participation in the conversation, and will also serve as a useful resource for EE developers in the future.
+
+## What to expect ##
+The information contained in the upcoming posts will be very specific to my current setup.
+
+It will discuss how to install and use Git with the services I use (DreamHost to host the Git repository, and MediaTemple's DV service for the live site), my standard workflow for setting up a new site in Git, and how I manage day-to-day site updates.
+
+If you're looking for [a more general discussion about what Git is](http://www.youtube.com/watch?v=4XpnKHJAok8 "Linus Torvalds introduces Git to the developers at Google"), or advice on how to install it on hosting company X's servers, you won't find it in the posts. You may, however, find the information you need in the ensuing conversations on the EE forums, so please don't hesitate to ask the question.
+
+## In conclusion ##
+It's worth restating that my primary reason for writing these posts is to get the EE community talking, and sharing their knowledge. I freely admit to not knowing everything there is to know about Git, but I have -- largely through trial and error -- found something that works well for me and my business.
+
+My hope is that these posts will help the complete novice get started, whilst also filling in the gaps in my own knowledge.
+
+So please, head on over to the ExpressionEngine forums, and [help me get the conversation started](http://expressionengine.com/forums/viewthread/118990/ "Stop me talking to myself").

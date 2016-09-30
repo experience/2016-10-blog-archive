@@ -1,0 +1,67 @@
+---
+author: Stephen Lewis <stephen@experiencehq.net>
+date: 2010-04-06
+title: Introducing Campaigner
+tags:
+- ExpressionEngine
+- Announcements
+---
+# Introducing Campaigner #
+Today is a big day for one of my most popular add-ons.
+
+SL Freshview Subscribe has been connecting ExpressionEngine with Campaign Monitor since 2008. It's now reached version 2.0, and been given a brand new name: [Campaigner](/software/campaigner "Campaigner: connecting ExpressionEngine and Campaign Monitor").
+
+Campaigner has been [completely rewritten](/software/campaigner/changelog "Read the Campaigner release notes") from the ground up, with a bevy of new features, and a revamped user interface.
+
+It's also now a commercial product, with a license fee of $15 per site.
+
+## On being a capitalist pig-dog ##
+I didn't take the decision to start charging for Campaigner lightly.
+
+The license is an attempt to cover ongoing support, and make it easier for me to justify future development of this add-on, including an ExpressionEngine 2 compatible version.
+
+The observant among you may have noticed that previous versions of Campaigner (and many of my other add-ons) included a "Donate Now" button.
+
+"What about all those generous souls who filled your coffers with their charitable contributions?", you may reasonably demand.
+
+In 3 years, I've received around $100 in donations, across _all_ of my add-ons.
+
+If you were one of those generous individuals, you have my heartfelt thanks. Your support helped get me this far, and I truly appreciate it.
+
+However, it has become very apparent that relying on the charity of others isn't going to keep the wolf from the door.
+
+## Is this the end of free? ##
+So what does this mean for my other add-ons?
+
+Nothing.
+
+Some of them may become commercial add-ons in the future, depending on their ongoing support requirements, and the amount of work it will take to update them. Most of them won't.
+
+I've benefitted greatly from being part of the ExpressionEngine community, both from the add-ons others have released for free, and from the opportunities it has afforded me.
+
+By releasing free add-ons, I hoped to give something back to a community that has been very good to me.
+
+I intend to continue doing so wherever possible, whilst also releasing a few commercial add-ons to cover some of the support and development costs.
+
+It's a balancing act, and one which I may struggle to get right from time-to-time, but I'm sure we'll find a happy medium sooner or later.
+
+## Future plans ##
+I haven't made any firm decisions regarding those "may become commercial add-ons" I mentioned, but [SL Google Map](/software/sl-google-map "Google Maps and ExpressionEngine, sitting in a tree") and [SL Combinator](/software/sl-combinator "Combine and compress CSS and JavaScript files, on the fly") are two prime candidates. They're certainly both in desperate need of attention, probably of the "complete rewrite" variety.
+
+If you don't like the sound of that, feel free to download them now, and squirrel them away on your hard-drive for future use.
+
+## A quick word about SL MailChimp Subscribe ##
+Those of you in the MailChimp camp are probably scrabbling for the download button right now, fearing that I may be about to start charging for [SL MailChimp Subscribe](/software/sl-mailchimp-subscribe "Integrate MailChimp with your ExpressionEngine website").
+
+Cease your feverish panicking you paranoid tightwad.
+
+The original development of SL MailChimp Subscribe was sponsored by the good people at MailChimp. They've also been sponsoring work on an ExpressionEngine 2 compatible version, so there's no need to worry about that particular add-on selling out any time soon.
+
+## Questions? Abuse? ##
+If you have any questions about Campaigner, or my add-on development plans in general, please let me know.
+
+You can get in touch via [the contact form](/contact "Drop me a line"), or  publicly abuse me [on Twitter](http://twitter.com/monooso/ "Follow me on Twitter").
+
+Finally, in the run-up to the release of Campaigner, a couple of people posted support requests for SL Freshview Subscribe.
+
+I've contacted them directly, and provided each with a free copy Campaigner. If you posted a support request that I somehow managed to overlook, [let me know](/contact "Get in touch"), and I'll do the same for you.

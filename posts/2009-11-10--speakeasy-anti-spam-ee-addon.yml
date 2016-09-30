@@ -1,0 +1,16 @@
+---
+author: Stephen Lewis <stephen@experiencehq.net>
+date: 2009-11-10
+title: Introducing Speakeasy, the ExpressionEngine anti-spambot 
+tags:
+- ExpressionEngine
+- Announcements
+---
+# Introducing Speakeasy, the ExpressionEngine anti-spambot  #
+[Speakeasy](/speakeasy "ExpressionEngine free speech for all (except spammers)") is a new ExpressionEngine extension and plugin to help in the ever-tedious fight against spambots.
+
+It enables your visitors to self-moderate their comments via email, integrating seamlessly with ExpressionEngine's built-in commenting system to defeat spam bots, and relieve the burden of clicking on all those viagra links.
+
+Speakeasy has already proven its worth on [the Greentech Media](http://greentechmedia.com/ "Visit the Greentech Media website") website, for which it was originally developed, filtering the wheat from the chaff of thousands of spam bot submissions. A big thanks to both Greentech Media, and [Vector Media Group](http://vectormediagroup.com/ "Visit the Vector Media Group website") for allowing me to publicly release Speakeasy.
+
+Get the full story, including comprehensive installation and usage instructions, on [the Speakeasy page](/speakeasy "ExpressionEngine free speech for all (except spammers)").

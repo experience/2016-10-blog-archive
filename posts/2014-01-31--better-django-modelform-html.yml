@@ -1,0 +1,92 @@
+---
+author: Stephen Lewis <stephen@experiencehq.net>
+date: 2014-01-31
+title: A Pedant&#039;s Guide To Working With Django ModelForm Fields
+tags:
+- Django
+---
+# A Pedant&#039;s Guide To Working With Django ModelForm Fields #
+We've been working with Python and Django a lot of late, so much so that we decided to use it for our latest (nascent) side project.
+
+As with most web applications, this one involves a few simple forms, which in Django-world means it's time to break out the [ModelForms][django_ModelForm]. For the most part, ModelForms are a huge time-saver, but for HTML pedants such as myself there are a few minor annoyances:
+
+[django_ModelForm]: https://docs.djangoproject.com/en/1.6/topics/forms/modelforms/ "The official Django ModelForms documentation"
+
+1. By default, Django will add a colon after the label name, turning it from the perfectly acceptable "_Your name_" into the heinous crime against reason "_Your name:_". Clearly unacceptable to any right-thinking person.
+2. Django sees fit to add a suffix of `_id` to field IDs, and label targets. For example: `<label for="name_id">`. Wars have been fought over less.
+3. Finally, Django doesn't provide an elegant way to add a `placeholder` attribute to a ModelForm field, without explicitly declaring the field widget[^ft_widget].
+
+This final point was the straw that broke the obsessively pedantic camel's back, so I began hunting for a solution.
+
+## The off-the-shelf solution
+Several rungs up the elegance ladder is the [Django HTML5 Forms package][HTML5_Forms], which comes laden with a veritable banquet of HTML5 field types.
+
+[HTML5_Forms]: https://github.com/adamcupial/django-html5-forms "Replete with telegraph field, for all your communication needs"
+
+However, for a project which currently involves little more than a few text fields, this seemed like overkill. It also fails to address the first two irritations in the list, so I elected to roll-my-own, much simpler, solution.
+
+## The home-grown solution
+Rather than dealing with the aforementioned annoyances separately for each and every ModelForm on our site, I sensibly elected to create a new "base" ModelForm.
+
+Here it is, in all its simplistic glory:
+
+```python
+from django.forms import ModelForm
+
+
+class BaseModelForm(ModelForm):
+    def __init__(self, *args, **kwargs):
+        kwargs.setdefault('auto_id', '%s')
+        kwargs.setdefault('label_suffix', '')
+        super().__init__(*args, **kwargs)
+
+        for field_name in self.fields:
+            field = self.fields.get(field_name)
+            if field:
+                field.widget.attrs.update({
+                    'placeholder': field.help_text
+                })
+```
+
+
+It should be pretty self-explanatory, but for the uninitiated here's a quick rundown of what's happening in the `__init__` method.
+
+1. First we set some more acceptable defaults for the `auto_id` and `label_suffix` properties[^ft_defaults]. This takes care of the first two points on my list of petty complaints.
+2. After calling the `__init__` method on the super class, we loop through each form field, adding a placeholder attribute, and setting its value to the field's help text[^ft_placeholder].
+
+And here's how we use our new BaseModelForm. Note that this code uses the ModelForm `help_texts` attribute which is only available as of Django 1.6. See the footnotes for further details.
+
+```python
+from django.utils.translation import ugettext as _
+from .models import Member
+
+
+class MemberForm(BaseModelForm):
+    class Meta:
+        model = Member
+        fields = ('full_name', 'email', 'password')
+        help_texts = {
+            'full_name': 'John Doe',
+            'email': 'johndoe@company.com',
+            'password': _('Easy to remember, hard to guess'),
+        }
+```
+
+
+## Homework for the reader
+For the purposes of clarity, and because our own requirements are currently very basic, I've omitted a few niceties from the sample code. Among other things:
+
+- We should probably check the field type before adding the attribute, as a placeholder on a checkbox (for example) doesn't make a whole lot of sense.
+- We should also check for the existence of help text, and fall back to using the field label if none exists.
+- Finally, `Model.help_text` will happily accept HTML markup, so we should strip or sanitise that, as required.
+
+These minor enhancements notwithstanding, this has proven to be a simple, elegant way of sprucing up our Django-generated HTML, and ridding the world of those stupid errant colons[^ft_colon].
+
+[^ft_widget]: [Explicitly declaring the widget][stack_answer] to be used for each form field, and passing in the additional "placeholder" attribute, is a simple solution to this problem. Unfortunately, it's also rather ugly, and negates one of the principal reasons for using a ModelForm in the first place: not having to explicitly define a bunch of form fields which simply mirror the existing model fields.
+[^ft_defaults]: These can still be overridden via the `kwargs`.
+[^ft_placeholder]: Django will attempt to retrieve this value from the [Model Field][django_ModelHelpText]. As of Django 1.6, you can also [override it][django_ModelFormHelpText] in the ModelForm's "meta" class.
+[^ft_colon]: Seriously, you have no idea how much they irritate me.
+
+[stack_answer]: http://stackoverflow.com/questions/4620474/how-do-i-add-an-extra-attribute-in-my-input-for-django-forms "StackOverflow, because thinking is hard"
+[django_ModelHelpText]: https://docs.djangoproject.com/en/1.6/ref/models/fields/#help-text "Help text about the help text"
+[django_ModelFormHelpText]: https://docs.djangoproject.com/en/1.6/topics/forms/modelforms/#overriding-the-default-fields "How very meta"

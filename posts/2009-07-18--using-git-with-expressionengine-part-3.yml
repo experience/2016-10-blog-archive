@@ -1,0 +1,147 @@
+---
+author: Stephen Lewis <stephen@experiencehq.net>
+date: 2009-07-18
+title: Using Git to Manage an ExpressionEngine Website (Part 3 of 4)
+tags:
+- ExpressionEngine
+---
+# Using Git to Manage an ExpressionEngine Website (Part 3 of 4) #
+If you've been following along with parts [one](/blog/archive/using-git-with-expressionengine-part-1 "Read the first part of 'Using Git with ExpressionEngine'") and [two](/blog/archive/using-git-with-expressionengine-part-2 "Read the second part of 'Using Git with ExpressionEngine'"), you'll now have Git installed on your local machine, a remote "repository" server (hosted by DreamHost, in the example provided), and a remote "live" server (hosted by MediaTemple, in the example provided).
+
+This installment details the process of setting up your ExpressionEngine site as a Git repository. Note that in the following examples `$>` denotes the bash prompt, and should not be entered.
+
+## Step 1. Create your local Git repository ##
+Open the Terminal, navigate to the directory where you'd like to create your new website, and enter the following:
+
+```other
+$> mkdir example_website
+$> cd example_website
+$> git init
+```
+
+
+The creation of the new directory could just as easily have been accomplished via the Finder, it's the last command that interests us. With that line you've created a new Git repository for your website.
+
+Let's have a quick nose around to see what just happened:
+
+```other
+$> ls -a
+.    ..    .git
+```
+
+
+Unlike Subversion, Git won't pollute every directory on your website with hidden folders. Instead, everything is housed within a single `.git` directory, in the root of your working directory.
+
+One of the many advantages to this arrangement is that it makes the process of updating EE a whole lot easier; no more accidentally deleting a bunch of hidden `.svn` folders, and screwing up your site's version control.
+
+## Step 2. Ignore unwanted files ##
+By default, Git will track every file or directory that finds its way into your working directory. You can control this behaviour by setting up "ignore" rules.
+
+There are [a number of different ways of setting up ignore rules](http://www.kernel.org/pub/software/scm/git/docs/gitignore.html "Learn more about gitignore"), and the most appropriate choice typically depends on whether you _always_ want to ignore particular files, or only wish to ignore them for a specific project.
+
+For the purposes of this walkthrough, we'll just use a simple `.gitignore` file, with a single rule telling Git to ignore `.DS_Store` files:
+
+```other
+$> echo '.DS_Store' > .gitignore
+```
+
+
+## Step 3. Create your remote Git repository
+Open a new Terminal tab, and `ssh` into your DreamHost repository (the following command assumes you set up shell shortcuts, as described at the end of [part two](/blog/archive/using-git-with-expressionengine-part-2 "Read part 2 of the 'Using Git with ExpressionEngine' series")):
+
+```other
+$> ssh dh
+```
+
+
+I keep all my Git repositories in a general `git-repos` directory, so let's set that up:
+
+```other
+$> mkdir git-repos
+$> cd git-repos
+$> mkdir example_website
+$> cd example_website
+
+```
+
+
+You now have an `example_website` directory, ready to accommodate your new remote Git repository. This time though, you need to initialise a "bare" repository.
+
+```other
+$> git --bare init
+```
+
+
+Git typically assumes you'll be using a repository as your working directory. As such, a standard repository contains all of your project files, along with the aforementioned `.git` directory, which contains the bare repository files.
+
+A remote repository isn't interested in your working files, it just needs to know what's changed, in order to keep track of everything. This is what "bare" means to Git -- just the repository itself.
+
+## Step 4. Link your local repository to the remote repository ##
+Switch back to your local repository Terminal tab, and enter the following (assuming you're using DreamHost for you remote repository):
+
+```other
+$> git remote add origin ssh://shell_username@account_name.dreamhosters.com/~/git-repos/example_website
+```
+
+
+This automatically adds some code to your local `.git/config` file, linking your local repository to your remote repository.
+
+## Step 5. Create your "live" Git repository ##
+The "live" site should be a working copy of your remote Git repository. The file paths in the following instructions are specific to MediaTemple's (dv) server -- adapt them as required for your preferred host.
+
+Open another tab in the Terminal, `ssh` into your live server, and navigate to the main website directory (_not_ the HTTP documents directory):
+
+```other
+$> ssh mt
+$> cd /var/www/vhosts/example_website/
+```
+
+
+Clone your remote repository:
+
+```other
+$> git clone ssh://shell_username@account_name.dreamhosters.com/~/git-repos/example_website
+```
+
+
+This creates a new directory, `example_website`, which become the main `httpdocs` directory for your website:
+
+```other
+$> mv httpdocs httpdocs_old
+$> mv example_website httpdocs
+```
+
+
+## Step 6. Get your feet wet ##
+The next installment will contain a more detail description of my Git / EE workflow. In the meantime, here's something to whet your appetite.
+
+The commands below perform the following actions, which will be typical of your day-to-day workflow:
+
+1. Create a new file in your local working directory.
+2. Add the file to your local Git repository.
+3. Commit the file to your local Git repository, with a brief description of the work carried out.
+4. Push the changes to the remote Git repository.
+5. Pull the changes from the remote Git repository to the live site.
+
+In your "local" tab, enter the following:
+
+```other
+$> touch 'example_file.txt'
+$> git status
+# Untracked files:
+.gitignore
+example_file.txt
+$> git commit -a -m "Created .gitignore file, and example_file.txt"
+$> git push
+```
+
+
+Switch to your "live" tab, and pull the changes from the remote repository, to your live server:
+
+```other
+$> git pull
+```
+
+
+## Next time ##
+Next time out I'll be providing a proper explanation of the above workflow, with some more detailed examples of the everyday practicalities of using Git.

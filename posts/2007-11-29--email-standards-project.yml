@@ -1,0 +1,17 @@
+---
+author: Stephen Lewis <stephen@experiencehq.net>
+date: 2007-11-29
+title: In Praise of The Email Standards Project
+tags:
+- Opinion
+---
+# In Praise of The Email Standards Project #
+A few days ago, the [Email Standards Project](http://www.email-standards.org/ "Visit the Email Standards Project web site") was officially launched. Put simply, Email Standards have the potential to completely change the quality--and [economic viability](/blog/archive/html-email-priorities "The cost of producing HTML emails, as discussed previously on this blog")--of HTML email, much as [Web Standards](http://www.webstandards.org/ "Visit the Web Standards Project web site") did for web sites.
+
+If you're a business owner and think that this only applies to us nerdy web designer types, think again. <abbr title="HyperText Markup Language">HTML</abbr> emails can provide a better return on investment than any other form of direct marketing, but without decent support for Email Standards the cost of developing them escalates dramatically, as does the likelihood that a decent proportion of your customers won't even be able to read your carefully crafted missive.
+
+Speaking as a nerdy web designer, I dream of the day when I will no longer weep silent tears of frustration as the simplest of HTML email layouts falters in [Outlook 2007](http://www.email-standards.org/clients/microsoft-outlook-2007/ "Once again, Microsoft unwittingly puts standards-support on the agenda") or [Gmail](http://www.email-standards.org/clients/gmail/ "Not always the good guys").
+
+I also silently wish for the moment when a perfectly reasonable client request for a good-looking, on-brand HTML email can be answered with a simple "Yeah, sure", instead of the sort of response typically reserved for those demanding the moon on a stick.
+
+To find out why Email Standards are the stuff of dreams, both for the people who create HTML emails, and for the people who pay people to create HTML emails, have a quick read of [Why Web Standards Matter for Email](http://www.email-standards.org/why/ "Why web standards matter for email") on the Email Standards Project web site.

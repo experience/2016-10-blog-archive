@@ -1,0 +1,57 @@
+---
+author: Stephen Lewis <stephen@experiencehq.net>
+date: 2008-12-12
+title: The Right Way to Buy on Price During a Recession
+---
+# The Right Way to Buy on Price During a Recession #
+The current economic downturn, and an [ever-growing deadpool](http://www.techcrunch.com/tag/deadpool/ "A list of internet startups that have gone to the wall") of internet startups, has had a noticeable effect on the way I assess products and services. I've started buying on price, but not in the way you might expect.
+
+In addition to the usual assessment of whether a product or service (hereafter, simply "product") meets my functional requirements, and fits in with the way I work, I'm increasingly concerned with how the company behind the product is making its money; in short, is it charging enough to survive as a business?
+
+## Show me (how you make) the money ##
+
+One recent example of this in practise is [Cornerstone](http://www.zennaware.com/cornerstone/ "Find out more about the Cornerstone Subversion client").
+
+For those unfamiliar with it, Cornerstone is a piece of Mac software that shields sensitive types (such as myself) from all the command line shenanigans typically associated with using [Subversion](http://subversion.tigris.org/ "Find out more about the Subverson version control system").
+
+Cornerstone's principal competitor is [Versions](http://www.versionsapp.com/ "Check out the competition"), and there's not a lot to choose between them. They both look good, and work well. Versions has received the lion's share of publicity and buzz, and is even a bit cheaper, but I went with Cornerstone.
+
+Why? Because they shipped.
+
+For months Versions appeared to be little more than [vapourware](http://en.wikipedia.org/wiki/Vaporware "The Wikipedia guide to Vapourware"). Finally, a beta version was released, and legions of eager Mac developers started using it on a regular basis. No mention was made of likely price, and any forum questions on the subject were studiously ignored by the [Sofa](http://www.madebysofa.com/ "The company behind Versions") (the company behind Versions).
+
+Months passed. Versions appeared to work just fine -- no crashing or other beta unpleasantness -- but still Sofa kept adding features, and ignoring questions about price.
+
+In the meantime, [Zennaware](http://www.zennaware.com/ "The company behind the Cornerstone Mac Subversion client") shipped Cornerstone. I tried it out, and it was very, very slow. I went back to using my beta copy of Versions.
+
+More months passed, and I (along with many others) started getting a bit twitchy regarding the perpetual Versions beta, and in particular the lack of pricing information.
+
+In the meantime, Zennaware shipped [version 1.1 of Cornerstone](http://www.zennaware.com/blog/category/release-notes/ "Regular updates to Cornerstone"). I tried it out, and it was much, much quicker. This, and several other improvements in 1.1, prompted several comparison reviews to favour Cornerstone over Versions.
+
+I began to wonder how the hell Sofa were making their money. I also began doubting their commitment to Versions, and their ability to  actually ship updated versions of the software in the future.
+
+Whether this was a fair appraisal of Sofa is irrelevant; their unwillingness to ship their product, and persistent silence regarding a release date or price, made the long-term viability of their company as much of a concern as any feature or GUI widget.
+
+Finally, after 5 months in public beta, Versions shipped.
+
+I downloaded the trial and used it alongside Cornerstone for a couple of weeks. They both worked well. Versions was prettier. Versions was cheaper. The company behind Versions was still, rightly or wrongly, a concern. I chose Cornerstone.
+
+## Financial stability is a feature ##
+
+I now think of financial stability in the same way I do any other product feature; in fact, I give it more weight than most features.
+
+A superb product today, from a company that will be gone in 12 months, is of less use to me than an adequate product from a company that will still be making improvements, and releasing new versions, several years down the line.
+
+It could be that I'm alone in this thinking, but I doubt it.
+
+It could also be that this rationale applies only to software and web services, and not to service companies such as mine; but I doubt it.
+
+## A cut-throat business ##
+
+If you cut your own throat to get new business, don't be surprised if people notice the blood on the floor.
+
+In the words of [Chuck Palahniuk](http://chuckpalahniuk.net/ "Author of Fight Club, Invisible Monsters, and other wonders"), "_No matter how much you think you love somebody, you'll step back when the pool of their blood edges up too close_".
+
+Some clients will have a short-term view of your working relationship. They won't care if you go out of business next week, just so long as you finish their job first.
+
+We prefer to build ongoing relationships with our clients, and luckily they seem to share our long-term view.

@@ -1,0 +1,19 @@
+---
+author: Stephen Lewis <stephen@experiencehq.net>
+date: 2012-07-24
+title: Introducing Template OmniLogger
+tags:
+- ExpressionEngine
+- Announcements
+---
+# Introducing Template OmniLogger #
+Yesterday, [Michael Rog][rog_twitter] released [Template OmniLogger][to_docs], a neat little plugin that makes it possible to create [OmniLog][omnilog] entries using a template tag.
+
+This could prove very useful for template debugging, and ties in quite neatly with some of the OmniLog updates I've been working on recently.
+
+Michael has generously given me permission to roll Template OmniLogger's functionality into the next release of OmniLog; in the meantime check out [the Template OmniLogger repo][to_repo] and [documentation][to_docs].
+
+[to_docs]:http://rog.ee/template_omnilogger "Michael Rog presents..."
+[to_repo]:http://repo.rog.ee/template_omnilogger "Michael Rog is sharing code with you"
+[omnilog]:/software/omnilog "The only ExpressionEngine logging add-on modelled after the Plymouth Horizon"
+[rog_twitter]:http://twitter.com/michaelrog "Average, apparently"

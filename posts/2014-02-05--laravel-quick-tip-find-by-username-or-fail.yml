@@ -1,0 +1,69 @@
+---
+author: Stephen Lewis <stephen@experiencehq.net>
+date: 2014-02-05
+title: Laravel Quick Tip: Find By Username Or Fail
+tags:
+- Laravel
+---
+# Laravel Quick Tip: Find By Username Or Fail #
+As I mentioned in [my previous post][previous_post], we've been doing a lot of work with Python and Django of late. That doesn't mean we've completely abandoned PHP though, and one of the principal reasons for our continued loyalty to the language everyone loves to hate is [Laravel 4][laravel_home].
+
+[previous_post]: /blog/better-django-modelform-html
+[laravel_home]: http://laravel.com "Laravel, making PHP worth it"
+
+Whilst Python is way more enjoyable to write than PHP, when it comes to frameworks, Laravel is the one that never fails to delight.
+
+One such pleasure is [the `findOrFail` Eloquent method][laravel_findOrFail], which either returns an object with the given ID, or (if no such item exists) throws a "model not found" exception.
+
+[laravel_findOrFail]: https://github.com/laravel/framework/blob/master/src/Illuminate/Database/Eloquent/Model.php#L522 "Oh Laravel, with these methods you are spoiling us"
+
+This comes in very handy, but when dealing with users we frequently find ourselves needing to find by _username_, not ID. The following method solves this problem, and has become a staple of our Laravel projects.
+
+```php
+use Illuminate\Auth\UserInterface;
+use Illuminate\Auth\Reminders\RemindableInterface;
+use \Illuminate\Database\Eloquent\ModelNotFoundException;
+
+
+class User extends BaseModel implements UserInterface, RemindableInterface
+{
+    // The usual model bits and bobs...
+
+    /**
+     * Find by username, or throw an exception.
+     *
+     * @param string $username The username.
+     * @param mixed $columns The columns to return.
+     *
+     * @throws ModelNotFoundException if no matching User exists.
+     *
+     * @return User
+     */
+    public static function findByUsernameOrFail(
+        $username,
+        $columns = array('*')
+    ) {
+        if ( ! is_null($user = static::whereUsername($username)->first($columns))) {
+            return $user;
+        }
+
+        throw new ModelNotFoundException;
+    }
+}
+
+```
+
+
+With that in place, we can now do something like this in our controllers:
+
+```php
+public function show($username)
+{
+    return View::make('users.show', array(
+        'user' => User::findByUsernameOrFail($username)
+    ));
+}
+```
+
+
+Super clean, super useful. Thanks, Laravel.

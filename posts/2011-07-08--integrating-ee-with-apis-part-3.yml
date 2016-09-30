@@ -1,0 +1,113 @@
+---
+author: Stephen Lewis <stephen@experiencehq.net>
+date: 2011-07-08
+title: Integrating ExpressionEngine with Third-Party APIs (Part 3 of 4)
+tags:
+- ExpressionEngine
+---
+# Integrating ExpressionEngine with Third-Party APIs (Part 3 of 4) #
+This is the third post in a short series of articles. If you haven't read parts [one][part_1] and [two][part_2] yet, you should do so before proceeding.
+
+This post details strategies for getting up and running with your chosen API as quickly as possible, and provides tips on uncovering inconsistencies or errors in the API and its documentation, before they become an issue.
+
+[part_1]: /blog/integrating-ee-with-apis-1-of-4 "Read part 1 of this series"
+[part_2]: /blog/integrating-ee-with-apis-part-2 "Read part 2 of this series"
+
+## Understand your chosen library ##
+As discussed in part 2, I recommended using a pre-existing PHP library when connecting to your target API.
+
+However, it is important to know what your chosen library does and does not do. At the very least, you must know the answers to the following questions, in order to understand your own responsibilities.
+
+1. Does the library perform any data validation before making an API request?
+2. Does the library perform any data validation or data cleansing on API responses?
+3. In what format does the library return the API response data?
+4. How does the library handle errors?
+
+Most libraries are primarily about convenience. They enable you to set your authorisation credentials, pass a few values into a method, and transform that information into a well-structured API method call.
+
+What is imperative is that the library has a _consistent_ interface. This is particularly important in terms of how it handles API responses.
+
+If the library responds to a failed call to method A by throwing an exception, it should do the same thing for a failed call to method B. If your chosen library doesn't exhibit this level of consistency, I advise looking elsewhere.
+
+## Read the documentation ##
+Before putting code to screen, you should first settle in with your beverage of choice and read the API documentation. Not _all_ the documentation of course, that would be silly (and impractical, in many cases).
+
+Rather, you should read just the documentation required to start _using_ the API. For most APIs this will mean finding out the API endpoints, the method of authentication, and a typical "request" data structure, all of which can usually be found on a "Getting Started" page.
+
+You should also familiarise yourself with the basic process of making an API call using your chosen PHP library.
+
+As ever, the goal is to minimise wasted effort; in this case, by not frittering away your time reading documentation that is quite probably incomplete and inaccurate.
+
+## Work on a need-to-know basis ##
+Once you understand the basics of how your target API and chosen library work, you can test specific methods on an as-needed basis, to determine whether they work as documented.
+
+The process is simple. The first time you need to use a method, you should:
+
+1. Review the API and / or library documentation for the chosen method.
+2. Test the method, as quickly and efficiently as possible, to confirm that it works as documented.
+3. Note any errors or inconsistencies, and confirm with the API and / or library owner that this is an error in the _documentation_; otherwise, you risk relying on an undocumented feature which may be arbitrarily removed at some future date.
+
+Points 1 and 3 are self-explanatory. Point 2 warrants a bit more attention.
+
+## How to test an API method ##
+The best way to test an API method is in isolation, separate from your add-on code, using hard-coded values.
+
+You need to test two things:
+
+1. Does the method accept the documented parameters, in the stated format?
+2. Does the method return the documented data structure?
+
+Assuming your chosen PHP library is essentially a "convenience" layer, as described above, it is generally more useful and informative to test the API method directly.
+
+### Tools of the trade ###
+My preferred piece of software for testing API method calls is [HTTP Client][http_client]. It's simple, cheap, and does its job very well indeed.
+
+HTTP Client allows you to manually construct your API method call, adding POST or GET parameters as required. The data returned by the API method is displayed in a nicely-formatted "response" panel.
+
+If you're not using a Mac, or just can't bring yourself to shell out the buck ninety-nine for HTTP Client, there are a number of browser extensions that do a similar job. Just search for "REST Client" in your browser's extension library, and you'll find plenty of alternatives. Finally, if you're a masochist, or have a desperate need to prove your nerd credentials, you can always resort to using cURL in the Terminal.
+
+There are two significant benefits to using a piece of software such as HTTP Client when testing an API method:
+
+1. It's quick.
+2. It tests the API method _in isolation_.
+
+The second point is very important. By testing the API method in isolation, you remove ambiguity as to the cause of any issues you encounter. Assuming you've entered the request parameters correctly, you can be certain that any anomalies in the response are an issue with the API or its documentation, as opposed to a bug in your code.
+
+[http_client]: http://itunes.apple.com/us/app/http-client/id418138339?mt=12 "Put down the Penguin, cURL boy"
+
+### How to test the request ###
+Uncovering problems at the "request" stage can be tricky. If the API documentation tells you to send an unknown or badly-formatted parameter to the API, your reward is usually little more than a cryptic error message.
+
+Every single problem I've encountered at the request stage of an API call was due to one of the following:
+
+1. An incorrectly-documented method name.
+2. An incorrectly-documented parameter name.
+3. An incorrectly-documented parameter format.
+
+If all of this sounds highly unlikely, allow me to furnish you with two examples:
+
+* Last year I did some work with [the Chargify API][chargify_api]. At that time every single API method used camel-case naming, apart from one, which used underscores. Not surprisingly, the person responsible for the documentation was unaware of this bizarre anomaly.
+* Right up until a few weeks ago, [the OpenGateway API][opengateway_api] documentation swore blind that "year" values should be supplied in 2-digit format. You can guess how that one ended.
+
+If you encounter a problem at the request stage, and the API response doesn't include a meaningful error message, by all means use the above list to identify likely culprits.
+
+However, bear in mind that it's not your job to debug the API, and you'll need to confirm any bugs or documentation errors with the API authors before proceeding, so don't spend too long on this. Just submit a support request, and get on with something more productive.
+
+[chargify_api]: http://docs.chargify.com/api-introduction "One of these kids is doing his own thing"
+[opengateway_api]: http://www.opengateway.net/docs "Anyone would think the millennium bug never happened"
+
+### How to test the response ###
+By comparison, testing the API method's response is much easier, as discrepancies between the documentation and the actual response are easy to spot. Even so, there are a few things worth looking out for.
+
+1. Does the response structure differ depending on the number of items returned? This was an issue with [the old Campaign Monitor API][campaign_monitor_api].
+2. Does the response include undocumented (but potentially very useful) information?
+3. Does the format of the response data tally with the documentation?
+
+The above applies both for successful API calls, and those that generate an error. As ever, if you find a anomaly, confirm the intended behaviour with the API author before proceeding.
+
+[campaign_monitor_api]: http://www.campaignmonitor.com/api/v2/ "Seriously, sister, don't go there"
+
+## Conclusion ##
+Follow the strategies outlined in this post to get up-and-running with your chosen API quickly, and uncover potential stumbling blocks before they become an issue.
+
+In the next post, I'll be talking testing.

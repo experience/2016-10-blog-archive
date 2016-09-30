@@ -1,0 +1,20 @@
+---
+author: Stephen Lewis <stephen@experiencehq.net>
+date: 2013-12-28
+title: Introducing SmartDown for Craft
+tags:
+- Craft
+---
+# Introducing SmartDown for Craft #
+[SmartDown for Craft][repo] is a Twig Filter which brings the unbridled joy of [Markdown Extra][md_extra] and [Smartypants][smartypants] to [Craft][craft].
+
+[craft]:http://buildwithcraft.com "Makers"
+[md_extra]:http://michelf.ca/projects/php-markdown/ "Like Markdown, but extra"
+[smartypants]:http://michelf.ca/projects/php-smartypants/ "Like Pants, but smarter. Seriously, I'm running on empty here"
+[repo]:https://github.com/experience/smartdown.craft-plugin "Check out the SmartDown GitHub repository"
+
+Craft already supports standard Markdown, but sadly standard Markdown doesn't support lots of useful things such as footnotes, fenced code blocks, and tables. It also does nothing to spruce up your typography, leaving your site with an embarrassment of straight quotes, and faux ellipses.
+
+SmartDown plugs both of these gaps, turning your website into a typographic dreamboat.
+
+[Check out the repository][repo] for full installation and usage instructions.

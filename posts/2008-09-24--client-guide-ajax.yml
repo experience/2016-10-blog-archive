@@ -1,0 +1,38 @@
+---
+author: Stephen Lewis <stephen@experiencehq.net>
+date: 2008-09-24
+title: The Client Guide to AJAX
+---
+# The Client Guide to AJAX #
+<abbr title="Asynchronous JavaScript and XML">AJAX</abbr> is an acronym used to describe the practise of updating the content of a web page without reloading the entire page.
+
+By sending and receiving information "in the background", web sites using AJAX can feel very responsive, and much more akin to a desktop application than a traditional web site. For this reason, AJAX is heavily used by web-based applications such as Google Mail.
+
+AJAX suffers from a number of potential usability and accessibility problems, which should be carefully considered before it's used on a web site. The principal issues are:
+
+- Visitors reliant upon screen-reading software are not notified when page content is updated using AJAX, which can cause serious accessibility problems.
+- AJAX breaks the traditional process of interactive with a web site, whereby you click a link (or submit a form), wait for the page to reload, and then continue. This break from convention can be confusing, particularly as essential browsers controls such as the "Back" button may not work as expected.
+- AJAX-driven changes can be easily missed, due to the lack of a page reload. This can cause users to question to success of an action, and by extension the reliability of the web site.
+
+## What's in an acronym?
+AJAX stands for "Asynchronous JavaScript and XML". Here's what that means.
+
+Asynchronous
+: Web sites are traditionally "synchronous", meaning that events happen one at a time--you click a link, you wait for the page to reload, you continue. Asynchronous web pages can send and receive information "in the background", enabling you to continue with other tasks (even if that's just reading the page) without waiting.
+
+JavaScript
+: JavaScript is a scripting language. It is used to send and receive information, and update content, without reloading the page.
+
+XML
+: XML is itself an acronym, standing for "eXtensible Markup Language". XML is used to structure the information being sent and received by JavaScript.
+
+## Examples of AJAX in action
+
+- [Google Suggest](http://www.google.com/webhp?complete=1&hl=en "Visit Google Suggest") uses AJAX to rapidly retrieve suggested search terms as you type.
+- [iStockPhoto](http://www.istockphoto.com "Visit iStockPhoto"), a stock photography website, makes good use of AJAX on the search results pages. Hover your mouse over a thumbnail to display an enlarged preview image--great for quickly sorting the wheat from the chaff.
+- The [Yahoo! homepage](http://uk.yahoo.com/ "Visit the Yahoo! homepage") makes extensive (and subtle) use of AJAX to improve responsiveness, and display a large amount of information in a small area.
+
+## Further reading
+Each "Client Guide" typically includes a few links to further (non-technical) information on the subject in hand.
+
+Unfortunately, AJAX is pretty nerdy stuff, and we were unable to find any non-technical information out there. If you stumble across something worthwhile, please [let us know](/contact "Get in touch"), and we'll update this article.

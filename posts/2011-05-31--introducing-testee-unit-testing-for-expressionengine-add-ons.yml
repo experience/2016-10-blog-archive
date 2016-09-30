@@ -1,0 +1,25 @@
+---
+author: Stephen Lewis <stephen@experiencehq.net>
+date: 2011-05-31
+title: Introducing Testee: Unit Testing for ExpressionEngine Add-ons
+tags:
+- ExpressionEngine
+- Announcements
+---
+# Introducing Testee: Unit Testing for ExpressionEngine Add-ons #
+Way back in October of last year, I took the stage at [EECI 2010 in Leiden][eeci] and spoke at nauseating length on the subject of test-driven add-on development. As part of that talk, I officially announced [Testee][testee_home], an EE1 and EE2 module that makes it possible to unit test your ExpressionEngine add-ons.
+
+Since then, this hilariously-named add-on has been sitting idly in [my GitHub account][github], silently rebuking me over its lack of documentation.
+
+Today those mute recriminations can finally cease; [Testee has an official home][testee_home] alongside my other EE add-ons, with [documentation][testee_docs] to match.
+
+If your current add-on development process revolves around the evil-E trifecta of `echo`, `error_log`, and `exit`, I strongly recommend you take a look at [test-driven development][tdd], and Testee. Combined, they've improved the quality of my code more than anything else I've tried.
+
+[Let me know][contact] how you get on.
+
+[contact]: /contact "Get in touch. Not you, Meyers."
+[eeci]: http://eeci2010.com/ "Dear god no! Please, Flinger, not the face!"
+[github]: http://github.com/experience/ "[Insert joke of choosing about forking my Testee]"
+[tdd]: http://en.wikipedia.org/wiki/Test-driven_development "The masses have spoken"
+[testee_docs]: /software/testee/docs "Lots of words for you to ignore"
+[testee_home]: /software/testee "Visit the official Testee home page."

@@ -1,0 +1,324 @@
+---
+author: Stephen Lewis <stephen@experiencehq.net>
+date: 2014-08-12
+title: The Definitive Guide to Validation in Craft, Part 3: Attribute Rules
+tags:
+- Craft
+---
+# The Definitive Guide to Validation in Craft, Part 3: Attribute Rules #
+This is the third instalment in our series on validation in Craft. If you haven't yet read parts [one][partOne] and [two][partTwo], now is a good time to go back and right that wrong.
+
+[partOne]: /blog/the-definitive-guide-to-validation-in-craft-part-1-foundations "The first instalment of The Definitive Guide to Validation in Craft. Ah, were we ever so young?"
+[partTwo]: /blog/the-definitive-guide-to-validation-in-craft-part-2-attributetypes "The difficult second album, The Definitive Guide to Validation in Craft, Part 2: AttributeTypes"
+
+This instalment is all about attribute rules: what they are, how they affect validation, and which ones are available.
+
+## What are attribute rules?
+An attribute rule is any key / value pair in your attribute declaration (aside from the `type` rule, which we covered in the AttributeTypes instalment).
+
+For example, the following ruleset defines an `age` attribute of type `AttributeType::Number`, with 2 attribute rules specifying:
+
+1. The minimum value;
+2. The maximum value.
+
+```php
+$rules = [
+    'age' => [
+        'type' => AttributeType::Number,
+        'min'  => 18,
+        'max'  => 30,
+    ],
+];
+```
+
+
+### A note about records and database columns
+Whilst this article is concerned with how attribute rules affect model validation, you should be aware that, when used in the context of a record, an attribute rule may have an effect on the database column used to store the data.
+
+In fact, Craft supports 4 attribute rules which are of use to records, but have absolutely no effect on model validation. For the sake of completeness, these "non-validation" rules are:
+
+- `default`
+- `label`
+- `null`
+- `unsigned`
+
+## Available attribute rules
+Craft supports 12 attribute rules which affect validation (hereafter referred to as "validation rules"), each of which is described below.[^hiddenRules]
+
+Craft ignores unsupported validation rules when performing its "translate attribute definitions into Yii-compatible validation rules" party trick.[^getRules]. As a result, most validation rules can only be used with a sub-set of the available AttributeTypes.[^nonsenseValidationRules] 
+
+Each validation rule description includes details of the supported AttributeTypes.
+
+### compare
+The `compare` validation rule is used to compare two attribute values. For example:
+
+```php
+[
+    'password' => [
+        'type'     => AttributeType::String,
+        'required' => true,
+    ],
+    'confirmPassword' => [
+        'type'    => AttributeType::String,
+        'compare' => '==password',
+    ]
+]
+```
+
+
+The `compare` validation rule is comprised of two parts: an operator, and an attribute name.
+
+The table below details the supported operators. For the sake of convenience, I refer to the attribute which defines the `compare` validation rule as the "active" attribute, and the attribute specified in the `compare` validation rule as the "comparison" attribute.
+
+| Operator | Description |  
+|  ------	| ------	|  
+| `<` | The active attribute value must be less than the comparison attribute value. |  
+| `<=` | The active attribute value must be less than or equal to the comparison attribute value. |  
+| `=` or `==` | The active attribute value must match the comparison attribute value. |  
+| `>=` | The active attribute value must be greater than or equal to the comparison attribute value. |  
+| `>` | The active attribute value must be greater than the comparison attribute value. |  
+| `!=` | The active attribute value must not equal the comparison attribute value. |  
+
+ Behind the scenes, the Yii `CCompareValidator` uses the [standard PHP comparison rules][phpComparison] to determine whether the two attributes are equal.[^compareBehavior]
+
+[phpComparison]: http://php.net/manual/en/language.operators.comparison.php "PHP Comparison Operators"
+
+### decimals
+The `decimals` validation rule is used to specify whether an attribute should accept non-integer values.
+
+If `decimals` is set to a positive number[^decimalsFloat], the attribute will accept non-integers, otherwise it will not. For example:
+
+```php
+[
+    'integer' => [
+        'type'     => AttributeType::Number,
+        'decimals' => 0,
+    ],
+    'nonInteger' => [
+        'type'     => AttributeType::Number,
+        'decimals' => 1,
+    ],
+]
+```
+
+
+It is important to note that the `decimals` validation rule **does not** validate whether an attribute value has the specified number of decimal places.
+
+The `decimals` validation rule is supported by `AttributeType::Number`.
+
+### length
+The `length` validation rule is used to specify the required length of a string. For example:
+
+```php
+[
+    'sku' => [
+        'type'   => AttributeType::String,
+        'length' => 10,
+    ],
+]
+```
+
+
+The `length` validation rule overrides both `minLength` and `maxLength`. For example:
+
+```php
+[
+    'sku' => [
+        'type'      => AttributeType::String,
+        'minLength' => 5,   // Ignored
+        'maxLength' => 15,  // Ignored
+        'length'    => 10,
+    ],
+]
+```
+
+
+The `length` validation rule is supported by every AttributeType except `AttributeType::Number`.
+
+### matchPattern
+The `matchPattern` validation rule is used to specify a regular expression which the attribute value must match. For example:
+
+```php
+[
+    'usPhoneNumber' => [
+        'type'         => AttributeType::String,
+        'matchPattern' => '/^\d{3}\-\d{3}\-\d{4}$/',
+    ],
+]
+```
+
+
+The `matchPattern` validation rule is supported by every AttributeType.
+
+### max
+The `max` validation rule is used to specify the maximum value of a number. For example:
+
+```php
+[
+    'stanfordBinetScore' => [
+        'type' => AttributeType::Number,
+        'max'  => 160,
+    ],
+]
+```
+
+
+The `max` validation rule is supported by `AttributeType::Number`.
+
+### maxLength
+The `maxLength` validation rule is used to specify the maximum length of a string. For example:
+
+```php
+[
+    'username' => [
+        'type'      => AttributeType::String,
+        'maxLength' => 50,
+    ],
+]
+```
+
+
+The `maxLength` validation rule is supported by every AttributeType except `AttributeType::Number`.
+
+### min
+The `min` validation rule is used to specify the minimum value of a number. For example:
+
+```php
+[
+    'age' => [
+        'type' => AttributeType::Number,
+        'min'  => 0,
+    ],
+]
+```
+
+
+The `min` validation rule is supported by `AttributeType::Number`.
+
+### minLength
+The `minLength` validation rule is used to specify the minimum length of a string. For example:
+
+```php
+[
+    'password' => [
+        'type'      => AttributeType::String,
+        'minLength' => 10,
+    ],
+]
+```
+
+
+The `minLength` validation rule is supported by every AttributeType except `AttributeType::Number`.
+
+### required
+The `required` validation rule is used to specify whether an attribute value is required.
+
+The attribute is required if the `required` validation rule is set to a "[truthy][phpTruthy]" value. If the validation rule is set to a "falsey" value, the attribute is optional (the default).
+
+[phpTruthy]: http://php.net/manual/en/language.types.boolean.php "PHP Booleans documentation"
+
+For example:
+
+```php
+[
+    'requiredValue' => [
+        'type'     => AttributeType::String,
+        'required' => true,
+    ],
+    'optionalValue' => [
+        'type'     => AttributeType::String,
+        'required' => false,
+    ],
+    'inferredOptionalValue' => [
+        'type' => AttributeType::String,
+    ],
+]
+```
+
+
+The `required` validation rule is supported by every AttributeType except `AttributeType::Bool`.
+
+### reservedWords
+The `reservedWords` validation rule is used to supplement[^reservedWordsSupplement] the list of words which cannot be used as an `AttributeType::Handle`. For example:
+
+```php
+[
+    'callSign' => [
+        'type'          => AttributeType::Handle,
+        'reservedWords' => ['goose', 'iceman', 'jester', 'maverick'],
+    ],
+]
+```
+
+
+As you might expect, the `reservedWords` validation rule is only supported by `AttributeType::Handle`.
+
+### unique
+The `unique` validation rule is used to specify whether the attribute value must be unique in the corresponding database column.
+
+The attribute must be unique if the `unique` validation rule is set to a "[truthy][phpTruthy]" value. If the validation rule is set to a "falsey" value, the attribute may contain a duplicate value (the default).
+
+For example:
+
+```php
+[
+    'uniqueValue' => [
+        'type'   => AttributeType::String,
+        'unique' => true,
+    ],
+    'nonUniqueValue' => [
+        'type'   => AttributeType::String,
+        'unique' => false,
+    ],
+    'inferredNonUniqueValue' => [
+        'type' => AttributeType::String,
+    ],
+]
+```
+
+
+The `unique` validation rule is supported by every AttributeType.
+
+### values
+The `values` validation rule is used to specify a list of permissible attribute values. For example:
+
+```php
+[
+    'favoriteHipsterBand' => [
+        'type'   => AttributeType::Enum,
+        'values' => [
+            'The Khan Incident',
+            'Thrift Store Boulevardiers',
+            'Neon Combover',
+        ],
+    ],
+]
+```
+
+
+The `values` validation rule is supported by `AttributeType::Enum`.
+
+## Conclusion
+You should now be a veritable oracle on the subject of Craft's attribute rules, with a complete understanding of what they are, which rules are available for each AttributeType, and how each rule affects model validation.
+
+We've now passed the halfway mark in this series, but there's still plenty more to cover.
+
+In the next instalment we'll take a look at some of the more advanced aspects of model validation in Craft, so don't forget to check back at the same time next week (or just [subscribe to our newsletter][newsletter]).
+
+[newsletter]: #newsletter "Join our monthly newsletter, packed with Craft goodness"
+
+[^hiddenRules]: There are also a number of "hidden" validator rules, for which Craft does not provide an interface. These are public properties of the underlying validator class which affect the validator's behaviour. We'll cover how to control them in a later instalment on advanced validation techniques.
+
+[^getRules]: We covered this sleight of hand in [part one][partOne].
+
+[^nonsenseValidationRules]: Just because you _can_ set a validation rule for a particular AttributeType, it doesn't mean that you should. `AttributeType::Bool` in particular supports a number of validation rules which don't appear to make much sense.
+
+[^decimalsFloat]: It doesn't even need to be an integer.
+
+[^compareBehavior]: It is possible to specify that the `=` and `==` operators behave in the same way as the `===` PHP operator, by setting the "strict" flag on the underlying validator. See the footnote on "hidden" validator rules for more details.
+
+[^emailMaxLength]: As detailed in [the AttributeTypes instalment][attributeTypesInstalment], the `maxLength` rule has no effect, as the maximum string length is hard-coded in the Yii `CEmailValidator` class.
+
+[^reservedWordsSupplement]: As detailed in the `AttributeType::Handle` section of [the AttributeTypes instalment][attributeTypesInstalment].
+
+[attributeTypesInstalment]: /blog/the-definitive-guide-to-validation-in-craft-part-2-attributetypes "Everything you ever wanted to know about Craft's AttributeTypes, and then some."

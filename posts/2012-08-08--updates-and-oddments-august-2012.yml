@@ -1,0 +1,105 @@
+---
+author: Stephen Lewis <stephen@experiencehq.net>
+date: 2012-08-08
+title: Updates and Oddments : August 2012
+tags:
+- ExpressionEngine
+---
+# Updates and Oddments : August 2012 #
+It's been 12 month since [the previous Updates and Oddments post][previous_oddments]. I haven't been completely idle during this time, but my rather erratic blogging schedule means that most of my side projects are released without fanfare.
+
+Read on for a collection of ExpressionEngine-related oddments that quietly slipped out the back door over the past year.
+
+[previous_oddments]: /blog/updates-and-oddments "Previously on Flotsam and Jetsam"
+
+## Add-on updates
+Most of my "main" add-ons have received significant attention since the previous round-up post. Here are some of the forgotten highlights.
+
+### [Campaigner][campaigner]
+Campaigner has [progressed steadily][campaigner_changelog] from version 4.0.0 to version 4.5.0, with nary a Tweet for its trouble.
+
+Most releases have focussed on making Campaigner play nicely with others, resulting in a couple of [handy new extension hooks][campaigner_hooks], and compatibility with CartThrob, Zoo Visitor, and Membrr, [among others][campaigner_third_party].
+
+[campaigner]: /software/campaigner "Mercilessly member marketing"
+[campaigner_changelog]: /software/campaigner/changelog "I remember when all this was custom fields"
+[campaigner_hooks]: /software/campaigner/docs/campaigner-extension-hooks "Extension on the extension"
+[campaigner_third_party]: /software/campaigner/docs/campaigner-compatibility "Bring it in to hug harbour"
+
+### [Crumbly][crumbly]
+Crumbly has also received some love, with a new [`reverse_breadcrumbs` tag parameter][crumbly_template_tags], and improvements to the way in which it "humanises" URL-encoded strings.
+
+[crumbly]: /software/crumbly "All roads lead to home"
+[crumbly_template_tags]: /software/crumbly/docs/crumbly-template-tags "Crumbly template tag documentation"
+
+### [OmniLog][omnilog]
+Along with [Testee][testee], OmniLog is the add-on that I most rely on in my day-to-day work, a fact reflected in the amount of attention both receive.
+
+Over the past 12 months, OmniLog has [progressed steadily][omnilog_changelog] (if somewhat unspectacularly), primarily with improvements to the pagination and filtering of results.
+
+[omnilog]: /software/omnilog "The system-wide message log, for use by ExpressionEngine add-on developers"
+[omnilog_changelog]: /software/omnilog/changelog "Improving by increments"
+[testee]: /software/testee "Test-driven add-on development made easy"
+
+### [SmartDown][smartdown]
+SmartDown 1.2 was such a (comparatively) significant release that it warranted [its own blog post][smartdown_120]; quite the achievement for a point release.
+
+Since then, SmartDown has been upgraded with new [template tag parameters][smartdown_usage], and a very handy [SmartDown Images extension][smartdown_extras]. The latter uses SmartDown's [extension hooks][smartdown_hooks] to implement support for the "Matrix and NSM Transplant" [image replacement technique][smartdown_ir].
+
+[smartdown]: /software/smartdown "Smarter markdown"
+[smartdown_120]: /blog/introducing-smartdown-1-2 "Get Mr. Fancy Pants point release"
+[smartdown_extras]: /software/smartdown/docs/smartdown-extras "SmartDown's bit on the side"
+[smartdown_hooks]: /software/smartdown/docs/smartdown-extension-hooks "Wish SmartDown used TextPattern? You're an idiot, but this may help."
+[smartdown_ir]: http://vimeo.com/18661374 "A moving picture show! The devil's work!"
+[smartdown_usage]: /software/smartdown/docs/smartdown-usage "The bit you neglected to read before sending me that support request"
+
+## GitHub-only oddments
+Of course, not everything scales the dizzying heights of [the Software section][software]. Much of the code I write barely makes it off my machine, and even then it typically only travels as far as [GitHub][github_experience].
+
+Nevertheless, there is _some_ useful stuff lurking in those repositories...
+
+[software]: /software "My ramshackle add-on A-Team"
+[github_experience]: https://github.com/experience/ "The detritus of my development life"
+
+### [MailChimp Subscribe][mcs_repo]
+Yes, I realise [MailChimp Subscribe][mcs] is one of [the chosen few][software], but there hasn't been an official release for a long time.
+
+One of the reasons is that I've never really used [MailChimp][mailchimp] that much, and therefore have little motivation to update MailChimp Subscribe. As such MailChimp Subscribe has long been clothed in [Campaigner's][campaigner] hand-me-downs.
+
+With the release of Campaigner 4.0 such code-sharing became impractical, and since then MailChimp Subscribe has mostly assumed the coveted role of "why did I ever release this bloody thing?".
+
+However, just because I'm a terrible parent doesn't mean that MailChimp Subscribe is completely unloved. Several [helpful][github_pv] [souls][github_rsan] have forked [the repo][mcs_repo] and made significant improvements, including better support for third-party add-ons such as CartThrob and Zoo Visitor.
+
+Eventually these updates may find their way into an official release, or perhaps MailChimp Subscribe will be officially relegated to GitHub. For now though, [the repo][mcs_repo] is significantly more up-to-date than [the official release][mcs].
+
+[mcs]: /software/mailchimp-subscribe "The under-stairs abode of my least favourite offspring"
+[mcs_repo]: https://github.com/experience/mailchimp_subscribe.ee_addon "Free to a good home"
+[mailchimp]: http://mailchimp.com/ "The chimp to my chump"
+[github_pv]: https://github.com/pvledoux "Suspiciously French, but isn't"
+[github_rsan]: https://github.com/rsanchez "Disappointingly American, and is"
+
+### [Author Info][author_info]
+In my experience, every ExpressionEngine site has at least one or two tricky problems that can't be solved out the box, and for which no third-party solutions exist.
+
+[A recent project][pku_connect] had more than its fair share of such challenges. This resulted in 8 custom add-ons, solving problems ranging from [the incredibly simple][you_are_here], to the considerably more complex.
+
+Languishing somewhere in the middle of this scale is [Author Info][author_info]. Author Info retrieves information about the author of a Channel Entry, and makes it available through custom template variables.
+
+View [the README][author_info_readme] for full usage instructions.
+
+[author_info]: https://github.com/experience/author_info.ee_addon "Visit the Author Info ExpressionEngine add-on in its natural habitat"
+[author_info_readme]: https://github.com/experience/author_info.ee_addon/blob/master/README.md "T M you should F R"
+[pku_connect]: https://www.pkuconnect.com/ "Please step forward into the scanner"
+[you_are_here]: https://github.com/experience/you_are_here.ee_addon "So simple even Laisvunas wouldn't charge for it"
+
+### [Simple Commerce Developer][scd]
+Developing an extension that works with the Simple Commerce module's [extension hooks][sc_hooks] is painful. Part of this is due to the module itself, but the [PayPal Developer Sandbox][paypal_sandbox] deserves most of the credit for this particular circle of hell.
+
+This is where the [Simple Commerce Developer module][scd] comes in.
+
+Simple Commerce Developer lets you generate realistic IPN notifications at the push of a button, completely circumventing PayPal and making it much easier to test your extensions.
+
+If you've never had to extend the Simple Commerce module in this manner, you're probably wondering why I'd even waste my time building such a thing. Everyone else is already downloading the ZIP.
+
+[paypal_sandbox]: https://developer.paypal.com/ "Dante don't know shit"
+[scd]: https://github.com/experience/simple_commerce_developer.ee_addon "Salvation is at hand"
+[sc_hooks]: http://expressionengine.com/user_guide/development/extension_hooks/module/simple_commerce/index.html "Repent, sinner"

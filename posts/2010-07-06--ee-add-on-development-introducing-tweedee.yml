@@ -1,0 +1,60 @@
+---
+author: Stephen Lewis <stephen@experiencehq.net>
+date: 2010-07-06
+title: ExpressionEngine Add-on Development: Introducing Tweedee
+tags:
+- ExpressionEngine
+---
+# ExpressionEngine Add-on Development: Introducing Tweedee #
+Having been beaten and cajoled into structuring this blog series around the development of an ExpressionEngine 2 module, it quickly became apparent that the missing ingredient was a module idea.
+
+[An appeal](/blog/ee-add-on-development-survey-results "I crave your validation") to my adoring public brought forth a few interesting suggestions, but none of them fit the bill. Clearly, a better brief was required.
+
+## A better brief ##
+I began by listing which aspects of module development I want to cover in this series. Any module idea would need to tick most -- ideally all -- of the boxes below:
+
+* Requires a Control Panel.
+* Requires more than one Control Panel screen.
+* Requires user-defined settings.
+* Uses AJAX in the Control Panel.
+* Requires template tag(s).
+* Implements its own custom extension hooks.
+* Uses an external API.
+
+## Introducing Tweedee ##
+With requirements in hand, I began to dig through my "someday" list of add-on ideas, looking for a match. In pretty short order, I found one that fits the bill. Here's the pitch:
+
+> Tweedee makes it easy to build a custom Twitter search, and control which tweets are displayed on your website. Tweedee automatically removes duplicate tweets from your search results, and enables site administrators to approve tweets for display on the website with a single click. Perfect if you want to display the latest Twitter buzz about your new product, without opening the doors to everyone with a hash-tag.
+
+After some concerted thinking spanning up to three minutes, I was able to determine that this idea would not only make my wishlist whimper with fulfilment, it was also the most original concept in the world ever, and [utterly without precedent](http://37signals.com/svn/posts/1476-ui-design-a-peek-at-extra-extra-an-internal-37signals-app "Disclaimer: Tweedee will not be this ugly").
+
+Suitably full of myself, I next jotted down a list of functional requirements. As ever with these things, we're working with a limited budget (time), so I split the requirements into "must haves" and "optional extras".
+
+Must haves:
+
+* A user interface for building and saving a Twitter search.
+* A user interface for displaying the search results, and approving or discarding individual tweets.
+* A template tag pair for outputting the approved tweets. This template tag should accept a "limit" parameter, and provide single variables to output information about the tweet, and the tweet's author.
+
+There's still plenty of room for interpretation there, but it covers all the major bases.
+
+The optional extras, in no particular order, are as follows:
+
+* The ability to create multiple searches, and specify a search using a template tag parameter.
+* The option to "star" tweets.
+* The option to approve or discard multiple tweets in one go.
+* Advanced permissions, controlling who can create searches and administrate search results.
+* Caching, to improve performance.
+* The option to automatically "expand" shortened URLs.
+
+## Encouraging outside participation ##
+One of the trickiest parts of add-on development has nothing to do with user interface design, or getting your PHP on. It's the ongoing struggle to keep your add-on focussed, and free from bloat.
+
+One way to achieve this, whilst still providing other developers with the means to customise your add-on to suit their requirements, is to implement your own custom extension hooks.
+
+Scanning the list of "optional extras", the last item jumps out as being a prime candidate for this. It isn't core functionality, and will potentially require ongoing updates as the range of URL shortening services continues to expand.
+
+Rather than tying ourselves into a never-ending series of updates and "new service" feature requests, we can make the search results available for manipulation prior to display in the template, using a custom extension hook. More on this, once we get into the development stage.
+
+## Where next? ##
+The user interface, that's where. How very exciting.

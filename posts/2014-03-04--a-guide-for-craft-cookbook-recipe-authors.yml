@@ -1,0 +1,128 @@
+---
+author: Stephen Lewis <stephen@experiencehq.net>
+date: 2014-03-04
+title: A Guide for Craft Cookbook Recipe Authors
+tags:
+- Craft
+---
+# A Guide for Craft Cookbook Recipe Authors #
+## Before we begin
+This guide clearly belongs on [the Craft Cookbook website][cookbook_website], and will doubtless find its way there eventually.
+
+[cookbook_website]: http://craftcookbook.net "You've tried building with Craft, now try cooking"
+
+At this moment in time, though, there's nowhere for it to live on said site. We didn't want to delay publication of the guide, so we decided to provide it with a temporary home here, on the Experience blog.
+
+## Introduction
+If you'd like to contribute a recipe to Craft Cookbook, this guide is for you. It describes what makes for a good recipe, and provides guidance on tone and language.
+
+The purpose of this guide is to promote consistency across recipes and recipe authors. A uniform style will make the site as a whole more coherent, and--more importantly--will make life easier for our readers.
+
+However, we don't want these guidelines to discourage you from contributing a recipe to Craft Cookbook. In particular, if you have problems following the recommendations on tone and language, use your best judgement, and [get in touch][cookbook_twitter] if you need a hand with anything.
+
+If you have any questions or suggestions on how this guide might be improved, please don't hesitate to [let us know][cookbook_twitter].
+
+[cookbook_twitter]: https://twitter.com/craftcookbook "Twit at us, or whatever it is you young people do"
+
+## What makes a good recipe?
+Each recipe must:
+
+1. _Solve something_. It may be stating the obvious, but Craft Cookbook is about **quick solutions to immediate problems**. It's not the place for a polemic on best practices, or a wide-ranging how-to. Save those for your blog.
+2. _Be original_. That is, your recipe must not be a duplicate of, or a minor variation on, an existing recipe. If you feel an existing recipe could be improved, contact the author. We'll be implementing a means of doing this via the site soon, but in the meantime [tell us][cookbook_twitter] if you feel a recipe is lacking.
+3. _Be self-contained_. People visit Craft Cookbook looking for a solution to a problem, and a recipe should provide that solution in its entirety. There are plenty of other options for anybody wishing to piece together a solution from disparate sources[^1].
+4. _Provide a solution to a small, clearly defined problem_. This goes hand-in-hand with the previous point: if the complete, self-contained solution to the problem runs to more than a few paragraphs, chances are the problem is too large for a single recipe. Similarly, if the description of the problem itself is longer than one or two short sentences, it's time for a rethink.
+
+So what happens if your recipe runs afoul of these requirements? You have two options:
+
+1. Break the recipe into several smaller recipes.
+2. Accept the fact that not everything makes for a good recipe. There are plenty of other places to share your Craft wisdom.
+
+[^1]: The internet.
+
+## The ingredients of a recipe
+The recipes on Craft Cookbook closely follow the format of the O'Reilly cookbooks. If you're looking for some pointers on what makes a good recipe, they're [a great place to start][oreilly_python_cookbook].
+
+[oreilly_python_cookbook]: http://books.google.co.uk/books?id=1Shx_VXS6ioC&printsec=frontcover&source=gbs_ge_summary_r&cad=0#v=onepage&q&f=false "The perfect how-to book"
+
+Each recipe consists of a mandatory title, two mandatory sections, and one optional section.
+
+### Title
+Every recipe must have a title which describes the activities performed by the recipe, in the present tense. Put simply, your title should be _verbing_ something.
+
+For example, these titles aren't "doing" anything:
+
+- How to add comments to your Twig templates
+- Move your Craft templates to a different location
+- Selective display of entries based on user input
+
+The following titles work better, and fit the guidelines:
+
+- Commenting your Twig templates
+- Changing the location of your Craft templates
+- Displaying entries based on user input
+
+Finally, try to avoid describing a single use-case in your title (or your recipe, for that matter). The best recipes describe a small, useful technique, which may be applied in multiple situations.
+
+### Problem
+Every recipe must solve a small, clearly defined problem.
+
+The problem section should address the user directly, and must **describe the desired outcome** in no more than two short sentences. If you find this to be a struggle, then--once again--it may be that what you have in mind is a bit too large for a single recipe.
+
+As with the title, try to describe a general problem, rather than a single use-case. For example, this is a bit too specific, and does not speak in terms of the reader's desired outcome:
+
+> Add "even" and "odd" classes while looping through a list of items.
+
+This is a better way of describing the problem:
+
+> You want to loop through a list of items, treating even and odd entries differently.
+
+### Solution
+In the words of the feature request, "Without a solution, your recipe is USELESS!!!".
+
+The vast majority of recipes will include a code sample; however, a solution should not be comprised _solely_ of a block of code, with no explanation.
+
+Provide a brief overview of how your solution works, and include inline links to further reading where appropriate: if you make reference to a Twig function, link to the appropriate page in the Twig documentation; if the official Craft documentation expands on your solution, link it up.
+
+Most of all, your solution should be clear, succinct, readable, and actionable. Remember, the target audience of Craft Cookbook is people who need a solution _right now_, so don't make your reader do any unnecessary work.
+
+### Discussion
+The discussion section provides additional information for those readers interested in learning a bit about the "why", as well as the "how".
+
+The most important thing to understand about the discussion section is that it is optional both for the author **and the reader**.
+
+Readers should be able to ignore the discussion section of a recipe completely, and still leave the site with a workable solution to their problem.
+
+The discussion section is _not_ simply a dumping ground for links.
+
+## Setting the right tone
+Everybody has their own style of writing, and we don't want you to suppress that personality when contributing to Craft Cookbook.
+
+That said, there are a few guidelines that you should follow to ensure that the tone and style of your recipe doesn't jar with the rest of the site.
+
+### Use the present tense
+Most visitors wish to solve an immediate problem, so it makes sense to use the present tense in your solution.
+
+This is good:
+
+> You are building a "profile" page, and wish to display a user's avatar.
+
+This is not:
+
+> You will be building a "profile" page, and will want to display a user's avatar.
+
+### Use the appropriate pronoun
+Whilst we have no wish for this guide to descend into grammatical jargon, we should take a moment to get our pronouns straight.
+
+Always use first or second person pronouns in your recipes. In plain English, this means you _must_ use "I", "you", and "we" in preference to "he", "she", "it", and "they":
+
+- When referring to something you do personally, use "I": <q>I often assign a complex filter to a variable for later use</q>.
+- When instructing, or otherwise speaking directly to the reader, use "you": <q>You need to select a random entry from a section</q>; <q>This retrieves all of the entries from the section you specify</q>.
+- "We" is more of a judgement call. For example, the preamble to some sample code might describe its purpose as follows: <q>First, we retrieve all the future entries from the blog section</q>.
+
+### When in doubt...
+...[Strunk and White][strunk_and_white].
+
+[strunk_and_white]: http://books.google.co.uk/books?id=IAy6NCD0Iq0C&printsec=frontcover&source=gbs_ge_summary_r&cad=0#v=onepage&q&f=false "Omit words"
+
+## We're here to help
+If any of the above is unclear, or you'd like our input on something, please don't hesitate to [get in touch][cookbook_twitter]. We'd love to help you add your recipe to Craft Cookbook.

@@ -1,0 +1,21 @@
+---
+author: Stephen Lewis <stephen@experiencehq.net>
+date: 2009-02-20
+title: Resources Section Launched
+tags:
+- ExpressionEngine
+- Announcements
+---
+# Resources Section Launched #
+Our growing collection of [ExpressionEngine plugins and extensions](/resources "Take a look at the ExpressionEngine add-ons in our new Resources section") has been moved to a shiny new "Resources" section.
+
+Managing updates and documentation via the blog was always a short-term solution. From here on-in, the [Resources section](/resources "Visit our Resources section") will contain all the documentation and downloads for our ExpressionEngine add-ons, making it easy to find the plugin or extension you're looking for.
+
+Support will still be handled via [the ExpressionEngine forums](http://expressionengine.com/forums/ "Visit the ExpressionEngine forums"), with an official thread for each add-on.
+
+We're still adding content, so expect more <abbr title="ExpressionEngine">EE</abbr> goodies soon, along with a dedicated Resources <abbr title="Really Simple Syndication">RSS</abbr> feed, to keep you up-to-date with everything add-on.
+
+## SL Freshview Subscribe update ##
+Speaking of updates, we've just released a significant update to our most popular ExpressionEngine extension -- [SL Freshview Subscribe](/resources/details/sl-freshview-subscribe/).
+
+The new version makes it even easier to add new ExpressionEngine members to multiple CampaignMonitor mailing lists, and includes a number of powerful new features (not to mention a rather tasty new AJAX-driven interface).

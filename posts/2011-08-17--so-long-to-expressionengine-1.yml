@@ -1,0 +1,25 @@
+---
+author: Stephen Lewis <stephen@experiencehq.net>
+date: 2011-08-17
+title: So Long to ExpressionEngine 1
+tags:
+- ExpressionEngine
+- Announcements
+---
+# So Long to ExpressionEngine 1 #
+Today marks the official end of life for all my ExpressionEngine 1 add-ons. In practical terms, this means they will no longer be officially supported, and will receive no further updates.
+
+Most EE users have already made the transition to [the young pretender][ee2], so hopefully this won't cause any undue suffering among [my rabid fanbase][weinberg]. It will also afford me more time to support and develop my EE2 add-ons.
+
+I'm still deciding how best to reorganise [the software section][software] to reflect this change, but whatever solution I come up with you can rest assured that my EE1 add-ons will still be available for download; just in case you find yourself momentarily trapped in the past.
+
+## BucketList is now free
+The final item of news is that [BucketList][bucketlist]--my add-on which seamlessly integrates Amazon S3 with your ExpressionEngine 1 website--is now free.
+
+If you've purchased BucketList in the last 30 days, and are feeling terribly put-out by this unexpected turn of events, [drop me a line][contact] and I'll refund you in full.
+
+[bucketlist]: /software/bucketlist "In this life-affirming comedy, Morgan Freeman and Jack Nicholson find a new lease of life when uploading files directly from their ExpressionEngine website to Amazon S3."
+[contact]: /contact "The appropriate destination for your begging letters"
+[ee2]: http://expressionengine.com/overview/ "One day, loyal customers, the Control Panel will be as well-designed as the EllisLab newsletter"
+[software]: /software "My personal PHP graveyard"
+[weinberg]: http://twitter.com/mrw "I shot a moose, once. I was hunting up-state New York, and I shot a moose..."

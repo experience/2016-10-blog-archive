@@ -1,0 +1,230 @@
+---
+author: Stephen Lewis <stephen@experiencehq.net>
+date: 2015-07-01
+title: How And When To Use PSR-4 Autoloading In Your Craft Plugins
+tags:
+- Craft
+---
+# How And When To Use PSR-4 Autoloading In Your Craft Plugins #
+If you're developing a reasonably sophisticated Craft plugin, chances are you'll have a lot of class files which don't really fit into the "standard" Craft plugin sub-directories of `models`, `records`, and so forth.
+
+In this situation, you need a way to easily loading your "non-standard" classes as-and-when they're required. You could faff about with `require` statements, but what is this, the 90s?
+
+A better solution is to use PSR-4 autoloading, and by the end of this article you'll know how to do exactly that.
+
+## When to use PSR-4 autoloading ##
+
+Before we get into how to use PSR-4 autoloading, let's first clarify when you need to use it.
+
+Craft assumes that you've organised your plugin into models, records, services, and so forth as per [the documentation][craft-plugin-docs], and takes care of the grunt work of loading these files for you.
+
+[craft-plugin-docs]: http://buildwithcraft.com/docs/plugins/introduction "Read the official Craft plugin documentation"
+
+Specifically, if your class resides in any of the following directories within your plugin[^craft-autoload-details], you don't need to need to use PSR-4 autoloading; you just need to ensure that your class name follows the naming conventions described in the documentation:
+
+[^craft-autoload-details]: Autoloading is handled by [the `PluginsService::_autoloadPluginClasses` method][autoloadPluginClasses-method]. The "autoloadable" classes are defined in [the `common.php` config file][common-config-file].
+
+[autoloadPluginClasses-method]: https://github.com/pixelandtonic/Craft-Release/blob/a2683e81f67eb7e90dd753f0e9b0163abfd6a334/app/services/PluginsService.php#L787 "See the PluginsService::autoloadPluginClasses method, on GitHub"
+
+[common-config-file]: https://github.com/pixelandtonic/Craft-Release/blob/a2683e81f67eb7e90dd753f0e9b0163abfd6a334/app/etc/config/common.php#L691 "See the 'autoload classes' definition, on GitHub"
+
+- `controllers/`
+- `enums/`
+- `fieldtypes`
+- `helpers/`
+- `models/`
+- `records/`
+- `services/`
+- `validators/`
+- `variables/`
+- `widgets/`
+
+Assuming your code resides within the `Craft` namespace (which it will, most of the time), you can access the classes loaded from these directories by name. For example:
+
+```php
+<?php namespace Craft;
+
+$exampleModel = new PluginName_ExampleModel;
+```
+
+
+If your code resides in a different namespace, you just need to import the desired class with [the `use` keyword][use-keyword-documentation]:
+
+[use-keyword-documentation]: http://php.net/manual/en/language.namespaces.importing.php "As short guide to overcomplicating everything, courtesy of the official PHP namespaces documentation"
+
+```php
+<?php namespace Some\Other\Namespace;
+
+use Craft\PluginName_ExampleModel;
+
+$exampleModel = new PluginName_ExampleModel;
+```
+
+
+If you need to a load class which doesn't live in one of the aforementioned directories, that's where PSR-4 autoloading comes in.
+
+## How to implement PSR-4 autoloading ##
+
+This isn't a deep technical dive into PSR-4 autoloading. Rather, it's a simple step-by-step guide to help you get up and running.
+
+With that in mind, we're going to cover four things:
+
+1. Namespacing your classes.
+2. Telling Composer where to find your classes.
+3. Generating the Composer autoloader.
+4. Using the Composer autoloader in your plugin.
+
+For the purposes of this article, we're going use an imaginary plugin called "LocateMe". LocateMe needs to make use of a "Logger" class, which lives in a "utilities" directory.
+
+So, our basic plugin directory looks like this:
+
+```other
+|- locateme/
+   |- LocateMePlugin.php
+   |- utilities/
+      |- Logger.php
+```
+
+
+### Step 1: Namespace your classes ###
+
+PSR-4 assumes that the classes we wish to autoload are correctly namespaced. As such, we need to add a [namespace declaration][namespace-introduction] to the top of our "Logger" class file.
+
+[namespace-introduction]: https://mattstauffer.co/blog/a-brief-introduction-to-php-namespacing "A brief introduction to PHP namespacing, courtesy of Matt Stauffer"
+
+Here's what that looks like:
+
+```php
+<?php namespace LocateMe\Utilities;
+
+class Logger
+{
+}
+```
+
+
+### Step 2: Tell Composer where to find your classes ###
+
+We configure Composer using a `composer.json` file, located in the root of our plugin directory (alongside `LocateMePlugin.php`).
+
+Our updated plugin directory looks like this:
+
+```other
+|- locateme/
+   |- composer.json
+   |- LocateMePlugin.php
+   |- utilities/
+      |- Logger.php
+```
+
+
+`composer.json` includes a section which tells Composer where within the filesystem the classes in the `LocateMe\Utilities` namespace reside[^psr4-definition].
+
+[^psr4-definition]: In the words of [the Composer documentation][composer-psr4-docs], "Under the psr-4 key you define a mapping from namespaces to paths, relative to the package root."
+
+[composer-psr4-docs]: https://getcomposer.org/doc/04-schema.md#psr-4 "Read the official Composer PSR-4 documentation"
+
+Here's how that looks in practise:
+
+```javascript
+{
+  "autoload": {
+    "psr-4": {
+      "LocateMe\\Utilities\\": "utilities/"
+    }
+  }
+}
+```
+
+
+In other words, we're telling Composer to look for our utility classes in our plugin's `utilities` directory.
+
+### Step 3: Generate your Composer autoloader ###
+
+Once we've created our `composer.json` file, we need to tell Composer to generate the "autoloader". Assuming you already [have Composer installed][composer-installation-docs], this is easy:
+
+[composer-installation-docs]: https://getcomposer.org/doc/00-intro.md "Read the Composer 'Getting Started' documentation"
+
+```other
+$> composer dump-autoload --optimize
+```
+
+
+Upon receiving this edict, Composer will generate a new `vendor/composer` directory, containing a number of `autoload_*.php` classes.
+
+Your plugin directory will now look something like this:
+
+```other
+|- locateme/
+   |- composer.json
+   |- LocateMePlugin.php
+   |- utilities/
+      |- Logger.php
+   |- vendor
+      |- autoload.php
+      |- composer/
+         |- autoload_classmap.php
+         |- autoload_namespaces.php
+         |- autoload_psr4.php
+         |- autoload_real.php
+         |- ClassLoader.php
+         |- installed.json
+```
+
+
+### Step 4: Use the Composer autoloader in your plugin ###
+
+The final step to implementing PSR-4 autoloading in your plugins is to ensure that your plugin loads the Composer-generated `autoload.php` file.
+
+For this, we use the trusty old `require_once` statement:
+
+```php
+<?php namespace Craft;
+
+class LocateMePlugin extends BasePlugin
+{
+    public function init()
+    {
+        require_once __DIR__ .'/vendor/autoload.php';
+    }
+}
+```
+
+
+That's it. The autoloader will now be available every time we use our plugin, allowing us to load our classes with the `use` statement.
+
+For example, let's say our plugin has an "address" service, which needs to access the `Logger` utility. Here's how that might look:
+
+```php
+<?php namespace Craft;
+
+use LocateMe\Utilities\Logger;
+
+class LocateMe_AddressService extends BaseApplicationComponent
+{
+    private $logger;
+
+    public function __construct()
+    {
+        $this->logger = new Logger;
+    }
+
+    public function convertAddressToLocation($street, $zip)
+    {
+        // Do stuff.
+
+        $this->logger->log('Converted address: ' . $street);
+    }
+}
+```
+
+
+## Conclusion ##
+
+And that is everything you need to know about using PSR-4 autoloading in your plugins.
+
+If you'd like to dig a little deeper, Laracasts has a nice (and free) [gentle introduction to PSR-4][laracasts-psr4], and the official Composer website [documents the `composer.json` schema][composer-json-schema-docs] in exhaustive detail.
+
+[laracasts-psr4]: https://laracasts.com/lessons/psr-4-autoloading "In Way we trust"
+
+[composer-json-schema-docs]: https://getcomposer.org/doc/04-schema.md "If you like the UML spec, you're going to *love* the composer.json schema"

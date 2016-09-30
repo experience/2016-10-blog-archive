@@ -1,0 +1,56 @@
+---
+author: Stephen Lewis <stephen@experiencehq.net>
+date: 2010-06-29
+title: ExpressionEngine Add-on Development: Survey Results
+tags:
+- ExpressionEngine
+---
+# ExpressionEngine Add-on Development: Survey Results #
+Those of you with a keen sense of history will remember my post from a few weeks back, introducing a [new "add-on development" blog series](/blog/expressionengine-add-on-development/ "The seed from which the madness tree has grown"). In a cunningly disguised attempt to shirk my editorial responsibilities, I requested that you, the great unwashed readers of this fine website, tell me which of the proposed topics interest you most.
+
+The results are in, and they make for moderately interesting, and frequently contradictory, reading. Read on for a summary, or [download the raw data](http://spreadsheets.google.com/pub?key=0AnV3I1OXRWBOdERSOXVjR0haRk9vMmZCQ0ZSSm5HbWc&hl=en_GB&output=xls "Rows! Columns! Numbers! Awesome!") (does not include comments).
+
+## Previous experience ##
+The first question demanded of the reader "How much ExpressionEngine add-on development have you done?".
+
+Flinching under the anglepoise glare of my interrogation, a third of you admitted to having no experience whatsoever in add-on development. A further third confessed to dipping a toe in [plugin development](http://expressionengine.com/public_beta/docs/development/plugins.html "You know, for kids!"), but nothing more.
+
+Of the remaining third, most professed to have the basics sorted, and no fewer than 4 people claimed to be [Leevi Graham](http://www.handlebarclub.co.uk/wbmccatergoriesf.html "Freestyle"), bitch. Which explains his productivity, at least.
+
+## Topics of interest ##
+Being multiple choice in nature, the second question was a little more complex. There was also an "Other" category, for the free thinkers amongst you.
+
+The practicalities of add-on development appear to be uppermost in your minds, with the hands-on design and development topics receiving the bulk of the votes. Most of you already know what you want to build, have little concern for beta testing, and consider the "release and promotion" of your add-on a subject not worthy of discussion.
+
+The "Other" category contained a few interesting gems, including a very welcome invitation to enlarge my penis.
+
+Less helpful suggestions, which have nevertheless informed my thinking, included a number of requests that the series should follow the development of a module, from initial "Hello World" stage, right through to the finished article.
+
+This "walkthrough" idea was echoed in the answers to the third (optional) question, "Comments, suggestions, and bribery".
+
+Sadly there were no attempts at bribery.
+
+## The revised topic list ##
+Based on your sage advice, I've revised the original topic list as follows:
+
+* Defining the scope of your add-on
+* Designing the user interface
+* Building the user interface
+* Testing the user interface
+* Development (including suggestions of best practises)
+
+The final topic is clearly a little broad right now; I'll work out the details closer to the time.
+
+The "walkthrough" suggestion, taking a module from "Hello World" right through to the finished article, was so popular that I've decided to adopt it, rather than risk angering the less stable members of my readership. Quite what the module will be is open to debate at present. [Hit me up](/contact "Dear Jim, please fix it for me...") if you have a great idea.
+
+Finally, it's worth mentioning one topic which interests me greatly, and which received a fair proportion of the votes, but which nevertheless failed to make the cut: test driven development. There are two reasons for dropping this subject:
+
+1. Right now, test driven add-on development is a complete pain to set up. I've had a number of interesting discussions with people about this subject, and hopefully we'll be able to make it easier in the future, but we're not there yet.
+2. It's test _driven_ development, meaning that we couldn't start the walkthrough without first getting all the TDD stuff sorted. See above for reasons why this is impractical.
+
+## Conclusion ##
+Thank you to everyone who took the time to complete the survey, your comments and suggestions were all gratefully received.
+
+To those of you who suggested I contact you, or in some other way attempted to start a conversation, that would be lovely. However, it was an anonymous survey, so unless you explicitly included your contact details (only one of you did), I probably have no idea who you are.
+
+The [contact form](/contact "Remember to tell me your name") may be a better way of getting in touch.

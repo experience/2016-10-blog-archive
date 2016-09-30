@@ -1,0 +1,88 @@
+---
+author: Stephen Lewis <stephen@experiencehq.net>
+date: 2012-07-23
+title: EE Gotchas: Nested &#039;no_results&#039; Tags (Redux)
+tags:
+- ExpressionEngine
+---
+# EE Gotchas: Nested &#039;no_results&#039; Tags (Redux) #
+Last week I published [a post][original_post] about a bug in the ExpressionEngine Template parser, which causes problems with nested `no_results` tags.
+
+[original_post]:/blog/ee-gotchas-nested-no-results-tags/ "The original, not the best"
+
+Said post includes a couple of quick fixes: one suitable for use by general ExpressionEngine developers; the other intended for add-on developers.
+
+The "general" fix remains unchanged, so if you're not an add-on developer your work here is done.
+
+If you _are_ an add-on developer, continue reading for a much better solution than the one I originally presented.
+
+## The original fix
+Here's the original fix, in case you've forgotten it:
+
+```php
+$tagdata  = $this->EE->TMPL->tagdata;
+$tag_name = 'no_soup_for_you';
+$pattern  = '#' .LD .'if ' .$tag_name .RD .'(.*?)' .LD .'/if' .RD .'#s';
+
+if (is_string($tagdata) && is_string($tag_name)
+  && preg_match($pattern, $tagdata, $matches)
+)
+{
+  return $matches[1];
+}
+```
+
+
+It's a simple solution, but has an obvious limitation: it won't handle any `{if}` statements inside the `{if no_soup_for_you}…{/if}` block.
+
+## A better solution
+[Low][low] was quick to point this out [on Twitter][low_tweet], and after a brief but undignified scuffle, he agreed to furnish me with his superior solution.
+
+[low]:http://gotolow.com/ "Lair of the Low bro'"
+[low_tweet]:https://twitter.com/low/statuses/225321238174765056 "Everyone's a critic"
+
+Here it is:
+
+```php
+private function _prep_no_results()
+{
+  // Shortcut to tagdata
+  $td    =& $this->EE->TMPL->tagdata;
+  $open  = "if no_soup_for_you";
+  $close = '/if';
+
+  // Check if there is a custom no_results conditional
+  if (strpos($td, $open) !== FALSE
+    && preg_match('#' .LD .$open .RD .'(.*?)' .LD .$close .RD .'#s', $td, $match)
+  )
+  {
+    $this->EE->TMPL->log_item("Prepping {$open} conditional");
+
+    // Check if there are conditionals inside of that
+    if (stristr($match[1], LD.'if'))
+    {
+      $match[0] = $this->EE->functions->full_tag($match[0], $td, LD.'if', LD.'\/if'.RD);
+    }
+
+    // Set template's no_results data to found chunk
+    $this->EE->TMPL->no_results = substr($match[0], strlen(LD.$open.RD), -strlen(LD.$close.RD));
+
+    // Remove no_results conditional from tagdata
+    $td = str_replace($match[0], '', $td);
+  }
+}
+```
+
+
+### Usage
+Call the `_prep_no_results` method before you start processing your module or plugin tag. It will search the current tag data for your custom "no results" block (in this case `{if no_soup_for_you}...{/if}`).
+
+So far, so similar, but here's where it gets clever.
+
+Firstly, Low explicitly checks for any conditionals inside the "no results" block. Secondly, he assigns the contents of the custom "no results" block to `$this->EE->TMPL->no_results`.
+
+This is _really_ smart. I'll let the man himself explain why:
+
+> I frequently call `Channel::entries()` from within my add-ons (Alphabet, Reorder, Search and Events), so I can't just return the `no_results` bit. It's very well possible that, when I call `Channel::entries()`, there are entries to be displayed, but because of other params set, `no_results` is triggered. To make sure it does so with the right content, I need to set the `$EE->TMPL->no_results` property.-- Lodewijk Schutte 
+
+So there you have it. Thank you to Low for sharing this much better solution, and for being far too lazy to blog about it.

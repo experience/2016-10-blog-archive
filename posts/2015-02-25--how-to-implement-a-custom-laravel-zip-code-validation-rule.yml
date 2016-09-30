@@ -1,0 +1,42 @@
+---
+author: Stephen Lewis <stephen@experiencehq.net>
+date: 2015-02-25
+title: How to Implement a Custom Laravel Zip Code Validation Rule
+tags:
+- Laravel
+---
+# How to Implement a Custom Laravel Zip Code Validation Rule #
+The following class[^note_to_self] makes a new `zip` validation rule available to your Laravel[^laravel_4] validators. It validates 5-digit U.S. postal codes, and the [ZIP+4 format][plus_four_codes].
+
+[^note_to_self]: As with much on this blog, this post is essentially a note to self. I'm sure I've written this class--or something very similar--multiple times, and it seems unlikely I'll ever get around to creating a package for it. Hopefully the next time I need to validate a zip code in Laravel, Google will remind me of the existence of this blog post.
+
+[^laravel_4]: Tested in Laravel 4.2.
+
+[plus_four_codes]: http://en.wikipedia.org/wiki/ZIP_code#ZIP.2B4 "A not-brief-enough history of zip codes"
+
+```php
+<?php namespace Path\To\Validators;
+
+use Illuminate\Validation\Validator;
+
+class ZipValidator extends Validator
+{
+    public function validateZip($attribute, $value, $parameters)
+    {
+        return preg_match('/^[0-9]{5}(\-[0-9]{4})?$/', $value);
+    }
+}
+```
+
+
+Store the `ZipValidator` class in a location of your choosing (making sure to set the `namespace` accordingly), and [tell Laravel about its existence][register_validator].
+
+[register_validator]: http://laravel.com/docs/4.2/validation#custom-validation-rules "Check it, Laravel"
+
+Example usage:
+
+```php
+$rules = [
+    'postcode' => ['required', 'zip'],
+];
+```

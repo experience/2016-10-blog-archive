@@ -1,0 +1,16 @@
+---
+author: Stephen Lewis <stephen@experiencehq.net>
+date: 2010-03-02
+title: Introducing BucketList 1.1
+tags:
+- ExpressionEngine
+- Announcements
+---
+# Introducing BucketList 1.1 #
+A little over a month ago, we released our first commercial ExpressionEngine add-on, [BucketList](/bucketlist "Seamless integration of ExpressionEngine with Amazon S3"), a fieldtype which seamlessly integrates Amazon's Simple Storage Service (S3) with your ExpressionEngine website.
+
+The response was fantastic, with BucketList receiving mad props (as the young people like to say) from such luminous EE flagships as [EE Insider](http://eeinsider.com/blog/bucketlist-launches/ "Visit EE Insider"), and the [ExpressionEngine Podcast](http://5by5.tv/eepodcast/11 "Listen to the EE Podcast").
+
+Version 1.1 is the first significant update to BucketList, and introduces what has been by far the most-requested feature; the ability to control which buckets are available for each field, or FF Matrix cell.
+
+We have lots more planned for BucketList over the coming months, so if you'd like to stay informed, sign up to our newsletter using the form below, or [subscribe to our RSS feed](http://feeds.feedburner.com/experience-internet-blog "Subscribe to the Experience Internet RSS feed.").
